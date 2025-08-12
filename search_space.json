@@ -1,0 +1,46 @@
+{
+    "model_type": {
+        "_type": "choice", 
+        "_value": ["LSTM", "GRU", "CNN", "RNN", "TCN", "Transformer", "MLP"]
+    },
+    "units": {
+        "_type": "choice", 
+        "_value": [16, 32, 64, 128, 256]
+    },
+    "num_layers": {
+        "_type": "choice", 
+        "_value": [1, 2, 3, 4]
+    },
+    "dropout": {
+        "_type": "choice", 
+        "_value": [0.0, 0.1, 0.2, 0.3, 0.5]
+    },
+    "activation": {
+        "_type": "choice", 
+        "_value": ["relu", "tanh", "sigmoid", "elu"]
+    },
+    "lr": {
+        "_type": "loguniform", 
+        "_value": [1e-5, 1e-2]
+    },
+    "window_size": {
+        "_type": "choice", 
+        "_value": [2,3,4,5, 6,7, 8,9, 10, 11,12,13, 14,15, 16,17, 18,19, 20,21,22,23,24, 25,26,27,28,29, 30]
+    },
+    "batch_size": {
+        "_type": "choice", 
+        "_value": [16, 32, 64, 128]
+    },
+    "epochs": {
+        "_type": "choice", 
+        "_value": [5, 10, 15, 20, 30]
+    },
+    "kernel_size": {
+        "_type": "choice", 
+        "_value": [2, 3, 5, 7]
+    },
+    "attention_heads": {
+        "_type": "choice", 
+        "_value": [2, 4, 8]
+    }
+}

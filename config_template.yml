@@ -1,0 +1,14 @@
+experimentName: dataset_test
+trialCodeDirectory: .
+trialCommand: python3 trial.py --data {DATA_PATH}
+searchSpaceFile: search_space.json
+tuner:
+  name: {OPTIMIZER}
+  classArgs:
+    optimize_mode: minimize
+trialConcurrency: 1
+maxTrialNumber: 100
+maxExperimentDuration: 1h
+trainingService:
+  platform: local
+  useActiveGpu: false
