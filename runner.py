@@ -1,7 +1,13 @@
+'''
+this script runs experiments with different optimizers on specified datasets.
+it takes the port number and optimizer type as command line arguments.
+the plan is to use this sctipt from inside another bash script that will run the experiments with the specified parameters.
+'''
+
 import argparse
-import yaml
 import subprocess
 from pathlib import Path
+
 
 def run_experiment(optimizer, port):
     template_path = Path("config_template.yml")
@@ -18,9 +24,11 @@ def run_experiment(optimizer, port):
 
         print(f"Running {optimizer} on {dataset} at port {port}...")
         subprocess.run(["nnictl", "create", "--config", str(temp_config_path), "--port", str(port)])
-        port += 1  # Increment port for next run
-
+        port += 1  
+        
+        
 if __name__ == "__main__":
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--optimizer", type=str, required=True)
     parser.add_argument("--port", type=int, default=8080, help="Starting port number")

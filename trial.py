@@ -7,6 +7,7 @@ from tensorflow.keras import layers
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
+# create_sequences function to prepare time series data for training
 def create_sequences(series, window_size):
     X, y = [], []
     for i in range(len(series) - window_size):
@@ -92,12 +93,13 @@ def build_model(params, input_shape):
     model = keras.Model(inputs, outputs)
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=lr),
                   loss='mse',
-                  metrics=['mae', 'mape'])
+                  metrics=['mae', 'mape', 'rmse'])
     return model
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, required=True, help='path to csv with single column of series')
+    # for now, the expiriments take a single column from the csv file as it is the only colums
     parser.add_argument('--colname', type=str, default=None, help='column name if csv has header')
     args = parser.parse_args()
 

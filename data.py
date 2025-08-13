@@ -1,3 +1,10 @@
+'''
+this script is mainly to generate the datasets for the experiments, it maunly extract the 
+needed columns from materna and time track datasets and put them in other csv files
+for the scrips generate one single column csv files with the first 8000 values of the
+chosen columns from each dataset.
+'''
+
 import pandas as pd
 
 df1 = pd.read_csv("./data/timetrack/compute_dataset.csv")
