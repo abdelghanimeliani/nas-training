@@ -93,7 +93,7 @@ def build_model(params, input_shape):
     model = keras.Model(inputs, outputs)
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=lr),
                   loss='mse',
-                  metrics=['mae', 'mape', 'rmse'])
+                  metrics=['mae', 'mape'])
     return model
 
 def main():

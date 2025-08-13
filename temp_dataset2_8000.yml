@@ -1,14 +1,14 @@
-experimentName: {EXPERIMENT_NAME}
+experimentName: testing-the-scripts_dataset2_8000
 trialCodeDirectory: .
-trialCommand: python3 trial.py --data {DATA_PATH}
+trialCommand: python3 trial.py --data ./dataset2_8000.csv
 searchSpaceFile: search_space.json
 tuner:
-  name: {OPTIMIZER}
+  name: random
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: {MAX_TRIALS}
-maxExperimentDuration: {MAX_DURATION}
+maxTrialNumber: 100
+maxExperimentDuration: 3600s
 trainingService:
   platform: local
   useActiveGpu: false
