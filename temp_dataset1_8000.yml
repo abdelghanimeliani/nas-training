@@ -1,13 +1,13 @@
-experimentName: exp_{anneal}_optimizer_with_{2}_steps_with__dataset1_8000
+experimentName: exp_{random}_optimizer_with_{5}_steps_with__dataset1_8000
 trialCodeDirectory: .
 trialCommand: python3 trial.py --data ./dataset1_8000.csv
 searchSpaceFile: search_space.json
 tuner:
-  name: anneal
+  name: random
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: 2
+maxTrialNumber: 5
 maxExperimentDuration: 360000s
 trainingService:
   platform: local

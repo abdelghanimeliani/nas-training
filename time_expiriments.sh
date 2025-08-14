@@ -18,7 +18,7 @@ for duration in "${DURATIONS[@]}"; do
            while true; do
              STATUS=$(nnictl experiment status "$EXP_ID" 2>/dev/null | grep -oP '"status":"\K[^"]+')
              echo exp with id $EXP_ID is now: $STATUS
-             if [[ "$STATUS" == "DONE" || "$STATUS" == "STOPPED" || "$STATUS" == "ERROR" ]]; then
+             if [[ "$STATUS" == "DONE" || "$STATUS" == "STOPPED" || "$STATUS" == "ERROR" || "$STATUS" == "NO_MORE_TRIAL"]]; then
                echo "Experiment $EXP_ID finished with status: $STATUS"
                nnictl  stop "$EXP_ID"
                break
