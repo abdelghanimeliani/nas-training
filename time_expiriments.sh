@@ -1,17 +1,16 @@
 #!/bin/bash
 SEARCH_METHODS=("random" "grid" "tpe" "anneal" "evolution")
-TRIALS=(5 20 50 80 100)
+DURATIONS=("300s" "600s" "1200s" "2400s" "3600s")
 
-BASE_PORT=8080
+BASE_PORT=8300
 PORT=$BASE_PORT
 
-for trials in "${TRIALS[@]}"; do
+for duration in "${DURATIONS[@]}"; do
     for method in "${SEARCH_METHODS[@]}"; do
-        EXP_NAME="exp_{$method}_optimizer_with_{$trials}_steps_with_"
-        echo running trials experiments with methods: "${SEARCH_METHODS[@]}" and trials: "${TRIALS[@]}"
+        EXP_NAME="exp_{$method}_optimizer_in_{$duration}_duration_with_"
         echo "Running: $EXP_NAME on port $PORT with $trials trials and method $method"
         # Run the Python runner and get experiment IDs
-        EXP_IDS=$(python3 runner.py  --experiment-name $EXP_NAME  --port $PORT    --max-trials $trials  --optimizer $method --max-duration 360000s | sed -r 's/\x1B\[[0-9;]*[A-Za-z]//g' | grep -oP "(?<=Experiment ID: )\S+") 
+        EXP_IDS=$(python3 runner.py  --experiment-name $EXP_NAME  --max-trials 10000000000000  --optimizer $method --max-duration $duration | sed -r 's/\x1B\[[0-9;]*[A-Za-z]//g' | grep -oP "(?<=Experiment ID: )\S+") 
         mapfile -t ids_array <<< "$EXP_IDS"
 
         for EXP_ID in "${ids_array[@]}"; do
@@ -21,10 +20,10 @@ for trials in "${TRIALS[@]}"; do
              echo exp with id $EXP_ID is now: $STATUS
              if [[ "$STATUS" == "DONE" || "$STATUS" == "STOPPED" || "$STATUS" == "ERROR" ]]; then
                echo "Experiment $EXP_ID finished with status: $STATUS"
-               nnictl stop "$EXP_ID" 
+               nnictl  stop "$EXP_ID"
                break
              fi
-             sleep 10
+             sleep 30
            done
         done
 
