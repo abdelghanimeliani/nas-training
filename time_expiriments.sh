@@ -10,7 +10,7 @@ for duration in "${DURATIONS[@]}"; do
         EXP_NAME="exp_{$method}_optimizer_in_{$duration}_duration_with_"
         echo "Running: $EXP_NAME on port $PORT with $trials trials and method $method"
         # Run the Python runner and get experiment IDs
-        EXP_IDS=$(python3 runner.py  --experiment-name $EXP_NAME  --max-trials 10000000000000  --optimizer $method --max-duration $duration | sed -r 's/\x1B\[[0-9;]*[A-Za-z]//g' | grep -oP "(?<=Experiment ID: )\S+") 
+        EXP_IDS=$(python3 runner.py  --experiment-name $EXP_NAME  --max-trials 10000000000000  --port $PORT --optimizer $method --max-duration $duration | sed -r 's/\x1B\[[0-9;]*[A-Za-z]//g' | grep -oP "(?<=Experiment ID: )\S+") 
         mapfile -t ids_array <<< "$EXP_IDS"
 
         for EXP_ID in "${ids_array[@]}"; do

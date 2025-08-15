@@ -1,13 +1,13 @@
-experimentName: exp_{random}_optimizer_with_{5}_steps_with__dataset1_8000
+experimentName: exp_{evolution}_optimizer_with_{50}_steps_with__dataset1_8000
 trialCodeDirectory: .
 trialCommand: python3 trial.py --data ./dataset1_8000.csv
 searchSpaceFile: search_space.json
 tuner:
-  name: random
+  name: evolution
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: 5
+maxTrialNumber: 50
 maxExperimentDuration: 360000s
 trainingService:
   platform: local
