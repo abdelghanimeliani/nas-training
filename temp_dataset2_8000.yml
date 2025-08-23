@@ -1,4 +1,4 @@
-experimentName: exp_{evolution}_optimizer_with_{50}_steps_with__dataset2_8000
+experimentName: exp_{evolution}_optimizer_in_{3600s}_duration_with__dataset2_8000
 trialCodeDirectory: .
 trialCommand: python3 trial.py --data ./dataset2_8000.csv
 searchSpaceFile: search_space.json
@@ -7,8 +7,8 @@ tuner:
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: 50
-maxExperimentDuration: 360000s
+maxTrialNumber: 10000000000000
+maxExperimentDuration: 3600s
 trainingService:
   platform: local
   useActiveGpu: false

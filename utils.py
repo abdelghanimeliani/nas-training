@@ -1,5 +1,72 @@
 import csv
 import json
+
+def convert_MetricData_table_to_csv(data, output_file):
+    """
+    Convert only FINAL MetricData values to CSV with JSON values in separate columns
+    
+    Args:
+        data: List of tuples from the MetricData table
+        output_file: Path for the output CSV file
+    """
+    
+    headers = [
+        'timestamp', 'trial_job_id', 'parameter_id', 'sequence',
+        'default_metric', 'mse', 'mae', 'mape'
+    ]
+
+    with open(output_file, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        
+        for row in data:
+            # Parse tuple elements
+            timestamp = row[0]
+            trial_job_id = row[1]
+            parameter_id = row[2]
+            metric_type = row[3]
+            sequence = row[4]
+            value = row[5]
+            
+            # Only process FINAL metrics
+            if metric_type == 'FINAL':
+                # Parse the JSON value
+                    # Parse JSON for final metrics
+                    metrics_json = json.loads(value)
+                    # Check if the JSON is valid
+                    if not isinstance(metrics_json, dict):
+                        print(f"Invalid JSON for trial_job_id {trial_job_id} at timestamp {timestamp}")
+                        metrics_json = json.loads(metrics_json)
+                    print(metrics_json)
+                    
+                    # Extract all metrics from JSON
+                    default_metric = metrics_json["default"]
+                    print("======================================================")
+                    print(default_metric)
+                    mse = metrics_json["mse"] if 'mse' in metrics_json else ''
+                    mae = metrics_json["mae"] if 'mae' in metrics_json else ''
+                    mape = metrics_json["mape"] if 'mape' in metrics_json else ''
+                    
+                    # Create CSV row
+                    csv_row = [
+                        timestamp,
+                        trial_job_id,
+                        parameter_id,
+                        sequence,
+                        default_metric,
+                        mse,
+                        mae,
+                        mape
+                    ]
+                    print(csv_row)
+                    
+                    writer.writerow(csv_row)
+                    
+    
+    print(f"CSV file created at: {output_file}")
+    print(f"Only FINAL metrics have been exported")
+
+
 def convert_ExpirimentProfile_tables_to_csv(data,output_file):
     
     headers = [
