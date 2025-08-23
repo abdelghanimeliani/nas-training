@@ -41,8 +41,6 @@ def convert_MetricData_table_to_csv(data, output_file):
                     
                     # Extract all metrics from JSON
                     default_metric = metrics_json["default"]
-                    print("======================================================")
-                    print(default_metric)
                     mse = metrics_json["mse"] if 'mse' in metrics_json else ''
                     mae = metrics_json["mae"] if 'mae' in metrics_json else ''
                     mape = metrics_json["mape"] if 'mape' in metrics_json else ''
@@ -146,3 +144,108 @@ def convert_ExpirimentProfile_tables_to_csv(data,output_file):
         )
              writer.writerow(csv_row)
          print(f"CSV file created at: {output_file}")
+         
+def convert_TrialJobEvent_to_csv(data, output_file):
+    """
+    Convert TrialJobEvent table to CSV format with extracted hyperparameters
+    
+    Args:
+        data: List of tuples from the TrialJobEvent table
+        output_file: Path for the output CSV file
+    """
+    
+    headers = [
+        'timestamp', 'trial_job_id', 'event_type', 'parameter_id', 
+        'parameter_source', 'parameter_index', 'log_dir', 'job_id', 
+        'message', 'environment', 'model_type', 'units', 'num_layers', 
+        'dropout', 'activation', 'lr', 'window_size', 'batch_size', 
+        'epochs', 'kernel_size', 'attention_heads'
+    ]
+
+    with open(output_file, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        
+        for row in data:
+            # Parse tuple elements
+            timestamp = row[0]
+            trial_job_id = row[1]
+            event_type = row[2]
+            event_data = row[3] if row[3] else '{}'  # Handle empty event_data
+            log_dir = row[4]
+            job_id = row[5]
+            message = row[6] if len(row) > 6 else ''
+            environment = row[7] if len(row) > 7 else ''
+            
+            # Initialize parameter fields
+            parameter_id = ''
+            parameter_source = ''
+            parameter_index = ''
+            model_type = ''
+            units = ''
+            num_layers = ''
+            dropout = ''
+            activation = ''
+            lr = ''
+            window_size = ''
+            batch_size = ''
+            epochs = ''
+            kernel_size = ''
+            attention_heads = ''
+            
+            # Parse event_data if it exists and is not empty
+            if event_data and event_data != '{}':
+                try:
+                    event_json = json.loads(event_data)
+                    
+                    # Extract parameter metadata
+                    parameter_id = event_json.get('parameter_id', '')
+                    parameter_source = event_json.get('parameter_source', '')
+                    parameter_index = event_json.get('parameter_index', '')
+                    
+                    # Extract parameters if they exist
+                    parameters = event_json.get('parameters', {})
+                    if parameters:
+                        model_type = parameters.get('model_type', '')
+                        units = parameters.get('units', '')
+                        num_layers = parameters.get('num_layers', '')
+                        dropout = parameters.get('dropout', '')
+                        activation = parameters.get('activation', '')
+                        lr = parameters.get('lr', '')
+                        window_size = parameters.get('window_size', '')
+                        batch_size = parameters.get('batch_size', '')
+                        epochs = parameters.get('epochs', '')
+                        kernel_size = parameters.get('kernel_size', '')
+                        attention_heads = parameters.get('attention_heads', '')
+                        
+                except json.JSONDecodeError:
+                    print(f"Warning: Failed to parse JSON for trial {trial_job_id}: {event_data}")
+            
+            # Create CSV row
+            csv_row = [
+                timestamp,
+                trial_job_id,
+                event_type,
+                parameter_id,
+                parameter_source,
+                parameter_index,
+                log_dir,
+                job_id,
+                message,
+                environment,
+                model_type,
+                units,
+                num_layers,
+                dropout,
+                activation,
+                lr,
+                window_size,
+                batch_size,
+                epochs,
+                kernel_size,
+                attention_heads
+            ]
+            
+            writer.writerow(csv_row)
+    
+    print(f"CSV file created at: {output_file}")

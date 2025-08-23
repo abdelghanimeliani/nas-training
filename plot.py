@@ -12,7 +12,7 @@ from pathlib import Path
 import json
 import csv
 from ast import literal_eval
-from utils import convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv
+from utils import convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv, convert_TrialJobEvent_to_csv
 
 def get_expiriments_ids_list(base_path):
     ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
@@ -27,12 +27,21 @@ def convert_exp_tables_to_csv(base_path, experiments_ids_list):
         data= cursor.fetchall()
         convert_ExpirimentProfile_tables_to_csv(data, "./csv/exp_profiles/" + exp_id +".csv")
         cursor.close()
+        
         conn= sqlite3.connect(base_path + '/' + exp_id + '/db/nni.sqlite')
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM MetricData")
         data= cursor.fetchall()
         convert_MetricData_table_to_csv(data, "./csv/metric_data/" + exp_id +".csv")
         cursor.close()
+        
+        conn= sqlite3.connect(base_path + '/' + exp_id + '/db/nni.sqlite')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM TrialJobEvent")
+        data = cursor.fetchall()
+        convert_TrialJobEvent_to_csv(data, "./csv/trial_job_event/" + exp_id +".csv")
+        cursor.close()
+        
         conn.close()
     
         
