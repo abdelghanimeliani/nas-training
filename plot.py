@@ -12,12 +12,9 @@ from pathlib import Path
 import json
 import csv
 from ast import literal_eval
-from utils import convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv, convert_TrialJobEvent_to_csv
+from utils import convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv, convert_TrialJobEvent_to_csv, change_files_names,get_expiriments_ids_list
 
-def get_expiriments_ids_list(base_path):
-    ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
-    ids.remove('_latest')
-    return ids  
+
 
 def convert_exp_tables_to_csv(base_path, experiments_ids_list):
     for exp_id in experiments_ids_list:
@@ -47,6 +44,7 @@ def convert_exp_tables_to_csv(base_path, experiments_ids_list):
         
     
 
+
 if __name__ == "__main__":
     exp_ids=get_expiriments_ids_list("/home/meliani/nni-experiments")
     print(str(len(exp_ids)) + " experiments found.") 
@@ -54,3 +52,4 @@ if __name__ == "__main__":
     print(exp_ids)
     print('=============================================================')
     convert_exp_tables_to_csv("/home/meliani/nni-experiments",exp_ids)
+    change_files_names(base_path="./csv/exp_profiles",ids=exp_ids)

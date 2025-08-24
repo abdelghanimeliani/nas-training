@@ -1,6 +1,54 @@
 import csv
 import json
+from pathlib import Path
 
+def get_expiriments_ids_list(base_path):
+    ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
+    try:
+        ids.remove('_latest')
+    except ValueError:
+        pass
+    return ids  
+
+def change_files_names(base_path,ids):
+    new_names = []   
+    for exp_id in ids:
+        print("Changing files names for experiment ID: " + exp_id)
+        f=open(base_path + '/' + exp_id + '.csv', 'r') 
+        reader = csv.reader(f)
+        reader. __next__()  # Skip the header row
+        row1=next(reader)  # Skip the header row
+
+        new_name={
+                "id": exp_id,
+                "experiment_name": row1[7],
+            }
+        new_names.append(new_name)
+        f.close()
+
+    print('=============================================================')
+    for name in new_names:
+        f=open("./csv/exp_profiles/" + name['id'] + '.csv', 'r')
+        content= f.read()
+        f2= open( "./csv/new_exp_profiles/" + name['experiment_name'] + '.csv', 'w')
+        f2.write(content)
+        f.close()
+        f2.close()
+        f=open("./csv/metric_data/" + name['id'] + '.csv', 'r')
+        content= f.read()
+        f2= open( "./csv/new_metric_data/" + name['experiment_name'] + '.csv', 'w')
+        f2.write(content)
+        f.close()
+        f2.close()
+        f=open("./csv/trial_job_event/" + name['id'] + '.csv', 'r')
+        content= f.read()
+        f2= open( "./csv/new_trial_job_event/" + name['experiment_name'] + '.csv', 'w')
+        f2.write(content)
+        f.close()
+        f2.close()
+    print("Files names changed successfully.")
+            
+            
 def convert_MetricData_table_to_csv(data, output_file):
     """
     Convert only FINAL MetricData values to CSV with JSON values in separate columns
@@ -63,8 +111,6 @@ def convert_MetricData_table_to_csv(data, output_file):
     
     print(f"CSV file created at: {output_file}")
     print(f"Only FINAL metrics have been exported")
-
-
 def convert_ExpirimentProfile_tables_to_csv(data,output_file):
     
     headers = [
@@ -143,8 +189,7 @@ def convert_ExpirimentProfile_tables_to_csv(data,output_file):
             training_service
         )
              writer.writerow(csv_row)
-         print(f"CSV file created at: {output_file}")
-         
+         print(f"CSV file created at: {output_file}")     
 def convert_TrialJobEvent_to_csv(data, output_file):
     """
     Convert TrialJobEvent table to CSV format with extracted hyperparameters
