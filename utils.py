@@ -103,9 +103,7 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
         plt.show()
         
         print(f"{metric} plot saved to ./plots/metrics_based_plots/")
-    
-    
-    
+     
 
 def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
     """
@@ -121,8 +119,6 @@ def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
         str: Full path of the experiment file.
     """
     return f"{base_dir}/exp_{{{method}}}_optimizer_with_{{{steps}}}_steps_with__{dataset}_8000.csv"
-
-
 
 def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
@@ -207,8 +203,6 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
         
         print(f"{metric} plot saved to ./plots/metrics_based_plots/")
 
-
-
 def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
     results = defaultdict(lambda: defaultdict(dict)) 
     for method in search_methods:
@@ -274,7 +268,69 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
     plt.savefig('./plots/trial_based_plots/trial_time_comparison.png', dpi=300, bbox_inches='tight')
     plt.savefig('./plots/trial_based_plots/trial_time_comparison.pdf', bbox_inches='tight')
     plt.show()               
-                    
+         
+def plot_trials_based_on_exp_duration(search_methods,duratrions,datasets):
+    results=defaultdict(lambda: defaultdict(dict))
+    for dataset in datasets:
+        for method in search_methods:
+            for duration in duratrions:
+                max_trials=0
+                file_name= get_file_name_based_on_exp_duration(base_dir="./csv/new_trial_job_event",dataset=dataset,duration=duration,method=method)
+                if os.path.exists(file_name):
+                    print(f"Processing file: {file_name}")
+                    with open(file_name, 'r') as f:
+                        reader = csv.reader(f)
+                        next(reader)
+                        for row in reader:
+                            if row[2] == 'SUCCEEDED':
+                                max_trials += 1
+                else:
+                    print(f"File does not exist: {file_name}")
+                results[dataset][method][duration]= max_trials
+
+    # Define colors and patterns
+    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
+    patterns = {'dataset1': '.', 'dataset2': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
+    fig, ax = plt.subplots(figsize=(8, 8))
+    bar_width = 0.2
+    group_width = bar_width * len(datasets)
+    method_positions = np.arange(len(duratrions)) * (len(search_methods) * group_width + 0.2 )
+
+# Plot bars for each method, trial, and dataset
+    for i, method in enumerate(search_methods):
+        for j, dataset in enumerate(datasets):
+            times = []
+            for duration in duratrions:
+                td = results[dataset][method].get(duration)
+                times.append(td)
+            
+            offset = method_positions + i * group_width + j * bar_width
+            bars = ax.bar(offset, times, bar_width, 
+                        color=colors[method], hatch=patterns[dataset],
+                        edgecolor='black', label=f'{method} ({dataset})' if i == 0 and j == 0 else "")
+
+    # Customize the plot
+    ax.set_xlabel('Exmeriment Duration')
+    ax.set_ylabel('Number of Trials')
+    # ax.set_yscale('log')  # Logarithmic scale due to large value range
+    ax.set_xticks(method_positions + (len(search_methods) * group_width - bar_width) / 2)
+    ax.set_xticklabels(duratrions)
+    ax.legend(handles=[
+        plt.Rectangle((0,0),1,1, color=colors[m], label=m) for m in search_methods
+    ] + [
+        plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
+    ], loc='upper left')
+
+    plt.title('Number of trials vs. Expiriment duration by Search Method and Dataset')
+    plt.tight_layout()
+    # Create directory if it doesn't exist
+    os.makedirs('./plots/trial_based_plots/', exist_ok=True)
+
+    # Save the plot
+    plt.savefig('./plots/trial_based_plots/trial_time_comparison.png', dpi=300, bbox_inches='tight')
+    plt.savefig('./plots/time_based_plots/time_trial_comparison.pdf', bbox_inches='tight')
+    plt.show()               
+# =============== call the ploting functions ===============
 def plot_trials_based_exp_resutls():
     '''
     this methods is used to plot the resutlts of the trial-based expiriments
@@ -289,12 +345,12 @@ def plot_trials_based_exp_resutls():
     plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
     plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
 
-
 def plot_time_based_exp_resutls():
     search_methods = ['tpe', 'random', 'GridSearch', 'evolution']
     duratrions=  ["300s","600s","1200s","2400s","3600s"]
     datasets= ['dataset2', 'dataset1']
-    plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
+    # plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
+    plot_trials_based_on_exp_duration(search_methods,duratrions,datasets)
 
 plot_time_based_exp_resutls()
 
