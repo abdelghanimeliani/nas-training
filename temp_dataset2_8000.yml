@@ -1,14 +1,14 @@
-experimentName: exp_{evolution}_optimizer_in_{3600s}_duration_with__dataset2_8000
+experimentName: exp_{GridSearch}_optimizer_with_{100}_steps_with__dataset2_8000
 trialCodeDirectory: .
 trialCommand: python3 trial.py --data ./dataset2_8000.csv
 searchSpaceFile: search_space.json
 tuner:
-  name: evolution
+  name: GridSearch
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: 10000000000000
-maxExperimentDuration: 3600s
+maxTrialNumber: 100
+maxExperimentDuration: 360000s
 trainingService:
   platform: local
   useActiveGpu: false

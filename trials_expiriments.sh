@@ -1,5 +1,5 @@
 #!/bin/bash
-SEARCH_METHODS=("random" "grid" "tpe" "anneal" "evolution")
+SEARCH_METHODS=("random" "GridSearch" "tpe" "anneal" "evolution")
 TRIALS=(5 20 50 80 100)
 
 BASE_PORT=8080

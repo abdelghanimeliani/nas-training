@@ -6,12 +6,7 @@ this script connects get incide every dir and get the results of the experiments
 # and plots the results using matplotlib
 '''
 import sqlite3
-import argparse
 import matplotlib.pyplot as plt
-from pathlib import Path
-import json
-import csv
-from ast import literal_eval
 from utils import convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv, convert_TrialJobEvent_to_csv, change_files_names,get_expiriments_ids_list
 
 

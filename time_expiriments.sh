@@ -1,5 +1,5 @@
 #!/bin/bash
-SEARCH_METHODS=("random" "grid" "tpe" "anneal" "evolution")
+SEARCH_METHODS=("random" "GridSearch" "tpe" "anneal" "evolution")
 DURATIONS=("300s" "600s" "1200s" "2400s" "3600s")
 
 BASE_PORT=8300
@@ -32,4 +32,4 @@ for duration in "${DURATIONS[@]}"; do
     done
 done
 
-echo "All trial-based experiments finished."
+echo "All time based experiments finished."

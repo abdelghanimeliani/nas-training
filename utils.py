@@ -1,7 +1,43 @@
 import csv
 import json
 from pathlib import Path
+import os
 
+def get_file_name(base_dir, dataset, steps, method):
+    """
+    Build the experiment file name string.
+
+    Args:
+        base_dir (str): Path to the directory containing the files.
+        dataset (str): Dataset name, e.g., "dataset2".
+        steps (int): Number of steps, e.g., 50.
+        method (str): Search method, e.g., "evolution" or "gridsearch".
+
+    Returns:
+        str: Full path of the experiment file.
+    """
+    return f"{base_dir}/exp_{{{method}}}_optimizer_with_{{{steps}}}_steps_with__{dataset}_8000.csv"
+
+
+
+
+ 
+
+def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials):
+    
+    
+    return
+def plot_trials_based_exp_resutls():
+    '''
+    this methods is used to plot the resutlts of the trial-based expiriments
+    on the 4 search methods:
+    TPE, Random, gridSearch, Evolution
+    the plots are,  the time token for each exp for each database based algorithm, and the defined number of trials
+    
+    '''
+    search_methods = ['TPE', 'Random', 'gridSearch', 'Evolution']
+    return
+    
 def get_expiriments_ids_list(base_path):
     ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
     try:
@@ -9,7 +45,6 @@ def get_expiriments_ids_list(base_path):
     except ValueError:
         pass
     return ids  
-
 def change_files_names(base_path,ids):
     new_names = []   
     for exp_id in ids:
@@ -46,9 +81,7 @@ def change_files_names(base_path,ids):
         f2.write(content)
         f.close()
         f2.close()
-    print("Files names changed successfully.")
-            
-            
+    print("Files names changed successfully.")                        
 def convert_MetricData_table_to_csv(data, output_file):
     """
     Convert only FINAL MetricData values to CSV with JSON values in separate columns
