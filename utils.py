@@ -2,8 +2,12 @@ import csv
 import json
 from pathlib import Path
 import os
+import datetime
+from collections import defaultdict
+import matplotlib.pyplot as plt
+import numpy as np
 
-def get_file_name(base_dir, dataset, steps, method):
+def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
     """
     Build the experiment file name string.
 
@@ -23,10 +27,73 @@ def get_file_name(base_dir, dataset, steps, method):
 
  
 
-def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials):
-    
-    
-    return
+def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
+    results = defaultdict(lambda: defaultdict(dict)) 
+    for method in search_methods:
+        for dataset in datasets:
+            for trial in number_of_trials:
+                file_name= get_file_name_based_on_trials_number(base_dir="./csv/new_exp_profiles",dataset=dataset,steps=trial,method=method)
+                if os.path.exists(file_name):
+                    print(f"Processing file: {file_name}")
+                    with open(file_name, 'r') as f:
+                        reader = csv.reader(f)
+                        for row in reader:
+                            last_row = row
+                        try:
+                            start = datetime.datetime.fromtimestamp(int(last_row[3]) / 1000)
+                            end = datetime.datetime.fromtimestamp(int(last_row[4]) / 1000)
+                            exp_time= end - start
+                            print(print(f"Method: {method}, Dataset: {dataset}, Trials: {trial}, Time: {exp_time} seconds"))
+                        except ValueError as e:
+                            exp_time=0
+                        results[dataset][method][trial]= exp_time
+                else:
+                    print(f"File does not exist: {file_name}")
+    # Define colors and patterns
+    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
+    patterns = {'dataset1': '.', 'dataset2': 'x'}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
+    fig, ax = plt.subplots(figsize=(8, 8))
+    bar_width = 0.1
+    group_width = bar_width * len(datasets)
+    method_positions = np.arange(len(number_of_trials)) * (len(search_methods) * group_width + 1)
+
+# Plot bars for each method, trial, and dataset
+    for i, method in enumerate(search_methods):
+        for j, dataset in enumerate(datasets):
+            times = []
+            for trial in number_of_trials:
+                td = results[dataset][method].get(trial, datetime.timedelta(0))
+                times.append(td.total_seconds() if isinstance(td, datetime.timedelta) else 0)
+            
+            offset = method_positions + i * group_width + j * bar_width
+            bars = ax.bar(offset, times, bar_width, 
+                        color=colors[method], hatch=patterns[dataset],
+                        edgecolor='black', label=f'{method} ({dataset})' if i == 0 and j == 0 else "")
+
+    # Customize the plot
+    ax.set_xlabel('Number of Trials')
+    ax.set_ylabel('Time (seconds)')
+    ax.set_yscale('log')  # Logarithmic scale due to large value range
+    ax.set_xticks(method_positions + (len(search_methods) * group_width - bar_width) / 2)
+    ax.set_xticklabels(number_of_trials)
+    ax.legend(handles=[
+        plt.Rectangle((0,0),1,1, color=colors[m], label=m) for m in search_methods
+    ] + [
+        plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
+    ], loc='upper left')
+
+    plt.title('Time vs. Number of Trials by Search Method and Dataset')
+    plt.tight_layout()
+    # Create directory if it doesn't exist
+    os.makedirs('./plots/trial_based_plots/', exist_ok=True)
+
+    # Save the plot
+    plt.savefig('./plots/trial_based_plots/trial_time_comparison.png', dpi=300, bbox_inches='tight')
+    plt.savefig('./plots/trial_based_plots/trial_time_comparison.pdf', bbox_inches='tight')
+    plt.show()
+                    
+                    
+                    
 def plot_trials_based_exp_resutls():
     '''
     this methods is used to plot the resutlts of the trial-based expiriments
@@ -35,9 +102,13 @@ def plot_trials_based_exp_resutls():
     the plots are,  the time token for each exp for each database based algorithm, and the defined number of trials
     
     '''
-    search_methods = ['TPE', 'Random', 'gridSearch', 'Evolution']
-    return
-    
+    search_methods = ['tpe', 'random', 'GridSearch', 'evolution']
+    number_of_trials=  [5,20,50,80,100]
+    datasets= ['dataset2', 'dataset1']
+    plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
+
+
+plot_trials_based_exp_resutls()
 def get_expiriments_ids_list(base_path):
     ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
     try:
