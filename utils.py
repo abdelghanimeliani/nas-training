@@ -35,13 +35,11 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                     min_mse_value=float('inf')
                     file_name= get_file_name_based_on_exp_duration(base_dir="./csv/new_metric_data",dataset=dataset,duration=duration,method=method)
                     if os.path.exists(file_name):
-                        print(f"Processing file: {file_name}")
+                        # print(f"Processing file: {file_name}")
                         with open(file_name, 'r') as f:
                             reader = csv.reader(f)
                             next(reader)
                             for row in reader:
-                                print(row[7])
-                                print(min_mape_value<float(row[7]))
                                 if min_mape_value > float(row[7]):
                                     min_mape_value = float(row[7])
                                 if min_mae_value > float(row[6]):
@@ -53,6 +51,7 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                     results[dataset][method][duration]['min_mape']= min_mape_value
                     results[dataset][method][duration]['min_mae']= min_mae_value
                     results[dataset][method][duration]['min_mse']= min_mse_value
+
     metrics = ['min_mape', 'min_mae', 'min_mse']
     metric_names = {'min_mape': 'MAPE (%)', 'min_mae': 'MAE', 'min_mse': 'MSE'}
     metric_titles = {'min_mape': 'Minimum MAPE', 'min_mae': 'Minimum MAE', 'min_mse': 'Minimum MSE'}
@@ -137,8 +136,6 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
                             reader = csv.reader(f)
                             next(reader)
                             for row in reader:
-                                print(row[7])
-                                print(min_mape_value<float(row[7]))
                                 if min_mape_value > float(row[7]):
                                     min_mape_value = float(row[7])
                                 if min_mae_value > float(row[6]):
@@ -150,6 +147,9 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
                     results[dataset][method][trial]['min_mape']= min_mape_value
                     results[dataset][method][trial]['min_mae']= min_mae_value
                     results[dataset][method][trial]['min_mse']= min_mse_value
+    print("Results dictionary:")
+    print(results)
+    print("========================================")
     metrics = ['min_mape', 'min_mae', 'min_mse']
     metric_names = {'min_mape': 'MAPE (%)', 'min_mae': 'MAE', 'min_mse': 'MSE'}
     metric_titles = {'min_mape': 'Minimum MAPE', 'min_mae': 'Minimum MAE', 'min_mse': 'Minimum MSE'}
@@ -226,6 +226,9 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
                         results[dataset][method][trial]= exp_time
                 else:
                     print(f"File does not exist: {file_name}")
+    print("Results dictionary:")
+    print(results)
+    print("========================================")
     # Define colors and patterns
     colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
     patterns = {'dataset1': '.', 'dataset2': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
@@ -287,7 +290,9 @@ def plot_trials_based_on_exp_duration(search_methods,duratrions,datasets):
                 else:
                     print(f"File does not exist: {file_name}")
                 results[dataset][method][duration]= max_trials
-
+    print("Results dictionary:")
+    print(results)
+    print("========================================")
     # Define colors and patterns
     colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
     patterns = {'dataset1': '.', 'dataset2': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
@@ -320,7 +325,10 @@ def plot_trials_based_on_exp_duration(search_methods,duratrions,datasets):
     ] + [
         plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
     ], loc='upper left')
-
+    print("========================================")
+    print("Results dictionary:")
+    print(results)
+    print("========================================")
     plt.title('Number of trials vs. Expiriment duration by Search Method and Dataset')
     plt.tight_layout()
     # Create directory if it doesn't exist
@@ -349,10 +357,9 @@ def plot_time_based_exp_resutls():
     search_methods = ['tpe', 'random', 'GridSearch', 'evolution']
     duratrions=  ["300s","600s","1200s","2400s","3600s"]
     datasets= ['dataset2', 'dataset1']
-    # plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
+    plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
     plot_trials_based_on_exp_duration(search_methods,duratrions,datasets)
 
-plot_time_based_exp_resutls()
 
 def get_expiriments_ids_list(base_path):
     ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
@@ -364,7 +371,7 @@ def get_expiriments_ids_list(base_path):
 def change_files_names(base_path,ids):
     new_names = []   
     for exp_id in ids:
-        print("Changing files names for experiment ID: " + exp_id)
+        # print("Changing files names for experiment ID: " + exp_id)
         f=open(base_path + '/' + exp_id + '.csv', 'r') 
         reader = csv.reader(f)
         reader. __next__()  # Skip the header row
@@ -377,7 +384,6 @@ def change_files_names(base_path,ids):
         new_names.append(new_name)
         f.close()
 
-    print('=============================================================')
     for name in new_names:
         f=open("./csv/exp_profiles/" + name['id'] + '.csv', 'r')
         content= f.read()
@@ -432,9 +438,8 @@ def convert_MetricData_table_to_csv(data, output_file):
                     metrics_json = json.loads(value)
                     # Check if the JSON is valid
                     if not isinstance(metrics_json, dict):
-                        print(f"Invalid JSON for trial_job_id {trial_job_id} at timestamp {timestamp}")
+                        # print(f"Invalid JSON for trial_job_id {trial_job_id} at timestamp {timestamp}")
                         metrics_json = json.loads(metrics_json)
-                    print(metrics_json)
                     
                     # Extract all metrics from JSON
                     default_metric = metrics_json["default"]
@@ -453,7 +458,6 @@ def convert_MetricData_table_to_csv(data, output_file):
                         mae,
                         mape
                     ]
-                    print(csv_row)
                     
                     writer.writerow(csv_row)
                     

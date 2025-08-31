@@ -7,7 +7,7 @@ this script connects get incide every dir and get the results of the experiments
 '''
 import sqlite3
 import matplotlib.pyplot as plt
-from utils import convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv, convert_TrialJobEvent_to_csv, change_files_names,get_expiriments_ids_list
+from utils import plot_time_based_exp_resutls, plot_trials_based_exp_resutls,convert_ExpirimentProfile_tables_to_csv , convert_MetricData_table_to_csv, convert_TrialJobEvent_to_csv, change_files_names,get_expiriments_ids_list
 
 
 
@@ -48,3 +48,5 @@ if __name__ == "__main__":
     print('=============================================================')
     convert_exp_tables_to_csv("/home/meliani/nni-experiments",exp_ids)
     change_files_names(base_path="./csv/exp_profiles",ids=exp_ids)
+    plot_time_based_exp_resutls()
+    plot_trials_based_exp_resutls()
