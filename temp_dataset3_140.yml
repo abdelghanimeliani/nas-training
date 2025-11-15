@@ -1,13 +1,13 @@
-experimentName: exp_{GridSearch}_optimizer_with_{100}_steps_with__dataset1_8000
+experimentName: exp_tpe_5_./dataset3_140.csv_dataset3_140
 trialCodeDirectory: .
-trialCommand: python3 trial.py --data ./dataset1_8000.csv
+trialCommand: python3 trial.py --data ./dataset3_140.csv
 searchSpaceFile: search_space.json
 tuner:
-  name: GridSearch
+  name: tpe
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: 100
+maxTrialNumber: 5
 maxExperimentDuration: 360000s
 trainingService:
   platform: local

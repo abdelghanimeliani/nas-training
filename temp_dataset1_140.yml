@@ -1,0 +1,14 @@
+experimentName: exp_anneal_5_./dataset1_140.csv_dataset1_140
+trialCodeDirectory: .
+trialCommand: python3 trial.py --data ./dataset1_140.csv
+searchSpaceFile: search_space.json
+tuner:
+  name: anneal
+  classArgs:
+    optimize_mode: minimize
+trialConcurrency: 1
+maxTrialNumber: 5
+maxExperimentDuration: 360000s
+trainingService:
+  platform: local
+  useActiveGpu: false

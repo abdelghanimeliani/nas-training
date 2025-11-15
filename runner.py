@@ -1,49 +1,63 @@
-'''
-this script runs experiments with different optimizers on specified datasets.
-it takes the port number and optimizer type as command line arguments.
-the plan is to use this sctipt from inside another bash script that will run the experiments with the specified parameters.
-'''
-
 import argparse
 import subprocess
 from pathlib import Path
+import re
+import sys
 
-
-def run_experiment(optimizer, port,duration, max_trials, experiment_name):
+def run_single_experiment(optimizer, port, duration, max_trials, experiment_name, dataset):
     template_path = Path("config_template.yml")
     with open(template_path) as f:
         config = f.read()
 
-    for dataset in ["./dataset1_8000.csv", "./dataset2_8000.csv"]:
-        dataset_name = Path(dataset).stem
-        # Replace placeholders
-        new_config = config.replace("{OPTIMIZER}", optimizer)
-        new_config = new_config.replace("{DATA_PATH}", dataset)
-        new_config = new_config.replace("{MAX_TRIALS}", str(max_trials))
-        new_config = new_config.replace("{MAX_DURATION}", duration)
-        new_config = new_config.replace("{EXPERIMENT_NAME}", experiment_name+f"_{dataset_name}")
-        temp_config_path = Path(f"temp_{dataset_name}.yml")
-        with open(temp_config_path, "w") as f:
-            f.write(new_config)
+    dataset_name = Path(dataset).stem
 
-        print(f"Running {optimizer} on {dataset} at port {port}...")
-        print(f"Using config: {temp_config_path}")
-        print("Experiment name:", experiment_name)
-        print("Optimizer:", optimizer)
-        print("this experiment will run for", duration, "seconds")
-        print("Maximum number of trials:", max_trials)
-        subprocess.run(["nnictl", "create", "--config", str(temp_config_path), "--port", str(port)])
-        port += 1  
-        
-        
+    # Fill template
+    new_config = (
+        config.replace("{OPTIMIZER}", optimizer)
+              .replace("{DATA_PATH}", dataset)
+              .replace("{MAX_TRIALS}", str(max_trials))
+              .replace("{MAX_DURATION}", duration)
+              .replace("{EXPERIMENT_NAME}", experiment_name + f"_{dataset_name}")
+    )
+
+    temp_config_path = Path(f"temp_{dataset_name}.yml")
+    with open(temp_config_path, "w") as f:
+        f.write(new_config)
+
+    # Print info for the bash script
+    print(f"DATASET_USED: {dataset}")
+    print(f"CONFIG_FILE: {temp_config_path}")
+    print(f"PORT_USED: {port}")
+    sys.stdout.flush()
+
+    # Run nni
+    proc = subprocess.run(
+        ["nnictl", "create", "--config", str(temp_config_path), "--port", str(port)],
+        capture_output=True, text=True
+    )
+
+    match = re.search(r'Experiment ID:\s*(\S+)', proc.stdout)
+    if match:
+        print("Experiment ID:", match.group(1))
+    else:
+        print("ERROR: Experiment ID not found!")
+
+
 if __name__ == "__main__":
-    
     parser = argparse.ArgumentParser()
-    parser.add_argument("--optimizer", type=str, required=True)
-    parser.add_argument("--port", type=int, default=8080, help="Starting port number")
-    parser.add_argument("--max-trials", type=int, default=100, help="Maximum number of trials")
-    parser.add_argument("--max-duration", type=str, default="3600s", help="Maximum experiment duration in seconds")
-    parser.add_argument("--experiment-name", type=str, default="dataset-test", help="Name of the experiment")
+    parser.add_argument("--optimizer", required=True)
+    parser.add_argument("--port", type=int, required=True)
+    parser.add_argument("--max-trials", type=int, required=True)
+    parser.add_argument("--max-duration", required=True)
+    parser.add_argument("--experiment-name", required=True)
+    parser.add_argument("--dataset", required=True)
     args = parser.parse_args()
 
-    run_experiment(args.optimizer, args.port, args.max_duration, args.max_trials, args.experiment_name)
+    run_single_experiment(
+        args.optimizer,
+        args.port,
+        args.max_duration,
+        args.max_trials,
+        args.experiment_name,
+        args.dataset
+    )

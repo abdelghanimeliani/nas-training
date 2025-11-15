@@ -12,9 +12,9 @@ df2 = pd.read_csv("./data/materna/15.csv")
 df3 = pd.read_csv("./data/alibaba/data.csv")
 
 # Take the first 8000 values from the chosen columns
-ts1 = df1['averageCpuUsagePerse'].iloc[:140].astype(float)
-ts2 = df2['CPU usage [%]'].iloc[:140].str.replace(',', '.').astype(float)
-ts3 = df3['util:CPU'].iloc[:140].astype(float)
+ts1 = df1['averageCpuUsagePerse'].iloc[:1000].astype(float)
+ts2 = df2['CPU usage [%]'].iloc[:1000].str.replace(',', '.').astype(float)
+ts3 = df3['util:CPU'].iloc[:1000].astype(float)
 
 # Min-max normalization function
 def min_max_norm(series):

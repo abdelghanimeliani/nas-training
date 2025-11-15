@@ -160,6 +160,11 @@ def main():
         'mae': final_mae,
         'mape': final_mape
     })
+    print('============ Final Results ============')
+    print(f'Final MSE: {final_val_loss}')
+    print(f'Final MAE: {final_mae}')
+    print(f'Final MAPE: {final_mape}')
+    print('=======================================')
 
 if __name__ == '__main__':
     main()
