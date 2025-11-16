@@ -1,35 +1,72 @@
 #!/bin/bash
+
 SEARCH_METHODS=("random" "GridSearch" "tpe" "anneal" "evolution")
 DURATIONS=("300s" "600s" "1200s" "2400s" "3600s")
+DATASETS=("./dataset1_140.csv" "./dataset2_140.csv" "./dataset3_140.csv")
 
 BASE_PORT=8300
-PORT=$BASE_PORT
 
 for duration in "${DURATIONS[@]}"; do
     for method in "${SEARCH_METHODS[@]}"; do
-        EXP_NAME="exp_{$method}_optimizer_in_{$duration}_duration_with_"
-        echo "Running: $EXP_NAME on port $PORT with $trials trials and method $method"
-        # Run the Python runner and get experiment IDs
-        EXP_IDS=$(python3 runner.py  --experiment-name $EXP_NAME  --max-trials 10000000000000  --port $PORT --optimizer $method --max-duration $duration | sed -r 's/\x1B\[[0-9;]*[A-Za-z]//g' | grep -oP "(?<=Experiment ID: )\S+") 
-        mapfile -t ids_array <<< "$EXP_IDS"
 
-        for EXP_ID in "${ids_array[@]}"; do
-           echo "Waiting for experiment $EXP_ID to finish..."
-           while true; do
-             STATUS=$(nnictl experiment status "$EXP_ID" 2>/dev/null | grep -oP '"status":"\K[^"]+')
-             echo exp with id $EXP_ID is now: $STATUS
-             if [[ "$STATUS" == "DONE" || "$STATUS" == "STOPPED" || "$STATUS" == "ERROR" || "$STATUS" == "NO_MORE_TRIAL" ]]; then
-               echo "Experiment $EXP_ID finished with status: $STATUS"
-               nnictl  stop "$EXP_ID"
-               break
-             fi
-             sleep 30
-           done
+        echo "================================================"
+        echo "Running optimizer: $method with duration: $duration"
+        echo "================================================"
+
+        PORT=$BASE_PORT
+
+        for dataset in "${DATASETS[@]}"; do
+
+            EXP_NAME="exp_${method}_${duration}_${dataset}"
+
+            echo ""
+            echo "-----------------------------------------------"
+            echo "Experiment Name: $EXP_NAME"
+            echo "DATASET_USED: $dataset"
+            echo "PORT_USED: $PORT"
+            echo "OPTIMIZER: $method"
+            echo "DURATION: $duration"
+            echo "-----------------------------------------------"
+
+            # Run Python runner
+            PY_OUTPUT=$(python3 runner.py \
+                --experiment-name "$EXP_NAME" \
+                --port $PORT \
+                --max-trials 9999999999 \
+                --optimizer $method \
+                --max-duration $duration \
+                --dataset "$dataset"
+            )
+
+            echo "$PY_OUTPUT"
+
+            echo "Waiting for experiment on port $PORT ..."
+
+            while true; do
+                # Read status using PORT (much more reliable)
+                STATUS_RAW=$(nnictl experiment status $PORT 2>/dev/null)
+                STATUS_CLEAN=$(echo "$STATUS_RAW" | tr -cd '\11\12\15\40-\176')
+                STATUS=$(echo "$STATUS_CLEAN" | grep -oP '"status":"\K[^"]+')
+
+                echo "Experiment on port $PORT → '$STATUS'"
+
+                # STOP CONDITIONS
+                if [[ "$STATUS" == "DONE" || "$STATUS" == "STOPPED" || "$STATUS" == "ERROR" || "$STATUS" == "NO_MORE_TRIAL" ]]; then
+                    echo "Experiment on port $PORT finished → $STATUS"
+                    nnictl stop $PORT 2>/dev/null
+                    break
+                fi
+
+                sleep 10
+            done
+
+            PORT=$((PORT+1))
+            sleep 2
+
         done
 
-        PORT=$((PORT+1))
-        sleep 2
+        BASE_PORT=$((BASE_PORT+3))
     done
 done
 
-echo "All time based experiments finished."
+echo "All duration-based experiments finished."
