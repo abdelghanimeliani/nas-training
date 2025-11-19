@@ -13,26 +13,17 @@ for duration in "${DURATIONS[@]}"; do
         echo "Running optimizer: $method with duration: $duration"
         echo "================================================"
 
-        PORT=$BASE_PORT
-
         for dataset in "${DATASETS[@]}"; do
+            PORT=$BASE_PORT
 
             EXP_NAME="exp_${method}_${duration}_${dataset}"
 
-            echo ""
-            echo "-----------------------------------------------"
-            echo "Experiment Name: $EXP_NAME"
-            echo "DATASET_USED: $dataset"
-            echo "PORT_USED: $PORT"
-            echo "OPTIMIZER: $method"
-            echo "DURATION: $duration"
-            echo "-----------------------------------------------"
+            echo "Running dataset: $dataset on port $PORT"
 
-            # Run Python runner
             PY_OUTPUT=$(python3 runner.py \
                 --experiment-name "$EXP_NAME" \
                 --port $PORT \
-                --max-trials 9999999999 \
+                --max-trials 10000000000 \
                 --optimizer $method \
                 --max-duration $duration \
                 --dataset "$dataset"
@@ -40,33 +31,27 @@ for duration in "${DURATIONS[@]}"; do
 
             echo "$PY_OUTPUT"
 
-            echo "Waiting for experiment on port $PORT ..."
+            EXP_ID=$(echo "$PY_OUTPUT" | sed -r 's/\x1B\[[0-9;]*[A-Za-z]//g' | grep -oP "(?<=Experiment ID: )\S+")
+
+            echo "Waiting for $EXP_ID to finish..."
 
             while true; do
-                # Read status using PORT (much more reliable)
-                STATUS_RAW=$(nnictl experiment status $PORT 2>/dev/null)
-                STATUS_CLEAN=$(echo "$STATUS_RAW" | tr -cd '\11\12\15\40-\176')
-                STATUS=$(echo "$STATUS_CLEAN" | grep -oP '"status":"\K[^"]+')
+                STATUS=$(nnictl experiment status "$EXP_ID" 2>/dev/null | grep -oP '"status":"\K[^"]+')
+                echo "Experiment $EXP_ID → $STATUS"
 
-                echo "Experiment on port $PORT → '$STATUS'"
-
-                # STOP CONDITIONS
                 if [[ "$STATUS" == "DONE" || "$STATUS" == "STOPPED" || "$STATUS" == "ERROR" || "$STATUS" == "NO_MORE_TRIAL" ]]; then
-                    echo "Experiment on port $PORT finished → $STATUS"
-                    nnictl stop $PORT 2>/dev/null
+                    nnictl stop "$EXP_ID" 2>/dev/null
+                    echo "Finished dataset $dataset"
                     break
                 fi
 
                 sleep 10
             done
 
-            PORT=$((PORT+1))
+            BASE_PORT=$((BASE_PORT+1))
             sleep 2
 
         done
 
-        BASE_PORT=$((BASE_PORT+3))
     done
 done
-
-echo "All duration-based experiments finished."

@@ -5,22 +5,26 @@ import os
 import datetime
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import re
 import numpy as np
 
 def get_file_name_based_on_exp_duration(base_dir, dataset, duration, method):
     """
-    Build the experiment file name string.
-
-    Args:
-        base_dir (str): Path to the directory containing the files.
-        dataset (str): Dataset name, e.g., "dataset2".
-        steps (int): Number of steps, e.g., 50.
-        method (str): Search method, e.g., "evolution" or "gridsearch".
-
-    Returns:
-        str: Full path of the experiment file.
+    Build the experiment file name string matching the pattern:
+    exp_{method}_{duration}s_._{dataset}_140.csv_{dataset}_140.csv
     """
-    return f"{base_dir}/exp_{{{method}}}_optimizer_in_{{{duration}}}_duration_with__{dataset}_8000.csv"
+
+    import re
+
+    # Ensure dataset ends with _140
+    ds = dataset if str(dataset).endswith("_140") else f"{dataset}_140"
+
+    # Sanitize method and duration
+    method_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(method))
+    duration_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(duration))
+
+    return f"{base_dir}/exp_{method_safe}_{duration_safe}_._{ds}.csv_{ds}.csv"
+
 
 
 def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
@@ -56,8 +60,8 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
     metric_names = {'min_mape': 'MAPE (%)', 'min_mae': 'MAE', 'min_mse': 'MSE'}
     metric_titles = {'min_mape': 'Minimum MAPE', 'min_mae': 'Minimum MAE', 'min_mse': 'Minimum MSE'}
 
-    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
-    patterns = {'dataset1': '.', 'dataset2': ''}
+    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
+    patterns = {'dataset1': '.', 'dataset3': ''}
 
     os.makedirs('./plots/time_based_plots/', exist_ok=True)
 
@@ -106,18 +110,27 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
 
 def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
     """
-    Build the experiment file name string.
+    Build the experiment file name string matching the pattern:
+    exp_{method}_{steps}_._{dataset}_140.csv_{dataset}_140.csv
 
     Args:
         base_dir (str): Path to the directory containing the files.
-        dataset (str): Dataset name, e.g., "dataset2".
-        steps (int): Number of steps, e.g., 50.
-        method (str): Search method, e.g., "evolution" or "gridsearch".
+        dataset (str): Dataset name, e.g., "dataset1" or "dataset1_140".
+        steps (int|str): Number of steps, e.g., 5 or "5".
+        method (str): Search method, e.g., "anneal" or "gridsearch".
 
     Returns:
-        str: Full path of the experiment file.
+        str: Full path of the experiment file following the exact messy format.
     """
-    return f"{base_dir}/exp_{{{method}}}_optimizer_with_{{{steps}}}_steps_with__{dataset}_8000.csv"
+    import re
+
+    # Ensure dataset ends with _140
+    ds = dataset if str(dataset).endswith("_140") else f"{dataset}_140"
+    # Sanitize method and steps for safe filenames
+    method_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(method))
+    steps_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(steps))
+
+    return f"{base_dir}/exp_{method_safe}_{steps_safe}_._{ds}.csv_{ds}.csv"
 
 def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
@@ -155,8 +168,8 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
     metric_titles = {'min_mape': 'Minimum MAPE', 'min_mae': 'Minimum MAE', 'min_mse': 'Minimum MSE'}
 
 # Define colors and patterns
-    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
-    patterns = {'dataset1': '.', 'dataset2': ''}
+    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
+    patterns = {'dataset1': '.', 'dataset3': ''}
 
 # Create directory if it doesn't exist
     os.makedirs('./plots/metrics_based_plots/', exist_ok=True)
@@ -230,8 +243,8 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
     print(results)
     print("========================================")
     # Define colors and patterns
-    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
-    patterns = {'dataset1': '.', 'dataset2': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
+    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
+    patterns = {'dataset1': '.', 'dataset3': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
     fig, ax = plt.subplots(figsize=(8, 8))
     bar_width = 0.2
     group_width = bar_width * len(datasets)
@@ -294,8 +307,8 @@ def plot_trials_based_on_exp_duration(search_methods,duratrions,datasets):
     print(results)
     print("========================================")
     # Define colors and patterns
-    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728'}
-    patterns = {'dataset1': '.', 'dataset2': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
+    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
+    patterns = {'dataset1': '.', 'dataset3': ''}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
     fig, ax = plt.subplots(figsize=(8, 8))
     bar_width = 0.2
     group_width = bar_width * len(datasets)
@@ -347,16 +360,16 @@ def plot_trials_based_exp_resutls():
     the plots are,  the time token for each exp for each database based algorithm, and the defined number of trials
     
     '''
-    search_methods = ['tpe', 'random', 'GridSearch', 'evolution']
+    search_methods = ['tpe', 'random', 'GridSearch', 'evolution', 'anneal']
     number_of_trials=  [5,20,50,80,100]
-    datasets= ['dataset2', 'dataset1']
+    datasets= ['dataset3', 'dataset1']
     plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
     plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
 
 def plot_time_based_exp_resutls():
-    search_methods = ['tpe', 'random', 'GridSearch', 'evolution']
+    search_methods = ['tpe', 'random', 'GridSearch', 'evolution', 'anneal']
     duratrions=  ["300s","600s","1200s","2400s","3600s"]
-    datasets= ['dataset2', 'dataset1']
+    datasets= ['dataset3', 'dataset1']
     plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
     plot_trials_based_on_exp_duration(search_methods,duratrions,datasets)
 
@@ -368,42 +381,47 @@ def get_expiriments_ids_list(base_path):
     except ValueError:
         pass
     return ids  
-def change_files_names(base_path,ids):
-    new_names = []   
+def change_files_names(base_path, ids):
+    new_names = []
+
+    # Read experiment names
     for exp_id in ids:
-        # print("Changing files names for experiment ID: " + exp_id)
-        f=open(base_path + '/' + exp_id + '.csv', 'r') 
-        reader = csv.reader(f)
-        reader. __next__()  # Skip the header row
-        row1=next(reader)  # Skip the header row
+        with open(f"{base_path}/{exp_id}.csv", "r") as f:
+            reader = csv.reader(f)
+            next(reader)
+            row1 = next(reader)
 
-        new_name={
+            exp_name = row1[7]
+            # Sanitize experiment name for filesystem
+            safe_name = re.sub(r'[^A-Za-z0-9_.-]', '_', exp_name)
+
+            new_names.append({
                 "id": exp_id,
-                "experiment_name": row1[7],
-            }
-        new_names.append(new_name)
-        f.close()
+                "experiment_name": safe_name,
+            })
 
+    # Create directories if missing
+    os.makedirs("./csv/new_exp_profiles", exist_ok=True)
+    os.makedirs("./csv/new_metric_data", exist_ok=True)
+    os.makedirs("./csv/new_trial_job_event", exist_ok=True)
+
+    # Copy content into new files
     for name in new_names:
-        f=open("./csv/exp_profiles/" + name['id'] + '.csv', 'r')
-        content= f.read()
-        f2= open( "./csv/new_exp_profiles/" + name['experiment_name'] + '.csv', 'w')
-        f2.write(content)
-        f.close()
-        f2.close()
-        f=open("./csv/metric_data/" + name['id'] + '.csv', 'r')
-        content= f.read()
-        f2= open( "./csv/new_metric_data/" + name['experiment_name'] + '.csv', 'w')
-        f2.write(content)
-        f.close()
-        f2.close()
-        f=open("./csv/trial_job_event/" + name['id'] + '.csv', 'r')
-        content= f.read()
-        f2= open( "./csv/new_trial_job_event/" + name['experiment_name'] + '.csv', 'w')
-        f2.write(content)
-        f.close()
-        f2.close()
-    print("Files names changed successfully.")                        
+        safe_name = name["experiment_name"]
+
+        with open(f"./csv/exp_profiles/{name['id']}.csv", "r") as f:
+            with open(f"./csv/new_exp_profiles/{safe_name}.csv", "w") as f2:
+                f2.write(f.read())
+
+        with open(f"./csv/metric_data/{name['id']}.csv", "r") as f:
+            with open(f"./csv/new_metric_data/{safe_name}.csv", "w") as f2:
+                f2.write(f.read())
+
+        with open(f"./csv/trial_job_event/{name['id']}.csv", "r") as f:
+            with open(f"./csv/new_trial_job_event/{safe_name}.csv", "w") as f2:
+                f2.write(f.read())
+
+    print("Files names changed successfully.")
 def convert_MetricData_table_to_csv(data, output_file):
     """
     Convert only FINAL MetricData values to CSV with JSON values in separate columns

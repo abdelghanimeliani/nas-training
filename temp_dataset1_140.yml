@@ -1,14 +1,14 @@
-experimentName: exp_random_300s_./dataset1_140.csv_dataset1_140
+experimentName: exp_evolution_3600s_./dataset1_140.csv_dataset1_140
 trialCodeDirectory: .
 trialCommand: python3 trial.py --data ./dataset1_140.csv
 searchSpaceFile: search_space.json
 tuner:
-  name: random
+  name: evolution
   classArgs:
     optimize_mode: minimize
 trialConcurrency: 1
-maxTrialNumber: 9999999999
-maxExperimentDuration: 300s
+maxTrialNumber: 10000000000
+maxExperimentDuration: 3600s
 trainingService:
   platform: local
   useActiveGpu: false
