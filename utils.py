@@ -26,14 +26,10 @@ def get_file_name_based_on_exp_duration(base_dir, dataset, duration, method):
 
     return f"{base_dir}/exp_{method_safe}_{duration_safe}_._{ds}.csv_{ds}.csv"
 
-
 def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
     
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
 
-    # --------------------
-    # Load results
-    # --------------------
     for method in search_methods:
         for dataset in datasets:
             for duration in durations:
@@ -74,7 +70,8 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
     n_cols = len(search_methods)
 
     plt.figure(figsize=(4*n_cols, 3.5*n_rows))
-
+    print("Loading experiment results...")
+    print(str(results))
     for r, metric in enumerate(metrics):            # rows
         for c, method in enumerate(search_methods):  # columns
 
@@ -119,85 +116,7 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
     plt.close()
 
     print(f"\nSaved combined heatmap grid to:\n{out_png}\n{out_pdf}")
-#     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
 
-#     for method in search_methods:
-#         for dataset in datasets:
-#             for method in search_methods:
-#                 for duration in durations:
-#                     min_mape_value = float('inf')
-#                     min_mae_value= float('inf')
-#                     min_mse_value=float('inf')
-#                     file_name= get_file_name_based_on_exp_duration(base_dir="./csv/new_metric_data",dataset=dataset,duration=duration,method=method)
-#                     if os.path.exists(file_name):
-#                         # print(f"Processing file: {file_name}")
-#                         with open(file_name, 'r') as f:
-#                             reader = csv.reader(f)
-#                             next(reader)
-#                             for row in reader:
-#                                 if min_mape_value > float(row[7]):
-#                                     min_mape_value = float(row[7])
-#                                 if min_mae_value > float(row[6]):
-#                                     min_mae_value = float(row[6])
-#                                 if min_mse_value > float(row[5]):
-#                                     min_mse_value = float(row[5])
-#                     else:
-#                         print(f"File does not exist: {file_name}")
-#                     results[dataset][method][duration]['min_mape']= min_mape_value
-#                     results[dataset][method][duration]['min_mae']= min_mae_value
-#                     results[dataset][method][duration]['min_mse']= min_mse_value
-
-#     metrics = ['min_mape', 'min_mae', 'min_mse']
-#     metric_names = {'min_mape': 'MAPE (%)', 'min_mae': 'MAE', 'min_mse': 'MSE'}
-#     metric_titles = {'min_mape': 'Minimum MAPE', 'min_mae': 'Minimum MAE', 'min_mse': 'Minimum MSE'}
-
-#     colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
-#     patterns = {'dataset1': '.', 'dataset3': '*', 'dataset2': '-'}
-
-#     os.makedirs('./plots/time_based_plots/', exist_ok=True)
-
-# # Create a separate plot for each metric
-#     for metric in metrics:
-#         fig, ax = plt.subplots(figsize=(14, 8))
-#         bar_width = 0.2
-#         group_width = bar_width * len(datasets)
-#         method_positions = np.arange(len(durations)) * (len(search_methods) * group_width + 0.5)
-        
-#         # Plot bars for each method, trial, and dataset
-#         for i, method in enumerate(search_methods):
-#             for j, dataset in enumerate(datasets):
-#                 values = []
-#                 for duration in durations:
-#                     value = results[dataset][method][duration][metric]
-#                     values.append(value)
-                
-#                 offset = method_positions + i * group_width + j * bar_width
-#                 bars = ax.bar(offset, values, bar_width, 
-#                             color=colors[method], hatch=patterns[dataset],
-#                             edgecolor='black', label=f'{method} ({dataset})' if i == 0 and j == 0 else "")
-        
-#         # Customize the plot
-#         ax.set_xlabel('Number of Trials')
-#         ax.set_ylabel(metric_names[metric])
-#         ax.set_xticks(method_positions + (len(search_methods) * group_width - bar_width) / 2)
-#         ax.set_xticklabels(durations)
-#         ax.legend(handles=[
-#             plt.Rectangle((0,0),1,1, color=colors[m], label=m) for m in search_methods
-#         ] + [
-#             plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
-#         ], loc='upper right')
-        
-#         plt.title(f'{metric_titles[metric]} vs. exp duration by Search Method and Dataset')
-        
-#         # Save the plot
-#         plt.savefig(f'./plots/time_based_plots/{metric}_comparison.png', dpi=300, bbox_inches='tight')
-#         plt.savefig(f'./plots/time_based_plots/{metric}_comparison.pdf', bbox_inches='tight')
-        
-#         plt.tight_layout()
-#         plt.show()
-        
-#         print(f"{metric} plot saved to ./plots/metrics_based_plots/")
-     
 
 def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
     """
@@ -226,10 +145,6 @@ def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
 def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
     
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
-
-    # --------------------
-    # Load the CSV results
-    # --------------------
     for method in search_methods:
         for dataset in datasets:
             for trial in number_of_trials:
@@ -268,6 +183,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
 
     n_rows = len(metrics)     # 3 metrics
     n_cols = len(search_methods)  # e.g., 5 search methods
+
 
     plt.figure(figsize=(4*n_cols, 3.5*n_rows))
 
@@ -320,224 +236,185 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
     plt.close()
 
     print(f"\nSaved trials heatmap grid to:\n{png_path}\n{pdf_path}")
-#     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
-
-#     for method in search_methods:
-#         for dataset in datasets:
-#             for method in search_methods:
-#                 for trial in number_of_trials:
-#                     min_mape_value = float('inf')
-#                     min_mae_value= float('inf')
-#                     min_mse_value=float('inf')
-#                     file_name= get_file_name_based_on_trials_number(base_dir="./csv/new_metric_data",dataset=dataset,steps=trial,method=method)
-#                     if os.path.exists(file_name):
-#                         print(f"Processing file: {file_name}")
-#                         with open(file_name, 'r') as f:
-#                             reader = csv.reader(f)
-#                             next(reader)
-#                             for row in reader:
-#                                 if min_mape_value > float(row[7]):
-#                                     min_mape_value = float(row[7])
-#                                 if min_mae_value > float(row[6]):
-#                                     min_mae_value = float(row[6])
-#                                 if min_mse_value > float(row[5]):
-#                                     min_mse_value = float(row[5])
-#                     else:
-#                         print(f"File does not exist: {file_name}")
-#                     results[dataset][method][trial]['min_mape']= min_mape_value
-#                     results[dataset][method][trial]['min_mae']= min_mae_value
-#                     results[dataset][method][trial]['min_mse']= min_mse_value
-#     print("Results dictionary:")
-#     print(results)
-#     print("========================================")
-#     metrics = ['min_mape', 'min_mae', 'min_mse']
-#     metric_names = {'min_mape': 'MAPE (%)', 'min_mae': 'MAE', 'min_mse': 'MSE'}
-#     metric_titles = {'min_mape': 'Minimum MAPE', 'min_mae': 'Minimum MAE', 'min_mse': 'Minimum MSE'}
-
-# # Define colors and patterns
-#     colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
-#     patterns = {'dataset1': '.', 'dataset3': '*','dataset2': '-'}
-
-# # Create directory if it doesn't exist
-#     os.makedirs('./plots/metrics_based_plots/', exist_ok=True)
-
-# # Create a separate plot for each metric
-#     for metric in metrics:
-#         fig, ax = plt.subplots(figsize=(14, 8))
-#         bar_width = 0.2
-#         group_width = bar_width * len(datasets)
-#         method_positions = np.arange(len(number_of_trials)) * (len(search_methods) * group_width + 0.5)
-        
-#         # Plot bars for each method, trial, and dataset
-#         for i, method in enumerate(search_methods):
-#             for j, dataset in enumerate(datasets):
-#                 values = []
-#                 for trial in number_of_trials:
-#                     value = results[dataset][method][trial][metric]
-#                     values.append(value)
-                
-#                 offset = method_positions + i * group_width + j * bar_width
-#                 bars = ax.bar(offset, values, bar_width, 
-#                             color=colors[method], hatch=patterns[dataset],
-#                             edgecolor='black', label=f'{method} ({dataset})' if i == 0 and j == 0 else "")
-        
-#         # Customize the plot
-#         ax.set_xlabel('Number of Trials')
-#         ax.set_ylabel(metric_names[metric])
-#         ax.set_xticks(method_positions + (len(search_methods) * group_width - bar_width) / 2)
-#         ax.set_xticklabels(number_of_trials)
-#         ax.legend(handles=[
-#             plt.Rectangle((0,0),1,1, color=colors[m], label=m) for m in search_methods
-#         ] + [
-#             plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
-#         ], loc='upper right')
-        
-#         plt.title(f'{metric_titles[metric]} vs. Number of Trials by Search Method and Dataset')
-        
-#         # Save the plot
-#         plt.savefig(f'./plots/metrics_based_plots/{metric}_comparison.png', dpi=300, bbox_inches='tight')
-#         plt.savefig(f'./plots/metrics_based_plots/{metric}_comparison.pdf', bbox_inches='tight')
-        
-#         plt.tight_layout()
-#         plt.show()
-        
-#         print(f"{metric} plot saved to ./plots/metrics_based_plots/")
 
 def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
-    results = defaultdict(lambda: defaultdict(dict)) 
+
+    # results[dataset][method][trial] = execution_time_in_seconds
+    results = defaultdict(lambda: defaultdict(dict))
+    print("Results dictionary:")
+    print(results)
+    print("========================================")
+
+
     for method in search_methods:
         for dataset in datasets:
             for trial in number_of_trials:
-                file_name= get_file_name_based_on_trials_number(base_dir="./csv/new_exp_profiles",dataset=dataset,steps=trial,method=method)
-                if os.path.exists(file_name):
-                    print(f"Processing file: {file_name}")
-                    with open(file_name, 'r') as f:
-                        
-                        reader = csv.reader(f)
-                        for row in reader:
-                            last_row = row
-                        try:
-                            start = datetime.datetime.fromtimestamp(int(last_row[3]) / 1000)
-                            end = datetime.datetime.fromtimestamp(int(last_row[4]) / 1000)
-                            exp_time= end - start
-                            print(print(f"Method: {method}, Dataset: {dataset}, Trials: {trial}, Time: {exp_time} seconds"))
-                        except ValueError as e:
-                            exp_time=0
-                        results[dataset][method][trial]= exp_time
-                else:
+
+                file_name = get_file_name_based_on_trials_number(
+                    base_dir="./csv/new_exp_profiles",
+                    dataset=dataset,
+                    steps=trial,
+                    method=method
+                )
+
+                if not os.path.exists(file_name):
                     print(f"File does not exist: {file_name}")
-    print("Results dictionary:")
-    print(results)
-    print("========================================")
-    # Define colors and patterns
-    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
-    patterns = {'dataset1': '.', 'dataset3': '*','dataset2': '-'}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
-    fig, ax = plt.subplots(figsize=(8, 8))
-    bar_width = 0.2
-    group_width = bar_width * len(datasets)
-    method_positions = np.arange(len(number_of_trials)) * (len(search_methods) * group_width + 0.2 )
+                    results[dataset][method][trial] = 0
+                    continue
 
-# Plot bars for each method, trial, and dataset
-    for i, method in enumerate(search_methods):
-        for j, dataset in enumerate(datasets):
-            times = []
+                with open(file_name, "r") as f:
+                    reader = csv.reader(f)
+                    last_row = None
+                    for row in reader:
+                        last_row = row
+
+                if last_row is None:
+                    results[dataset][method][trial] = 0
+                    continue
+
+                try:
+                    start_ts = int(last_row[3]) / 1000
+                    end_ts   = int(last_row[4]) / 1000
+                    time_delta = end_ts - start_ts
+                    exec_time = max(time_delta, 0)
+                except:
+                    exec_time = 0
+
+                results[dataset][method][trial] = exec_time
+    n_rows = 1
+    n_cols = len(search_methods)
+
+
+    plt.figure(figsize=(4*n_cols, 4))
+
+    for c, method in enumerate(search_methods):
+
+        ax = plt.subplot(n_rows, n_cols, c + 1)
+
+        # Build matrix = datasets × trials
+        matrix = []
+        for dataset in datasets:
+            row_vals = []
             for trial in number_of_trials:
-                td = results[dataset][method].get(trial, datetime.timedelta(0))
-                times.append(td.total_seconds() if isinstance(td, datetime.timedelta) else 0)
-            
-            offset = method_positions + i * group_width + j * bar_width
-            bars = ax.bar(offset, times, bar_width, 
-                        color=colors[method], hatch=patterns[dataset],
-                        edgecolor='black', label=f'{method} ({dataset})' if i == 0 and j == 0 else "")
+                val = results[dataset][method].get(trial, 0)
+                row_vals.append(val)
+            matrix.append(row_vals)
 
-    # Customize the plot
-    ax.set_xlabel('Number of Trials')
-    ax.set_ylabel('Time (seconds)')
-    ax.set_yscale('log')  # Logarithmic scale due to large value range
-    ax.set_xticks(method_positions + (len(search_methods) * group_width - bar_width) / 2)
-    ax.set_xticklabels(number_of_trials)
-    ax.legend(handles=[
-        plt.Rectangle((0,0),1,1, color=colors[m], label=m) for m in search_methods
-    ] + [
-        plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
-    ], loc='upper left')
+        matrix = np.array(matrix)
 
-    plt.title('Time vs. Number of Trials by Search Method and Dataset')
+        sns.heatmap(
+            matrix,
+            annot=True,
+            fmt=".2f",
+            xticklabels=number_of_trials,
+            yticklabels=datasets if c == 0 else [],
+            cmap="viridis",
+            cbar=(c == n_cols - 1)
+        )
+
+        plt.title(f"{method}", fontsize=12, fontweight="bold")
+        if c == 0:
+            plt.ylabel("Dataset", fontsize=12, fontweight="bold")
+        plt.xlabel("Number of Trials")
+
     plt.tight_layout()
-    # Create directory if it doesn't exist
-    os.makedirs('./plots/trial_based_plots/', exist_ok=True)
 
-    # Save the plot
-    plt.savefig('./plots/trial_based_plots/trial_time_comparison.png', dpi=300, bbox_inches='tight')
-    plt.savefig('./plots/trial_based_plots/trial_time_comparison.pdf', bbox_inches='tight')
-    plt.show()               
-         
-def plot_trials_based_on_exp_duration(search_methods,duratrions,datasets):
-    results=defaultdict(lambda: defaultdict(dict))
+    # -------------------------------------------------------------
+    # Save output
+    # -------------------------------------------------------------
+    out_dir = "./plots/trial_based_plots/"
+    os.makedirs(out_dir, exist_ok=True)
+
+    png_path = out_dir + "trial_time_heatmaps.png"
+    pdf_path = out_dir + "trial_time_heatmaps.pdf"
+
+    plt.savefig(png_path, dpi=300, bbox_inches="tight")
+    plt.savefig(pdf_path, bbox_inches="tight")
+    plt.close()
+
+    print(f"\nSaved trial time heatmap grid to:\n{png_path}\n{pdf_path}")
+
+def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
+    
+    # results[dataset][method][duration] = number_of_trials
+    results = defaultdict(lambda: defaultdict(dict))
     for dataset in datasets:
         for method in search_methods:
-            for duration in duratrions:
-                max_trials=0
-                file_name= get_file_name_based_on_exp_duration(base_dir="./csv/new_trial_job_event",dataset=dataset,duration=duration,method=method)
+            for duration in durations:
+
+                file_name = get_file_name_based_on_exp_duration(
+                    base_dir="./csv/new_trial_job_event",
+                    dataset=dataset,
+                    duration=duration,
+                    method=method
+                )
+
+                max_trials = 0
+
                 if os.path.exists(file_name):
-                    print(f"Processing file: {file_name}")
-                    with open(file_name, 'r') as f:
+                    with open(file_name, "r") as f:
                         reader = csv.reader(f)
-                        next(reader)
+                        next(reader)  # skip header
                         for row in reader:
-                            if row[2] == 'SUCCEEDED':
+                            if row[2] == "SUCCEEDED":
                                 max_trials += 1
                 else:
                     print(f"File does not exist: {file_name}")
-                results[dataset][method][duration]= max_trials
-    print("Results dictionary:")
-    print(results)
-    print("========================================")
-    # Define colors and patterns
-    colors = {'tpe': '#1f77b4', 'random': '#ff7f0e', 'GridSearch': '#2ca02c', 'evolution': '#d62728','anneal': '#9467bd' }
-    patterns = {'dataset1': '.', 'dataset3': '*','dataset2': '-'}  # No pattern for dataset1, 'x' for dataset2# Plot configuration
-    fig, ax = plt.subplots(figsize=(8, 8))
-    bar_width = 0.2
-    group_width = bar_width * len(datasets)
-    method_positions = np.arange(len(duratrions)) * (len(search_methods) * group_width + 0.2 )
 
-# Plot bars for each method, trial, and dataset
-    for i, method in enumerate(search_methods):
-        for j, dataset in enumerate(datasets):
-            times = []
-            for duration in duratrions:
-                td = results[dataset][method].get(duration)
-                times.append(td)
-            
-            offset = method_positions + i * group_width + j * bar_width
-            bars = ax.bar(offset, times, bar_width, 
-                        color=colors[method], hatch=patterns[dataset],
-                        edgecolor='black', label=f'{method} ({dataset})' if i == 0 and j == 0 else "")
+                results[dataset][method][duration] = max_trials
 
-    # Customize the plot
-    ax.set_xlabel('Exmeriment Duration')
-    ax.set_ylabel('Number of Trials')
-    # ax.set_yscale('log')  # Logarithmic scale due to large value range
-    ax.set_xticks(method_positions + (len(search_methods) * group_width - bar_width) / 2)
-    ax.set_xticklabels(duratrions)
-    ax.legend(handles=[
-        plt.Rectangle((0,0),1,1, color=colors[m], label=m) for m in search_methods
-    ] + [
-        plt.Rectangle((0,0),1,1, hatch=patterns[d], fill=False, label=d, edgecolor='black') for d in datasets
-    ], loc='upper left')
-    print("========================================")
-    print("Results dictionary:")
+
+    n_rows = 1
+    n_cols = len(search_methods)
     print(results)
-    print("========================================")
-    plt.title('Number of trials vs. Expiriment duration by Search Method and Dataset')
+    plt.figure(figsize=(4 * n_cols, 4))
+
+    for c, method in enumerate(search_methods):
+
+        ax = plt.subplot(n_rows, n_cols, c + 1)
+
+        # Build matrix: rows = datasets, columns = durations
+        matrix = []
+        for dataset in datasets:
+            row_vals = []
+            for duration in durations:
+                val = results[dataset][method].get(duration, 0)
+                row_vals.append(val)
+            matrix.append(row_vals)
+
+        matrix = np.array(matrix)
+
+        sns.heatmap(
+            matrix,
+            annot=True,
+            fmt="d",
+            xticklabels=durations,
+            yticklabels=datasets if c == 0 else [],
+            cmap="viridis",
+            cbar=(c == n_cols - 1)
+        )
+
+        plt.title(f"{method}", fontsize=12, fontweight="bold")
+        if c == 0:
+            plt.ylabel("Dataset", fontsize=12, fontweight="bold")
+        plt.xlabel("Experiment Duration")
+
     plt.tight_layout()
-    # Create directory if it doesn't exist
-    os.makedirs('./plots/trial_based_plots/', exist_ok=True)
 
-    # Save the plot
-    plt.savefig('./plots/trial_based_plots/trial_time_comparison.png', dpi=300, bbox_inches='tight')
-    plt.savefig('./plots/time_based_plots/time_trial_comparison.pdf', bbox_inches='tight')
-    plt.show()               
+    # -------------------------------------------------------------
+    # Save output
+    # -------------------------------------------------------------
+    out_dir = "./plots/duration_based_plots/"
+    os.makedirs(out_dir, exist_ok=True)
+
+    png_path = out_dir + "duration_trials_heatmaps.png"
+    pdf_path = out_dir + "duration_trials_heatmaps.pdf"
+
+    plt.savefig(png_path, dpi=300, bbox_inches="tight")
+    plt.savefig(pdf_path, bbox_inches="tight")
+    plt.close()
+
+    print(f"\nSaved duration heatmap grid to:\n{png_path}\n{pdf_path}")
 # =============== call the ploting functions ===============
 def plot_trials_based_exp_resutls():
     '''
@@ -549,14 +426,14 @@ def plot_trials_based_exp_resutls():
     '''
     search_methods = ['tpe', 'random', 'GridSearch', 'evolution', 'anneal']
     number_of_trials=  [5,20,50,80,100]
-    datasets= ['dataset3', 'dataset1', 'dataset2']
+    datasets= ['dataset1', 'dataset2', 'dataset3']
     plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
     plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
 
 def plot_time_based_exp_resutls():
     search_methods = ['tpe', 'random', 'GridSearch', 'evolution', 'anneal']
     duratrions=  ["300s","600s","1200s","2400s","3600s"]
-    datasets= ['dataset3', 'dataset1', 'dataset2']
+    datasets= ['dataset1', 'dataset2', 'dataset3']
     plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
     plot_trials_based_on_exp_duration(search_methods,duratrions,datasets)
 
