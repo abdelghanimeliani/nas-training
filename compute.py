@@ -7,8 +7,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, GRU, SimpleRNN, Dense, Conv1D, Flatten, Input, LayerNormalization, MultiHeadAttention, GlobalAveragePooling1D, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # ============================================================
 # 0. CPU TRACKER (peak + average) - FIXED VERSION
@@ -152,36 +150,26 @@ model_builders = {
     "GRU": build_gru,
     "RNN": build_rnn,
     "CNN": build_cnn,
-    "TCN": build_tcn,
     "Transformer": build_transformer,
-    "MLP": build_mlp
 }
 
 # ============================================================
-# 4. EXPERIMENT WITH DIFFERENT DATA SIZES
+# 4. EXPERIMENT WITH DIFFERENT DATA SIZES - RUN 10 TIMES
 # ============================================================
 
 # Define different data sizes to test (keeping 6300/945 ratio)
 data_sizes = [
-    (630, 95),      # 10% of original
-    (1260, 189),    # 20% of original
-    (1890, 284),    # 30% of original
-    (2520, 378),    # 40% of original
-    (3150, 473),    # 50% of original
-    (3780, 567),    # 60% of original
-    (4410, 662),    # 70% of original
-    (5040, 756),    # 80% of original
-    (5670, 851),    # 90% of original
-    (6300, 945),    # 100% of original
-    (12600, 1890),  # 200% of original
-    (18900, 2835),  # 300% of original
-    (25200, 3780),  # 400% of original
-    (31500, 4725),  # 500% of original
-    (37800, 5670),  # 600% of original (close to max 40000)
+    (300, 45),
+    (600, 90),
+    (1200, 180),   
+    (2400, 360),    
+    (4800, 720),
+    (9600, 1440),
+    (19200, 2880),
+    (38400, 5760),
 ]
 
-all_results = []
-
+NUM_RUNS = 20
 WINDOW = 10
 EPOCHS = 25
 BATCH = 16
@@ -190,243 +178,188 @@ EPSILON = 1e-8  # for safe MAPE calculation
 # Load all available data first
 full_data_dict = load_data()
 
-for size_idx, (size1, size2) in enumerate(data_sizes):
-    print(f"\n{'='*60}")
-    print(f"EXPERIMENT {size_idx + 1}/{len(data_sizes)}")
-    print(f"Data sizes: TimeTrack={size1}, Dataset2/3={size2}")
-    print(f"{'='*60}")
-    
-    # Check if we have enough data
-    if size1 > len(full_data_dict["TimeTrack"]):
-        print(f"Warning: Requested {size1} samples for TimeTrack but only {len(full_data_dict['TimeTrack'])} available")
-        size1 = len(full_data_dict["TimeTrack"])
-    
-    if size2 > len(full_data_dict["Dataset2"]):
-        print(f"Warning: Requested {size2} samples for Dataset2 but only {len(full_data_dict['Dataset2'])} available")
-        size2 = len(full_data_dict["Dataset2"])
-    
-    if size2 > len(full_data_dict["Dataset3"]):
-        print(f"Warning: Requested {size2} samples for Dataset3 but only {len(full_data_dict['Dataset3'])} available")
-        size2 = len(full_data_dict["Dataset3"])
-    
-    # Create data dictionary with current sizes
-    data_dict = {
-        "TimeTrack": full_data_dict["TimeTrack"][:size1],
-        "Dataset2": full_data_dict["Dataset2"][:size2],
-        "Dataset3": full_data_dict["Dataset3"][:size2]
-    }
-    
-    for dataset_name, series in data_dict.items():
-        X, y = create_sequences(series, window=WINDOW)
-        X = X.reshape((X.shape[0], X.shape[1], 1))
+# Initialize or load existing results
+try:
+    # Try to load existing results
+    df_all_runs = pd.read_csv("avg.csv")
+    print("Loaded existing results from avg.csv")
+except FileNotFoundError:
+    # Create empty DataFrame if file doesn't exist
+    df_all_runs = pd.DataFrame()
+    print("Starting new experiment - no existing results found")
 
-        # 80/20 split
-        split_idx = int(len(X) * 0.8)
-        X_train, X_test = X[:split_idx], X[split_idx:]
-        y_train, y_test = y[:split_idx], y[split_idx:]
-
-        for model_name, builder in model_builders.items():
+try:
+    for run in range(NUM_RUNS):
+        print(f"\n{'='*60}")
+        print(f"RUN {run + 1}/{NUM_RUNS}")
+        print(f"{'='*60}")
+        
+        run_results = []
+        
+        for size_idx, (size1, size2) in enumerate(data_sizes):
+            print(f"\nExperiment {size_idx + 1}/{len(data_sizes)} - Data sizes: TimeTrack={size1}, Dataset2/3={size2}")
             
-            print(f"Training {model_name} on {dataset_name} (size: {len(series)})")
+            # Check if we have enough data
+            if size1 > len(full_data_dict["TimeTrack"]):
+                print(f"Warning: Requested {size1} samples for TimeTrack but only {len(full_data_dict['TimeTrack'])} available")
+                size1 = len(full_data_dict["TimeTrack"])
+            
+            if size2 > len(full_data_dict["Dataset2"]):
+                print(f"Warning: Requested {size2} samples for Dataset2 but only {len(full_data_dict['Dataset2'])} available")
+                size2 = len(full_data_dict["Dataset2"])
+            
+            if size2 > len(full_data_dict["Dataset3"]):
+                print(f"Warning: Requested {size2} samples for Dataset3 but only {len(full_data_dict['Dataset3'])} available")
+                size2 = len(full_data_dict["Dataset3"])
+            
+            # Create data dictionary with current sizes
+            data_dict = {
+                "TimeTrack": full_data_dict["TimeTrack"][:size1],
+                "Dataset2": full_data_dict["Dataset2"][:size2],
+                "Dataset3": full_data_dict["Dataset3"][:size2]
+            }
+            
+            for dataset_name, series in data_dict.items():
+                X, y = create_sequences(series, window=WINDOW)
+                X = X.reshape((X.shape[0], X.shape[1], 1))
 
-            try:
-                model = builder(input_shape=(WINDOW, 1))
+                # 80/20 split
+                split_idx = int(len(X) * 0.8)
+                X_train, X_test = X[:split_idx], X[split_idx:]
+                y_train, y_test = y[:split_idx], y[split_idx:]
 
-                # ---- MEMORY BEFORE ----
-                process = psutil.Process(os.getpid())
-                mem_before = process.memory_info().rss / 1024**2
+                for model_name, builder in model_builders.items():
+                    
+                    print(f"Training {model_name} on {dataset_name} (size: {len(series)})")
 
-                # ---- CPU TRACKING ----
-                cpu_tracker = CPUTracker()
-                cpu_tracker.start()
+                    try:
+                        model = builder(input_shape=(WINDOW, 1))
 
-                # ---- TIME MEASUREMENT ----
-                start_time = time.time()
+                        # ---- MEMORY BEFORE ----
+                        process = psutil.Process(os.getpid())
+                        mem_before = process.memory_info().rss / 1024**2
 
-                model.fit(
-                    X_train, y_train,
-                    epochs=EPOCHS,
-                    batch_size=BATCH,
-                    verbose=0,
-                    validation_split=0.2,
-                    callbacks=[EarlyStopping(patience=3, restore_best_weights=True)]
-                )
+                        # ---- CPU TRACKING ----
+                        cpu_tracker = CPUTracker()
+                        cpu_tracker.start()
 
-                training_time = time.time() - start_time
+                        # ---- TIME MEASUREMENT ----
+                        start_time = time.time()
 
-                # ---- STOP CPU TRACKING ----
-                max_cpu, avg_cpu = cpu_tracker.stop()
+                        model.fit(
+                            X_train, y_train,
+                            epochs=EPOCHS,
+                            batch_size=BATCH,
+                            verbose=0,
+                            validation_split=0.2,
+                            callbacks=[EarlyStopping(patience=3, restore_best_weights=True)]
+                        )
 
-                # ---- MEMORY AFTER ----
-                mem_after = process.memory_info().rss / 1024**2
-                mem_used = abs(mem_after - mem_before)
+                        training_time = time.time() - start_time
 
-                # ---- EVALUATION ----
-                preds = model.predict(X_test, verbose=0).flatten()
+                        # ---- STOP CPU TRACKING ----
+                        max_cpu, avg_cpu = cpu_tracker.stop()
 
-                mae = mean_absolute_error(y_test, preds)
-                mse = mean_squared_error(y_test, preds)
-                mape = np.mean(np.abs((y_test - preds) / (y_test + EPSILON))) * 100
+                        # ---- MEMORY AFTER ----
+                        mem_after = process.memory_info().rss / 1024**2
+                        mem_used = abs(mem_after - mem_before)
 
-                all_results.append({
-                    "Experiment": f"Size_{size1}_{size2}",
-                    "TimeTrack_Size": size1,
-                    "Dataset2_3_Size": size2,
-                    "Dataset": dataset_name,
-                    "Model": model_name,
-                    "Samples": len(series),
-                    "Train Time (s)": round(training_time, 4),
-                    "Memory Used (MB)": round(mem_used, 2),
-                    "Max CPU (%)": round(max_cpu, 2),
-                    "Avg CPU (%)": round(avg_cpu, 2),
-                    "MAE": mae,
-                    "MSE": mse,
-                    "MAPE": mape
-                })
-                
-            except Exception as e:
-                print(f"Error training {model_name} on {dataset_name}: {str(e)}")
-                continue
+                        # ---- EVALUATION ----
+                        preds = model.predict(X_test, verbose=0).flatten()
 
-# ============================================================
-# 5. SAVE RESULTS
-# ============================================================
+                        mae = mean_absolute_error(y_test, preds)
+                        mse = mean_squared_error(y_test, preds)
+                        mape = np.mean(np.abs((y_test - preds) / (y_test + EPSILON))) * 100
 
-df_all_results = pd.DataFrame(all_results)
-df_all_results.to_csv("computational_complexity_scaling_results.csv", index=False)
-
-print("\nSaved results to computational_complexity_scaling_results.csv")
-
-# ============================================================
-# 6. PLOT SCALING ANALYSIS
-# ============================================================
-
-# Set style for clean plots
-plt.style.use('default')
-sns.set_palette("husl")
-
-# Create scaling analysis plots
-fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-fig.suptitle('Computational Scaling Analysis with Different Data Sizes', fontsize=16, fontweight='bold')
-
-# Plot 1: Training Time vs Data Size (TimeTrack dataset)
-time_track_data = df_all_results[df_all_results['Dataset'] == 'TimeTrack']
-for model in model_builders.keys():
-    model_data = time_track_data[time_track_data['Model'] == model]
-    if not model_data.empty:
-        axes[0, 0].plot(model_data['TimeTrack_Size'], model_data['Train Time (s)'], 
-                       marker='o', label=model, linewidth=2)
-axes[0, 0].set_title('Training Time vs Data Size (TimeTrack)')
-axes[0, 0].set_xlabel('Data Size')
-axes[0, 0].set_ylabel('Training Time (seconds)')
-axes[0, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-axes[0, 0].grid(True, alpha=0.3)
-
-# Plot 2: Memory Usage vs Data Size (TimeTrack dataset)
-for model in model_builders.keys():
-    model_data = time_track_data[time_track_data['Model'] == model]
-    if not model_data.empty:
-        axes[0, 1].plot(model_data['TimeTrack_Size'], model_data['Memory Used (MB)'], 
-                       marker='s', label=model, linewidth=2)
-axes[0, 1].set_title('Memory Usage vs Data Size (TimeTrack)')
-axes[0, 1].set_xlabel('Data Size')
-axes[0, 1].set_ylabel('Memory Used (MB)')
-axes[0, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-axes[0, 1].grid(True, alpha=0.3)
-
-# Plot 3: CPU Usage vs Data Size (TimeTrack dataset)
-for model in model_builders.keys():
-    model_data = time_track_data[time_track_data['Model'] == model]
-    if not model_data.empty:
-        axes[0, 2].plot(model_data['TimeTrack_Size'], model_data['Avg CPU (%)'], 
-                       marker='^', label=model, linewidth=2)
-axes[0, 2].set_title('CPU Usage vs Data Size (TimeTrack)')
-axes[0, 2].set_xlabel('Data Size')
-axes[0, 2].set_ylabel('Avg CPU Usage (%)')
-axes[0, 2].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-axes[0, 2].grid(True, alpha=0.3)
-
-# Plot 4: Training Time vs Data Size (Dataset2)
-dataset2_data = df_all_results[df_all_results['Dataset'] == 'Dataset2']
-for model in model_builders.keys():
-    model_data = dataset2_data[dataset2_data['Model'] == model]
-    if not model_data.empty:
-        axes[1, 0].plot(model_data['Dataset2_3_Size'], model_data['Train Time (s)'], 
-                       marker='o', label=model, linewidth=2)
-axes[1, 0].set_title('Training Time vs Data Size (Dataset2)')
-axes[1, 0].set_xlabel('Data Size')
-axes[1, 0].set_ylabel('Training Time (seconds)')
-axes[1, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-axes[1, 0].grid(True, alpha=0.3)
-
-# Plot 5: Memory Usage vs Data Size (Dataset2)
-for model in model_builders.keys():
-    model_data = dataset2_data[dataset2_data['Model'] == model]
-    if not model_data.empty:
-        axes[1, 1].plot(model_data['Dataset2_3_Size'], model_data['Memory Used (MB)'], 
-                       marker='s', label=model, linewidth=2)
-axes[1, 1].set_title('Memory Usage vs Data Size (Dataset2)')
-axes[1, 1].set_xlabel('Data Size')
-axes[1, 1].set_ylabel('Memory Used (MB)')
-axes[1, 1].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-axes[1, 1].grid(True, alpha=0.3)
-
-# Plot 6: CPU Usage vs Data Size (Dataset2)
-for model in model_builders.keys():
-    model_data = dataset2_data[dataset2_data['Model'] == model]
-    if not model_data.empty:
-        axes[1, 2].plot(model_data['Dataset2_3_Size'], model_data['Avg CPU (%)'], 
-                       marker='^', label=model, linewidth=2)
-axes[1, 2].set_title('CPU Usage vs Data Size (Dataset2)')
-axes[1, 2].set_xlabel('Data Size')
-axes[1, 2].set_ylabel('Avg CPU Usage (%)')
-axes[1, 2].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-axes[1, 2].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.savefig('scaling_analysis_comprehensive.png', dpi=300, bbox_inches='tight')
-plt.show()
-
-# ============================================================
-# 7. SUMMARY STATISTICS
-# ============================================================
-
-print("\n" + "="*60)
-print("SCALING ANALYSIS SUMMARY")
-print("="*60)
-
-# Calculate scaling factors
-scaling_stats = []
-for size1, size2 in data_sizes:
-    size_data = df_all_results[df_all_results['TimeTrack_Size'] == size1]
-    if not size_data.empty:
-        avg_time = size_data['Train Time (s)'].mean()
-        avg_memory = size_data['Memory Used (MB)'].mean()
-        avg_cpu = size_data['Avg CPU (%)'].mean()
-        scaling_stats.append({
-            'TimeTrack_Size': size1,
-            'Dataset2_3_Size': size2,
-            'Avg_Train_Time': avg_time,
-            'Avg_Memory_Used': avg_memory,
-            'Avg_CPU_Usage': avg_cpu
+                        run_results.append({
+                            "Run": run + 1,
+                            "Experiment": f"Size_{size1}_{size2}",
+                            "TimeTrack_Size": size1,
+                            "Dataset2_3_Size": size2,
+                            "Dataset": dataset_name,
+                            "Model": model_name,
+                            "Samples": len(series),
+                            "Train Time (s)": round(training_time, 4),
+                            "Memory Used (MB)": round(mem_used, 2),
+                            "Max CPU (%)": round(max_cpu, 2),
+                            "Avg CPU (%)": round(avg_cpu, 2),
+                            "MAE": mae,
+                            "MSE": mse,
+                            "MAPE": mape
+                        })
+                        
+                    except Exception as e:
+                        print(f"Error training {model_name} on {dataset_name}: {str(e)}")
+                        continue
+        
+        # Convert current run results to DataFrame
+        df_current_run = pd.DataFrame(run_results)
+        
+        # Append to existing results
+        if df_all_runs.empty:
+            df_all_runs = df_current_run
+        else:
+            df_all_runs = pd.concat([df_all_runs, df_current_run], ignore_index=True)
+        
+        # Save updated results after each run
+        df_all_runs.to_csv("avg.csv", index=False)
+        print(f"Results saved after run {run + 1}")
+        
+        # Calculate and save average results after each run
+        avg_columns = ['Train Time (s)', 'Memory Used (MB)', 'Max CPU (%)', 'Avg CPU (%)', 'MAE', 'MSE', 'MAPE']
+        groupby_columns = ['Experiment', 'TimeTrack_Size', 'Dataset2_3_Size', 'Dataset', 'Model', 'Samples']
+        
+        df_avg_results = df_all_runs.groupby(groupby_columns)[avg_columns].mean().reset_index()
+        df_avg_results = df_avg_results.round({
+            'Train Time (s)': 4,
+            'Memory Used (MB)': 2,
+            'Max CPU (%)': 2,
+            'Avg CPU (%)': 2,
+            'MAE': 6,
+            'MSE': 6,
+            'MAPE': 4
         })
+        
+        # Save average results
+        df_avg_results.to_csv("average_computational_complexity_results.csv", index=False)
+        
+        # Calculate standard deviations
+        df_std_results = df_all_runs.groupby(groupby_columns)[avg_columns].std().reset_index()
+        df_std_results = df_std_results.round({
+            'Train Time (s)': 4,
+            'Memory Used (MB)': 2,
+            'Max CPU (%)': 2,
+            'Avg CPU (%)': 2,
+            'MAE': 6,
+            'MSE': 6,
+            'MAPE': 4
+        })
+        df_std_results.to_csv("std_dev_computational_complexity_results.csv", index=False)
+        
+        print(f"Average results updated after run {run + 1}")
+        print(f"Progress: {run + 1}/{NUM_RUNS} runs completed ({((run + 1) / NUM_RUNS) * 100:.1f}%)")
 
-scaling_df = pd.DataFrame(scaling_stats)
-print("\nAverage Metrics by Data Size:")
-print(scaling_df.round(3))
+except KeyboardInterrupt:
+    print("\nExperiment interrupted by user!")
+    print("All results up to this point have been saved.")
+except Exception as e:
+    print(f"\nUnexpected error: {e}")
+    print("All results up to this point have been saved.")
 
-# Calculate scaling efficiency
-if len(scaling_df) > 1:
-    base_size = scaling_df.iloc[0]['TimeTrack_Size']
-    base_time = scaling_df.iloc[0]['Avg_Train_Time']
-    
-    print(f"\nScaling Efficiency (relative to {base_size} samples):")
-    for idx, row in scaling_df.iterrows():
-        size_ratio = row['TimeTrack_Size'] / base_size
-        time_ratio = row['Avg_Train_Time'] / base_time
-        efficiency = size_ratio / time_ratio if time_ratio > 0 else 0
-        print(f"Size {row['TimeTrack_Size']}: {efficiency:.3f}x efficiency")
+# Final summary
+print(f"\n{'='*60}")
+print("EXPERIMENT COMPLETE (OR INTERRUPTED)")
+print(f"{'='*60}")
+print(f"Total runs completed: {len(df_all_runs['Run'].unique()) if not df_all_runs.empty else 0}")
+print(f"Individual run results saved to: avg.csv")
+print(f"Average results saved to: average_computational_complexity_results.csv")
+print(f"Standard deviations saved to: std_dev_computational_complexity_results.csv")
 
-print("\nAll results saved to:")
-print("- computational_complexity_scaling_results.csv")
-print("- scaling_analysis_comprehensive.png")
+if not df_all_runs.empty:
+    # Print summary statistics
+    print(f"\nSummary Statistics:")
+    print(f"Total experiments per run: {len(data_sizes)} data sizes × {len(data_dict)} datasets × {len(model_builders)} models")
+    print(f"Total runs: {len(df_all_runs['Run'].unique())}")
+    print(f"Average training time across all experiments: {df_all_runs['Train Time (s)'].mean():.2f} seconds")
+    print(f"Average memory usage across all experiments: {df_all_runs['Memory Used (MB)'].mean():.2f} MB")
+    print(f"Average CPU usage across all experiments: {df_all_runs['Avg CPU (%)'].mean():.2f}%")
