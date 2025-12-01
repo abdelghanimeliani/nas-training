@@ -153,11 +153,6 @@ model_builders = {
     "Transformer": build_transformer,
 }
 
-# ============================================================
-# 4. EXPERIMENT WITH DIFFERENT DATA SIZES - RUN 10 TIMES
-# ============================================================
-
-# Define different data sizes to test (keeping 6300/945 ratio)
 data_sizes = [
     (300, 45),
     (600, 90),

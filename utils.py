@@ -86,13 +86,14 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                 matrix.append(row_vals)
 
             matrix = np.array(matrix)
+            dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
 
             sns.heatmap(
                 matrix,
                 annot=True,
                 fmt=".3f",
                 xticklabels=durations,
-                yticklabels=datasets if c == 0 else [],  # only left-most column shows dataset labels
+                yticklabels=dataset_labels if c == 0 else [],  # only left-most column shows dataset labels
                 cmap="viridis",
                 cbar=(c == n_cols - 1)  # only last column shows colorbar
             )
@@ -196,6 +197,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
             ax = plt.subplot(n_rows, n_cols, r*n_cols + c + 1)
 
             # Build matrix (datasets × trials)
+            dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
             matrix = []
             for dataset in datasets:
                 row_vals = []
@@ -204,13 +206,13 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
                 matrix.append(row_vals)
 
             matrix = np.array(matrix)
-
+            
             sns.heatmap(
                 matrix,
                 annot=True,
                 fmt=".3f",
                 xticklabels=number_of_trials,
-                yticklabels=datasets if c == 0 else [],
+                yticklabels=dataset_labels if c == 0 else [],
                 cmap="viridis",
                 cbar=(c == n_cols - 1)  # only last column has colorbar
             )
@@ -301,13 +303,14 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
             matrix.append(row_vals)
 
         matrix = np.array(matrix)
+        dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
 
         sns.heatmap(
             matrix,
             annot=True,
             fmt=".2f",
             xticklabels=number_of_trials,
-            yticklabels=datasets if c == 0 else [],
+            yticklabels=dataset_labels if c == 0 else [],
             cmap="viridis",
             cbar=(c == n_cols - 1)
         )
@@ -383,13 +386,13 @@ def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
             matrix.append(row_vals)
 
         matrix = np.array(matrix)
-
+        dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
         sns.heatmap(
             matrix,
             annot=True,
             fmt="d",
             xticklabels=durations,
-            yticklabels=datasets if c == 0 else [],
+            yticklabels=dataset_labels if c == 0 else [],
             cmap="viridis",
             cbar=(c == n_cols - 1)
         )

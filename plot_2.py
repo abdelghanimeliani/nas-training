@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load your CSV data
-df = pd.read_csv('average_computational_complexity_results.csv')  # Replace with your actual file path
+# df = pd.read_csv('average_computational_complexity_results.csv')  # Replace with your actual file path
+df = pd.read_csv('file1_updated.csv') 
 
 print("DataFrame loaded successfully!")
 print(f"Shape: {df.shape}")
@@ -80,7 +81,7 @@ for row_idx, (metric, metric_name) in enumerate(zip(metrics, metric_names)):
         
         # X-axis label only for last row
         if row_idx == 2:  # Last row (index 2)
-            ax.set_xlabel('Data Injection\n(5min_samples;45s_samples)', fontsize=10)
+            ax.set_xlabel('Data Injection', fontsize=10)
         
         ax.set_xticks(range(len(data_pairs)))
         ax.set_xticklabels(data_pairs, rotation=45, fontsize=9)
