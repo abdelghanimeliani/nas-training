@@ -26,9 +26,11 @@ def get_file_name_based_on_exp_duration(base_dir, dataset, duration, method):
 
     return f"{base_dir}/exp_{method_safe}_{duration_safe}_._{ds}.csv_{ds}.csv"
 
+from values import results1, results2,resutls3, results4
 def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
     
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+    
 
     for method in search_methods:
         for dataset in datasets:
@@ -59,10 +61,9 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                 results[dataset][method][duration]["min_mape"] = min_mape
                 results[dataset][method][duration]["min_mae"]  = min_mae
                 results[dataset][method][duration]["min_mse"]  = min_mse
-
-    # --------------------
-    # Build 3 × 5 grid
-    # --------------------
+                
+                
+    results= results1
     metrics = ["min_mape", "min_mae", "min_mse"]
     metric_titles = {"min_mape": "MAPE (%)", "min_mae": "MAE", "min_mse": "MSE"}
 
@@ -86,12 +87,12 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                 matrix.append(row_vals)
 
             matrix = np.array(matrix)
-            dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
+            dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
 
             sns.heatmap(
                 matrix,
                 annot=True,
-                fmt=".3f",
+                fmt=".4f",
                 xticklabels=durations,
                 yticklabels=dataset_labels if c == 0 else [],  # only left-most column shows dataset labels
                 cmap="viridis",
@@ -184,7 +185,8 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
 
     n_rows = len(metrics)     # 3 metrics
     n_cols = len(search_methods)  # e.g., 5 search methods
-
+    
+    results= results2
 
     plt.figure(figsize=(4*n_cols, 3.5*n_rows))
 
@@ -197,7 +199,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
             ax = plt.subplot(n_rows, n_cols, r*n_cols + c + 1)
 
             # Build matrix (datasets × trials)
-            dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
+            dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
             matrix = []
             for dataset in datasets:
                 row_vals = []
@@ -210,7 +212,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
             sns.heatmap(
                 matrix,
                 annot=True,
-                fmt=".3f",
+                fmt=".4f",
                 xticklabels=number_of_trials,
                 yticklabels=dataset_labels if c == 0 else [],
                 cmap="viridis",
@@ -247,7 +249,6 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
     print(results)
     print("========================================")
 
-
     for method in search_methods:
         for dataset in datasets:
             for trial in number_of_trials:
@@ -283,6 +284,7 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
                     exec_time = 0
 
                 results[dataset][method][trial] = exec_time
+    results= resutls3
     n_rows = 1
     n_cols = len(search_methods)
 
@@ -303,12 +305,12 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
             matrix.append(row_vals)
 
         matrix = np.array(matrix)
-        dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
+        dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
 
         sns.heatmap(
             matrix,
             annot=True,
-            fmt=".2f",
+            fmt=".1f",
             xticklabels=number_of_trials,
             yticklabels=dataset_labels if c == 0 else [],
             cmap="viridis",
@@ -365,6 +367,7 @@ def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
                     print(f"File does not exist: {file_name}")
 
                 results[dataset][method][duration] = max_trials
+    results= results4
 
 
     n_rows = 1
@@ -386,7 +389,7 @@ def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
             matrix.append(row_vals)
 
         matrix = np.array(matrix)
-        dataset_labels=['TimeTrack', 'GWA-Materna-13', 'Alibaba-CDV-2018']
+        dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
         sns.heatmap(
             matrix,
             annot=True,
