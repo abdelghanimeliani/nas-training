@@ -32,17 +32,19 @@ def run_single_experiment(optimizer, port, duration, max_trials, experiment_name
 
     # Run nni
     proc = subprocess.run(
-        ["nnictl", "create", "--config", str(temp_config_path), "--port", str(port)],
-        capture_output=True, text=True
-    )
+            ["nnictl", "create", "--config", str(temp_config_path), "--port", str(port)],
+            capture_output=True, text=True
+        )
 
     match = re.search(r'Experiment ID:\s*(\S+)', proc.stdout)
     if match:
         print("Experiment ID:", match.group(1))
     else:
         print("ERROR: Experiment ID not found!")
-
-
+        print("===== NNI ERROR LOGS =====")
+        print("STDOUT:", proc.stdout)
+        print("STDERR:", proc.stderr)
+        print("==========================")
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--optimizer", required=True)

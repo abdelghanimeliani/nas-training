@@ -18,20 +18,19 @@ def get_file_name_based_on_exp_duration(base_dir, dataset, duration, method):
     import re
 
     # Ensure dataset ends with _140
-    ds = dataset if str(dataset).endswith("_140") else f"{dataset}_140"
+    ds = dataset
 
     # Sanitize method and duration
     method_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(method))
     duration_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(duration))
 
-    return f"{base_dir}/exp_{method_safe}_{duration_safe}_._{ds}.csv_{ds}.csv"
+    return f"{base_dir}/exp_{method_safe}_{duration_safe}_{ds}_{ds}.csv"
 
 from values import results1, results2,resutls3, results4
-def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
+def plot_metrics_based_on_exp_duration(search_methods, durations, datasets, output_csv="metrics_duration.csv"):
     
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
     
-
     for method in search_methods:
         for dataset in datasets:
             for duration in durations:
@@ -41,7 +40,7 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                 min_mse  = float('inf')
 
                 file_name = get_file_name_based_on_exp_duration(
-                    base_dir="./csv/new_metric_data",
+                    base_dir="./csv-2/new_metric_data",
                     dataset=dataset,
                     duration=duration,
                     method=method
@@ -62,8 +61,27 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                 results[dataset][method][duration]["min_mae"]  = min_mae
                 results[dataset][method][duration]["min_mse"]  = min_mse
                 
-                
-    results= results1
+    # --- NEW CODE: Save results to CSV ---
+    print(f"Saving experiment results to {output_csv}...")
+    with open(output_csv, "w", newline="") as f:
+        writer = csv.writer(f)
+        # Write the header row
+        writer.writerow(["Dataset", "Method", "Duration", "Min_MAPE", "Min_MAE", "Min_MSE"])
+        
+        # Iterate through the nested dictionary and write rows
+        for dataset, methods_dict in results.items():
+            for method, durations_dict in methods_dict.items():
+                for duration, metrics in durations_dict.items():
+                    writer.writerow([
+                        dataset,
+                        method,
+                        duration,
+                        metrics["min_mape"],
+                        metrics["min_mae"],
+                        metrics["min_mse"]
+                    ])
+    # -------------------------------------
+
     metrics = ["min_mape", "min_mae", "min_mse"]
     metric_titles = {"min_mape": "MAPE (%)", "min_mae": "MAE", "min_mse": "MSE"}
 
@@ -72,7 +90,6 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
 
     plt.figure(figsize=(4*n_cols, 3.5*n_rows))
     print("Loading experiment results...")
-    print(str(results))
     for r, metric in enumerate(metrics):            # rows
         for c, method in enumerate(search_methods):  # columns
 
@@ -87,7 +104,7 @@ def plot_metrics_based_on_exp_duration(search_methods,durations,datasets):
                 matrix.append(row_vals)
 
             matrix = np.array(matrix)
-            dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
+            dataset_labels=['Local', 'TT', 'TT+Local', 'Mat', 'Ali', 'Mat+Local', 'Ali+Local']
 
             sns.heatmap(
                 matrix,
@@ -137,16 +154,22 @@ def get_file_name_based_on_trials_number(base_dir, dataset, steps, method):
     import re
 
     # Ensure dataset ends with _140
-    ds = dataset if str(dataset).endswith("_140") else f"{dataset}_140"
+    ds = dataset
     # Sanitize method and steps for safe filenames
     method_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(method))
     steps_safe = re.sub(r'[^A-Za-z0-9_.-]', '_', str(steps))
 
-    return f"{base_dir}/exp_{method_safe}_{steps_safe}_._{ds}.csv_{ds}.csv"
+    return f"{base_dir}/exp_{method_safe}_{steps_safe}_{ds}_{ds}.csv"
 
-def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
+import os
+import csv
+import pandas as pd
+from collections import defaultdict
+
+def plot_metrics_based_on_the_number_of_trials(search_methods, number_of_trials, datasets, output_csv_path="./metrics_steps.csv"):
     
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+    
     for method in search_methods:
         for dataset in datasets:
             for trial in number_of_trials:
@@ -156,7 +179,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
                 min_mse  = float('inf')
 
                 file_name = get_file_name_based_on_trials_number(
-                    base_dir="./csv/new_metric_data",
+                    base_dir="./csv-2/new_metric_data",
                     dataset=dataset,
                     steps=trial,
                     method=method
@@ -165,7 +188,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
                 if os.path.exists(file_name):
                     with open(file_name, "r") as f:
                         reader = csv.reader(f)
-                        next(reader)
+                        next(reader)  # Skip header
                         for row in reader:
                             min_mape = min(min_mape, float(row[7]))
                             min_mae  = min(min_mae,  float(row[6]))
@@ -177,16 +200,46 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
                 results[dataset][method][trial]["min_mae"]  = min_mae
                 results[dataset][method][trial]["min_mse"]  = min_mse
 
+    # ----------------------------------------------------
+    # Convert the nested dict into a flat list for the CSV
+    # ----------------------------------------------------
+    csv_rows = []
+    for dataset, methods in results.items():
+        for method, trials in methods.items():
+            for trial, metrics in trials.items():
+                
+                # Clean up inf values if files were missing, making them blank in the CSV
+                mape_val = metrics["min_mape"] if metrics["min_mape"] != float('inf') else None
+                mae_val  = metrics["min_mae"]  if metrics["min_mae"]  != float('inf') else None
+                mse_val  = metrics["min_mse"]  if metrics["min_mse"]  != float('inf') else None
+                
+                csv_rows.append({
+                    "dataset": dataset,
+                    "method": method,
+                    "duration": trial,  # Named 'duration' to match your heatmap script expects
+                    "min_mape": mape_val,
+                    "min_mae": mae_val,
+                    "min_mse": mse_val
+                })
+    
+    # Ensure the output directory exists
+    output_dir = os.path.dirname(output_csv_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        
+    # Create DataFrame and save
+    df_out = pd.DataFrame(csv_rows)
+    df_out.to_csv(output_csv_path, index=False)
+    print(f"\nSuccessfully compiled and saved metrics to: {output_csv_path}")
+
     # --------------------
-    # Heatmap grid layout
+    # Heatmap grid layout (If you still want to generate plots here, your plotting code goes below)
     # --------------------
     metrics = ["min_mape", "min_mae", "min_mse"]
     metric_titles = {"min_mape": "MAPE (%)", "min_mae": "MAE", "min_mse": "MSE"}
 
-    n_rows = len(metrics)     # 3 metrics
-    n_cols = len(search_methods)  # e.g., 5 search methods
-    
-    results= results2
+    n_rows = len(metrics)     
+    n_cols = len(search_methods)
 
     plt.figure(figsize=(4*n_cols, 3.5*n_rows))
 
@@ -199,7 +252,7 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
             ax = plt.subplot(n_rows, n_cols, r*n_cols + c + 1)
 
             # Build matrix (datasets × trials)
-            dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
+            dataset_labels=['Local', 'TT', 'TT+Local', 'Mat', 'Ali', 'Mat+Local', 'Ali+Local']
             matrix = []
             for dataset in datasets:
                 row_vals = []
@@ -241,20 +294,17 @@ def plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,d
 
     print(f"\nSaved trials heatmap grid to:\n{png_path}\n{pdf_path}")
 
-def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets):
+def plot_time_based_on_the_number_of_trials(search_methods, number_of_trials, datasets, output_csv_path="./time_steps.csv"):
 
     # results[dataset][method][trial] = execution_time_in_seconds
     results = defaultdict(lambda: defaultdict(dict))
-    print("Results dictionary:")
-    print(results)
-    print("========================================")
 
     for method in search_methods:
         for dataset in datasets:
             for trial in number_of_trials:
 
                 file_name = get_file_name_based_on_trials_number(
-                    base_dir="./csv/new_exp_profiles",
+                    base_dir="./csv-2/new_exp_profiles",
                     dataset=dataset,
                     steps=trial,
                     method=method
@@ -284,7 +334,33 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
                     exec_time = 0
 
                 results[dataset][method][trial] = exec_time
-    results= resutls3
+
+    # ----------------------------------------------------
+    # Convert the nested dict into a flat list for the CSV
+    # ----------------------------------------------------
+    csv_rows = []
+    for dataset, methods in results.items():
+        for method, trials_dict in methods.items():
+            for trial, exec_time in trials_dict.items():
+                csv_rows.append({
+                    "dataset": dataset,
+                    "method": method,
+                    "duration": trial,  # Kept as 'duration' (representing steps) for plot script layout mapping
+                    "exec_time": exec_time
+                })
+
+    # Ensure the parent target directory exists before saving
+    output_dir = os.path.dirname(output_csv_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
+    # Convert to DataFrame and write to disk
+    df_out = pd.DataFrame(csv_rows)
+    df_out.to_csv(output_csv_path, index=False)
+    
+    print(f"\nSuccessfully compiled and saved execution times to: {output_csv_path}")
+
+    # Layout setup for whatever plotting logic you append below
     n_rows = 1
     n_cols = len(search_methods)
 
@@ -305,7 +381,7 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
             matrix.append(row_vals)
 
         matrix = np.array(matrix)
-        dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
+        dataset_labels=['Local', 'TT', 'TT+Local', 'Mat', 'Ali', 'Mat+Local', 'Ali+Local']
 
         sns.heatmap(
             matrix,
@@ -320,7 +396,7 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
         plt.title(f"{method}", fontsize=12, fontweight="bold")
         if c == 0:
             plt.ylabel("Dataset", fontsize=12, fontweight="bold")
-        plt.xlabel("Number of Trials")
+        # plt.xlabel("Number of Trials", )
 
     plt.tight_layout()
 
@@ -339,16 +415,17 @@ def plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,data
 
     print(f"\nSaved trial time heatmap grid to:\n{png_path}\n{pdf_path}")
 
-def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
+def plot_trials_based_on_exp_duration(search_methods, durations, datasets, output_csv_path="./trials_time.csv"):
     
     # results[dataset][method][duration] = number_of_trials
     results = defaultdict(lambda: defaultdict(dict))
+    
     for dataset in datasets:
         for method in search_methods:
             for duration in durations:
 
                 file_name = get_file_name_based_on_exp_duration(
-                    base_dir="./csv/new_trial_job_event",
+                    base_dir="./csv-2/new_trial_job_event",
                     dataset=dataset,
                     duration=duration,
                     method=method
@@ -367,7 +444,32 @@ def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
                     print(f"File does not exist: {file_name}")
 
                 results[dataset][method][duration] = max_trials
-    results= results4
+
+    # ----------------------------------------------------
+    # Convert the nested dict into a flat list for the CSV
+    # ----------------------------------------------------
+    csv_rows = []
+    for dataset, methods in results.items():
+        for method, durations_dict in methods.items():
+            for duration, max_trials in durations_dict.items():
+                csv_rows.append({
+                    "dataset": dataset,
+                    "method": method,
+                    "duration": duration,
+                    "trials": max_trials
+                })
+
+    # Ensure the parent target directory exists before saving
+    output_dir = os.path.dirname(output_csv_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
+    # Build DataFrame and dump to CSV
+    df_out = pd.DataFrame(csv_rows)
+    df_out.to_csv(output_csv_path, index=False)
+    
+    print(f"\nSuccessfully compiled and saved trial runs to: {output_csv_path}")
+    # results= results4
 
 
     n_rows = 1
@@ -389,7 +491,7 @@ def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
             matrix.append(row_vals)
 
         matrix = np.array(matrix)
-        dataset_labels=['TT', 'GWAM-13', 'ACT-2018']
+        dataset_labels=['Local', 'TT', 'TT+Local', 'Mat', 'Ali', 'Mat+Local', 'Ali+Local']
         sns.heatmap(
             matrix,
             annot=True,
@@ -403,7 +505,7 @@ def plot_trials_based_on_exp_duration(search_methods,durations,datasets):
         plt.title(f"{method}", fontsize=12, fontweight="bold")
         if c == 0:
             plt.ylabel("Dataset", fontsize=12, fontweight="bold")
-        plt.xlabel("Experiment Duration")
+        # plt.xlabel("Experiment Duration")
 
     plt.tight_layout()
 
@@ -431,15 +533,20 @@ def plot_trials_based_exp_resutls():
     
     '''
     search_methods = ['tpe', 'random', 'GridSearch', 'evolution', 'anneal']
-    number_of_trials=  [5,20,50,80,100]
-    datasets= ['dataset1', 'dataset2', 'dataset3']
+    number_of_trials=  [5,10,20,50,80,100]
+    datasets= ['local_only', 'tt_only', 'local_plus_tt',
+               "mat_only", "ali_only", "local_plus_mat",
+               "local_plus_ali"]
     plot_metrics_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
     plot_time_based_on_the_number_of_trials(search_methods,number_of_trials,datasets)
 
 def plot_time_based_exp_resutls():
     search_methods = ['tpe', 'random', 'GridSearch', 'evolution', 'anneal']
-    duratrions=  ["300s","600s","1200s","2400s","3600s"]
-    datasets= ['dataset1', 'dataset2', 'dataset3']
+    duratrions=  ["300s", "600s", "900s", "1200s", "1500s", "1800s"]
+     
+    datasets= ['local_only', 'tt_only', 'local_plus_tt',
+               "mat_only", "ali_only", "local_plus_mat",
+               "local_plus_ali"]
     plot_metrics_based_on_exp_duration(search_methods,duratrions,datasets)
     plot_trials_based_on_exp_duration(search_methods,duratrions,datasets)
 
@@ -471,24 +578,24 @@ def change_files_names(base_path, ids):
             })
 
     # Create directories if missing
-    os.makedirs("./csv/new_exp_profiles", exist_ok=True)
-    os.makedirs("./csv/new_metric_data", exist_ok=True)
-    os.makedirs("./csv/new_trial_job_event", exist_ok=True)
+    os.makedirs("./csv-2/new_exp_profiles", exist_ok=True)
+    os.makedirs("./csv-2/new_metric_data", exist_ok=True)
+    os.makedirs("./csv-2/new_trial_job_event", exist_ok=True)
 
     # Copy content into new files
     for name in new_names:
         safe_name = name["experiment_name"]
 
-        with open(f"./csv/exp_profiles/{name['id']}.csv", "r") as f:
-            with open(f"./csv/new_exp_profiles/{safe_name}.csv", "w") as f2:
+        with open(f"./csv-2/exp_profiles/{name['id']}.csv", "r") as f:
+            with open(f"./csv-2/new_exp_profiles/{safe_name}.csv", "w") as f2:
                 f2.write(f.read())
 
-        with open(f"./csv/metric_data/{name['id']}.csv", "r") as f:
-            with open(f"./csv/new_metric_data/{safe_name}.csv", "w") as f2:
+        with open(f"./csv-2/metric_data/{name['id']}.csv", "r") as f:
+            with open(f"./csv-2/new_metric_data/{safe_name}.csv", "w") as f2:
                 f2.write(f.read())
 
-        with open(f"./csv/trial_job_event/{name['id']}.csv", "r") as f:
-            with open(f"./csv/new_trial_job_event/{safe_name}.csv", "w") as f2:
+        with open(f"./csv-2/trial_job_event/{name['id']}.csv", "r") as f:
+            with open(f"./csv-2/new_trial_job_event/{safe_name}.csv", "w") as f2:
                 f2.write(f.read())
 
     print("Files names changed successfully.")

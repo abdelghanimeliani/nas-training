@@ -1,0 +1,984 @@
+[2026-05-20 00:56:24] INFO (main) Start NNI manager
+[2026-05-20 00:56:24] INFO (RestServer) Starting REST server at port 8259, URL prefix: "/"
+[2026-05-20 00:56:24] INFO (RestServer) REST server started.
+[2026-05-20 00:56:24] INFO (NNIDataStore) Datastore initialization done
+[2026-05-20 00:56:25] INFO (NNIManager) Starting experiment: lea8mitr
+[2026-05-20 00:56:25] INFO (NNIManager) Setup training service...
+[2026-05-20 00:56:25] INFO (NNIManager) Setup tuner...
+[2026-05-20 00:56:25] INFO (NNIManager) Change NNIManager status from: INITIALIZED to: RUNNING
+[2026-05-20 00:56:26] INFO (NNIManager) Add event listeners
+[2026-05-20 00:56:26] INFO (LocalV3.local) Start
+[2026-05-20 00:56:26] INFO (NNIManager) NNIManager received command from dispatcher: ID, 
+[2026-05-20 00:56:26] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 0, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 64, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.00019024931263465918, "window_size": 18, "batch_size": 64, "epochs": 15, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 00:56:26] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 0,
+  hyperParameters: {
+    value: '{"parameter_id": 0, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 64, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.00019024931263465918, "window_size": 18, "batch_size": 64, "epochs": 15, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:56:26] INFO (LocalV3.local) Register directory trial_code = /home/meliani/Desktop/phd/fast-track
+[2026-05-20 00:56:26] INFO (LocalV3.local) Created trial otU9N
+[2026-05-20 00:56:28] INFO (LocalV3.local) Trial parameter: otU9N {"parameter_id": 0, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 64, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.00019024931263465918, "window_size": 18, "batch_size": 64, "epochs": 15, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 00:57:21] INFO (NNIManager) Trial job otU9N status changed from RUNNING to SUCCEEDED
+[2026-05-20 00:57:21] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 1, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "relu", "lr": 0.0004978519045182011, "window_size": 11, "batch_size": 16, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 00:57:21] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 1,
+  hyperParameters: {
+    value: '{"parameter_id": 1, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "relu", "lr": 0.0004978519045182011, "window_size": 11, "batch_size": 16, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:57:21] INFO (LocalV3.local) Created trial CrrCP
+[2026-05-20 00:57:23] INFO (LocalV3.local) Trial parameter: CrrCP {"parameter_id": 1, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "relu", "lr": 0.0004978519045182011, "window_size": 11, "batch_size": 16, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 00:57:31] INFO (NNIManager) Trial job CrrCP status changed from RUNNING to SUCCEEDED
+[2026-05-20 00:57:31] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 2, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 4, "dropout": 0.5, "activation": "tanh", "lr": 2.5404891851377766e-05, "window_size": 24, "batch_size": 64, "epochs": 20, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:57:32] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 2,
+  hyperParameters: {
+    value: '{"parameter_id": 2, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 4, "dropout": 0.5, "activation": "tanh", "lr": 2.5404891851377766e-05, "window_size": 24, "batch_size": 64, "epochs": 20, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:57:32] INFO (LocalV3.local) Created trial ayvsz
+[2026-05-20 00:57:34] INFO (LocalV3.local) Trial parameter: ayvsz {"parameter_id": 2, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 4, "dropout": 0.5, "activation": "tanh", "lr": 2.5404891851377766e-05, "window_size": 24, "batch_size": 64, "epochs": 20, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:57:39] INFO (NNIManager) Trial job ayvsz status changed from RUNNING to SUCCEEDED
+[2026-05-20 00:57:39] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 3, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "elu", "lr": 0.0005137336646938695, "window_size": 14, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 00:57:39] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 3,
+  hyperParameters: {
+    value: '{"parameter_id": 3, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "elu", "lr": 0.0005137336646938695, "window_size": 14, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:57:39] INFO (LocalV3.local) Created trial m9auF
+[2026-05-20 00:57:41] INFO (LocalV3.local) Trial parameter: m9auF {"parameter_id": 3, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "elu", "lr": 0.0005137336646938695, "window_size": 14, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 00:57:50] INFO (NNIManager) Trial job m9auF status changed from RUNNING to SUCCEEDED
+[2026-05-20 00:57:50] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 4, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 16, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.0001805566742621048, "window_size": 5, "batch_size": 128, "epochs": 20, "kernel_size": 2, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:57:51] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 4,
+  hyperParameters: {
+    value: '{"parameter_id": 4, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 16, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.0001805566742621048, "window_size": 5, "batch_size": 128, "epochs": 20, "kernel_size": 2, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:57:51] INFO (LocalV3.local) Created trial lLqN9
+[2026-05-20 00:57:53] INFO (LocalV3.local) Trial parameter: lLqN9 {"parameter_id": 4, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 16, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.0001805566742621048, "window_size": 5, "batch_size": 128, "epochs": 20, "kernel_size": 2, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:57:58] INFO (NNIManager) Trial job lLqN9 status changed from RUNNING to SUCCEEDED
+[2026-05-20 00:57:58] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 5, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 3, "dropout": 0, "activation": "elu", "lr": 0.0008935374351479912, "window_size": 30, "batch_size": 64, "epochs": 15, "kernel_size": 2, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:57:58] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 5,
+  hyperParameters: {
+    value: '{"parameter_id": 5, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 3, "dropout": 0, "activation": "elu", "lr": 0.0008935374351479912, "window_size": 30, "batch_size": 64, "epochs": 15, "kernel_size": 2, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:57:58] INFO (LocalV3.local) Created trial F4P2U
+[2026-05-20 00:58:00] INFO (LocalV3.local) Trial parameter: F4P2U {"parameter_id": 5, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 3, "dropout": 0, "activation": "elu", "lr": 0.0008935374351479912, "window_size": 30, "batch_size": 64, "epochs": 15, "kernel_size": 2, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:59:42] INFO (NNIManager) Trial job F4P2U status changed from RUNNING to SUCCEEDED
+[2026-05-20 00:59:42] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 6, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 3, "dropout": 0.5, "activation": "sigmoid", "lr": 0.005444969942503819, "window_size": 4, "batch_size": 32, "epochs": 10, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 00:59:43] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 6,
+  hyperParameters: {
+    value: '{"parameter_id": 6, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 3, "dropout": 0.5, "activation": "sigmoid", "lr": 0.005444969942503819, "window_size": 4, "batch_size": 32, "epochs": 10, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 00:59:43] INFO (LocalV3.local) Created trial vjFTh
+[2026-05-20 00:59:44] INFO (LocalV3.local) Trial parameter: vjFTh {"parameter_id": 6, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 3, "dropout": 0.5, "activation": "sigmoid", "lr": 0.005444969942503819, "window_size": 4, "batch_size": 32, "epochs": 10, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:00:03] INFO (NNIManager) Trial job vjFTh status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:00:03] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 7, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 128, "num_layers": 4, "dropout": 0, "activation": "sigmoid", "lr": 0.00024211646425294927, "window_size": 8, "batch_size": 32, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:00:03] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 7,
+  hyperParameters: {
+    value: '{"parameter_id": 7, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 128, "num_layers": 4, "dropout": 0, "activation": "sigmoid", "lr": 0.00024211646425294927, "window_size": 8, "batch_size": 32, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:00:03] INFO (LocalV3.local) Created trial lgyBk
+[2026-05-20 01:00:05] INFO (LocalV3.local) Trial parameter: lgyBk {"parameter_id": 7, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 128, "num_layers": 4, "dropout": 0, "activation": "sigmoid", "lr": 0.00024211646425294927, "window_size": 8, "batch_size": 32, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:00:14] INFO (NNIManager) Trial job lgyBk status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:00:14] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 8, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 4, "dropout": 0.2, "activation": "tanh", "lr": 0.002865150991764578, "window_size": 3, "batch_size": 16, "epochs": 5, "kernel_size": 2, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:00:15] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 8,
+  hyperParameters: {
+    value: '{"parameter_id": 8, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 4, "dropout": 0.2, "activation": "tanh", "lr": 0.002865150991764578, "window_size": 3, "batch_size": 16, "epochs": 5, "kernel_size": 2, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:00:15] INFO (LocalV3.local) Created trial eDglD
+[2026-05-20 01:00:16] INFO (LocalV3.local) Trial parameter: eDglD {"parameter_id": 8, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 4, "dropout": 0.2, "activation": "tanh", "lr": 0.002865150991764578, "window_size": 3, "batch_size": 16, "epochs": 5, "kernel_size": 2, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:00:33] INFO (NNIManager) Trial job eDglD status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:00:33] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 9, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 16, "num_layers": 2, "dropout": 0.2, "activation": "relu", "lr": 0.0014695977773087272, "window_size": 29, "batch_size": 32, "epochs": 10, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:00:34] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 9,
+  hyperParameters: {
+    value: '{"parameter_id": 9, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 16, "num_layers": 2, "dropout": 0.2, "activation": "relu", "lr": 0.0014695977773087272, "window_size": 29, "batch_size": 32, "epochs": 10, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:00:34] INFO (LocalV3.local) Created trial Q3gB1
+[2026-05-20 01:00:35] INFO (LocalV3.local) Trial parameter: Q3gB1 {"parameter_id": 9, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 16, "num_layers": 2, "dropout": 0.2, "activation": "relu", "lr": 0.0014695977773087272, "window_size": 29, "batch_size": 32, "epochs": 10, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:00:52] INFO (NNIManager) Trial job Q3gB1 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:00:52] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 10, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 2, "dropout": 0.1, "activation": "tanh", "lr": 0.00034878979894833393, "window_size": 8, "batch_size": 64, "epochs": 5, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:00:52] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 10,
+  hyperParameters: {
+    value: '{"parameter_id": 10, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 2, "dropout": 0.1, "activation": "tanh", "lr": 0.00034878979894833393, "window_size": 8, "batch_size": 64, "epochs": 5, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:00:52] INFO (LocalV3.local) Created trial YKwMV
+[2026-05-20 01:00:54] INFO (LocalV3.local) Trial parameter: YKwMV {"parameter_id": 10, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 2, "dropout": 0.1, "activation": "tanh", "lr": 0.00034878979894833393, "window_size": 8, "batch_size": 64, "epochs": 5, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:00:56] INFO (NNIManager) Trial job YKwMV status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:00:56] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 11, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "tanh", "lr": 0.0012568385199401837, "window_size": 15, "batch_size": 64, "epochs": 5, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:00:57] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 11,
+  hyperParameters: {
+    value: '{"parameter_id": 11, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "tanh", "lr": 0.0012568385199401837, "window_size": 15, "batch_size": 64, "epochs": 5, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:00:57] INFO (LocalV3.local) Created trial D6riW
+[2026-05-20 01:00:58] INFO (LocalV3.local) Trial parameter: D6riW {"parameter_id": 11, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 16, "num_layers": 1, "dropout": 0.2, "activation": "tanh", "lr": 0.0012568385199401837, "window_size": 15, "batch_size": 64, "epochs": 5, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:01:03] INFO (NNIManager) Trial job D6riW status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:01:03] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 12, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 0.004556385832071461, "window_size": 25, "batch_size": 16, "epochs": 10, "kernel_size": 2, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:01:04] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 12,
+  hyperParameters: {
+    value: '{"parameter_id": 12, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 0.004556385832071461, "window_size": 25, "batch_size": 16, "epochs": 10, "kernel_size": 2, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:01:04] INFO (LocalV3.local) Created trial xjgtw
+[2026-05-20 01:01:06] INFO (LocalV3.local) Trial parameter: xjgtw {"parameter_id": 12, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 0.004556385832071461, "window_size": 25, "batch_size": 16, "epochs": 10, "kernel_size": 2, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:02:34] INFO (NNIManager) Trial job xjgtw status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:02:34] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 13, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 0.004572361034317908, "window_size": 10, "batch_size": 16, "epochs": 5, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:02:35] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 13,
+  hyperParameters: {
+    value: '{"parameter_id": 13, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 0.004572361034317908, "window_size": 10, "batch_size": 16, "epochs": 5, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:02:35] INFO (LocalV3.local) Created trial tVyRc
+[2026-05-20 01:02:37] INFO (LocalV3.local) Trial parameter: tVyRc {"parameter_id": 13, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 0.004572361034317908, "window_size": 10, "batch_size": 16, "epochs": 5, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:02:50] INFO (NNIManager) Trial job tVyRc status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:02:50] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 14, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 2, "dropout": 0.3, "activation": "relu", "lr": 4.485076873095807e-05, "window_size": 30, "batch_size": 64, "epochs": 20, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:02:51] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 14,
+  hyperParameters: {
+    value: '{"parameter_id": 14, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 2, "dropout": 0.3, "activation": "relu", "lr": 4.485076873095807e-05, "window_size": 30, "batch_size": 64, "epochs": 20, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:02:51] INFO (LocalV3.local) Created trial OYh82
+[2026-05-20 01:02:53] INFO (LocalV3.local) Trial parameter: OYh82 {"parameter_id": 14, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 2, "dropout": 0.3, "activation": "relu", "lr": 4.485076873095807e-05, "window_size": 30, "batch_size": 64, "epochs": 20, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:04:07] INFO (NNIManager) Trial job OYh82 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:04:07] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 15, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "sigmoid", "lr": 6.169300412633943e-05, "window_size": 8, "batch_size": 32, "epochs": 5, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:04:08] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 15,
+  hyperParameters: {
+    value: '{"parameter_id": 15, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "sigmoid", "lr": 6.169300412633943e-05, "window_size": 8, "batch_size": 32, "epochs": 5, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:04:08] INFO (LocalV3.local) Created trial P0UXp
+[2026-05-20 01:04:09] INFO (LocalV3.local) Trial parameter: P0UXp {"parameter_id": 15, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "sigmoid", "lr": 6.169300412633943e-05, "window_size": 8, "batch_size": 32, "epochs": 5, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:04:15] INFO (NNIManager) Trial job P0UXp status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:04:15] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 16, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 1, "dropout": 0, "activation": "elu", "lr": 2.7615134597240785e-05, "window_size": 30, "batch_size": 128, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:04:15] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 16,
+  hyperParameters: {
+    value: '{"parameter_id": 16, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 1, "dropout": 0, "activation": "elu", "lr": 2.7615134597240785e-05, "window_size": 30, "batch_size": 128, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:04:15] INFO (LocalV3.local) Created trial Ye3s0
+[2026-05-20 01:04:17] INFO (LocalV3.local) Trial parameter: Ye3s0 {"parameter_id": 16, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 1, "dropout": 0, "activation": "elu", "lr": 2.7615134597240785e-05, "window_size": 30, "batch_size": 128, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:04:49] INFO (NNIManager) Trial job Ye3s0 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:04:49] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 17, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 16, "num_layers": 2, "dropout": 0.2, "activation": "sigmoid", "lr": 0.0010692262362043186, "window_size": 19, "batch_size": 64, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:04:49] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 17,
+  hyperParameters: {
+    value: '{"parameter_id": 17, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 16, "num_layers": 2, "dropout": 0.2, "activation": "sigmoid", "lr": 0.0010692262362043186, "window_size": 19, "batch_size": 64, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:04:49] INFO (LocalV3.local) Created trial mKnb5
+[2026-05-20 01:04:51] INFO (LocalV3.local) Trial parameter: mKnb5 {"parameter_id": 17, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 16, "num_layers": 2, "dropout": 0.2, "activation": "sigmoid", "lr": 0.0010692262362043186, "window_size": 19, "batch_size": 64, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:04:55] INFO (NNIManager) Trial job mKnb5 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:04:55] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 18, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0.2, "activation": "tanh", "lr": 0.002215385556264327, "window_size": 19, "batch_size": 128, "epochs": 20, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:04:55] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 18,
+  hyperParameters: {
+    value: '{"parameter_id": 18, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0.2, "activation": "tanh", "lr": 0.002215385556264327, "window_size": 19, "batch_size": 128, "epochs": 20, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:04:55] INFO (LocalV3.local) Created trial Z8Soj
+[2026-05-20 01:04:57] INFO (LocalV3.local) Trial parameter: Z8Soj {"parameter_id": 18, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0.2, "activation": "tanh", "lr": 0.002215385556264327, "window_size": 19, "batch_size": 128, "epochs": 20, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:05:20] INFO (NNIManager) Trial job Z8Soj status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:05:20] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 19, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 1.174924091261496e-05, "window_size": 7, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:05:21] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 19,
+  hyperParameters: {
+    value: '{"parameter_id": 19, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 1.174924091261496e-05, "window_size": 7, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:05:21] INFO (LocalV3.local) Created trial kxabg
+[2026-05-20 01:05:22] INFO (LocalV3.local) Trial parameter: kxabg {"parameter_id": 19, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 1.174924091261496e-05, "window_size": 7, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:05:52] INFO (NNIManager) Trial job kxabg status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:05:52] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 20, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 1.0120931094716613e-05, "window_size": 10, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:05:52] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 20,
+  hyperParameters: {
+    value: '{"parameter_id": 20, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 1.0120931094716613e-05, "window_size": 10, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:05:52] INFO (LocalV3.local) Created trial MrmOH
+[2026-05-20 01:05:54] INFO (LocalV3.local) Trial parameter: MrmOH {"parameter_id": 20, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 1.0120931094716613e-05, "window_size": 10, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:06:31] INFO (NNIManager) Trial job MrmOH status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:06:31] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 21, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 0.009732391429242817, "window_size": 7, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:06:31] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 21,
+  hyperParameters: {
+    value: '{"parameter_id": 21, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 0.009732391429242817, "window_size": 7, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:06:31] INFO (LocalV3.local) Created trial H1gpn
+[2026-05-20 01:06:33] INFO (LocalV3.local) Trial parameter: H1gpn {"parameter_id": 21, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "sigmoid", "lr": 0.009732391429242817, "window_size": 7, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:06:41] INFO (NNIManager) Trial job H1gpn status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:06:41] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 22, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 1.1870936293676372e-05, "window_size": 13, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:06:41] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 22,
+  hyperParameters: {
+    value: '{"parameter_id": 22, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 1.1870936293676372e-05, "window_size": 13, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:06:41] INFO (LocalV3.local) Created trial SRAiA
+[2026-05-20 01:06:43] INFO (LocalV3.local) Trial parameter: SRAiA {"parameter_id": 22, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 1.1870936293676372e-05, "window_size": 13, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:07:07] INFO (NNIManager) Trial job SRAiA status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:07] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 23, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00010864971694135232, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:07] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 23,
+  hyperParameters: {
+    value: '{"parameter_id": 23, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00010864971694135232, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:07] INFO (LocalV3.local) Created trial t2MRH
+[2026-05-20 01:07:09] INFO (LocalV3.local) Trial parameter: t2MRH {"parameter_id": 23, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00010864971694135232, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:13] INFO (NNIManager) Trial job t2MRH status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:13] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 24, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00011347942038935239, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:14] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 24,
+  hyperParameters: {
+    value: '{"parameter_id": 24, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00011347942038935239, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:14] INFO (LocalV3.local) Created trial r3VjE
+[2026-05-20 01:07:16] INFO (LocalV3.local) Trial parameter: r3VjE {"parameter_id": 24, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00011347942038935239, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:22] INFO (NNIManager) Trial job r3VjE status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:22] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 25, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 9.348585598054387e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:23] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 25,
+  hyperParameters: {
+    value: '{"parameter_id": 25, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 9.348585598054387e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:23] INFO (LocalV3.local) Created trial EYFdu
+[2026-05-20 01:07:25] INFO (LocalV3.local) Trial parameter: EYFdu {"parameter_id": 25, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 9.348585598054387e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:31] INFO (NNIManager) Trial job EYFdu status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:32] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 26, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00011268978997417987, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:32] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 26,
+  hyperParameters: {
+    value: '{"parameter_id": 26, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00011268978997417987, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:32] INFO (LocalV3.local) Created trial sx4Pq
+[2026-05-20 01:07:34] INFO (LocalV3.local) Trial parameter: sx4Pq {"parameter_id": 26, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00011268978997417987, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:38] INFO (NNIManager) Trial job sx4Pq status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:38] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 27, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0001100043702256737, "window_size": 21, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:39] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 27,
+  hyperParameters: {
+    value: '{"parameter_id": 27, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0001100043702256737, "window_size": 21, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:39] INFO (LocalV3.local) Created trial qARbS
+[2026-05-20 01:07:40] INFO (LocalV3.local) Trial parameter: qARbS {"parameter_id": 27, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0001100043702256737, "window_size": 21, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:45] INFO (NNIManager) Trial job qARbS status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:45] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 28, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 3, "dropout": 0.3, "activation": "tanh", "lr": 1.827687929109222e-05, "window_size": 28, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:45] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 28,
+  hyperParameters: {
+    value: '{"parameter_id": 28, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 3, "dropout": 0.3, "activation": "tanh", "lr": 1.827687929109222e-05, "window_size": 28, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:45] INFO (LocalV3.local) Created trial ipqqV
+[2026-05-20 01:07:47] INFO (LocalV3.local) Trial parameter: ipqqV {"parameter_id": 28, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 3, "dropout": 0.3, "activation": "tanh", "lr": 1.827687929109222e-05, "window_size": 28, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:52] INFO (NNIManager) Trial job ipqqV status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:07:52] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 29, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.363815861257785e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:07:53] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 29,
+  hyperParameters: {
+    value: '{"parameter_id": 29, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.363815861257785e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:07:53] INFO (LocalV3.local) Created trial cCI9t
+[2026-05-20 01:07:54] INFO (LocalV3.local) Trial parameter: cCI9t {"parameter_id": 29, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.363815861257785e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:02] INFO (NNIManager) Trial job cCI9t status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:08:02] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 30, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.54399805996172e-05, "window_size": 27, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:02] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 30,
+  hyperParameters: {
+    value: '{"parameter_id": 30, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.54399805996172e-05, "window_size": 27, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:08:02] INFO (LocalV3.local) Created trial oojNl
+[2026-05-20 01:08:04] INFO (LocalV3.local) Trial parameter: oojNl {"parameter_id": 30, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.54399805996172e-05, "window_size": 27, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:12] INFO (NNIManager) Trial job oojNl status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:08:12] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 31, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 4.792732753538394e-05, "window_size": 17, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:13] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 31,
+  hyperParameters: {
+    value: '{"parameter_id": 31, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 4.792732753538394e-05, "window_size": 17, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:08:13] INFO (LocalV3.local) Created trial M7uaT
+[2026-05-20 01:08:14] INFO (LocalV3.local) Trial parameter: M7uaT {"parameter_id": 31, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 4.792732753538394e-05, "window_size": 17, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:18] INFO (NNIManager) Trial job M7uaT status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:08:18] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 32, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 2.8025684274125667e-05, "window_size": 2, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:19] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 32,
+  hyperParameters: {
+    value: '{"parameter_id": 32, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 2.8025684274125667e-05, "window_size": 2, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:08:19] INFO (LocalV3.local) Created trial IVH0x
+[2026-05-20 01:08:20] INFO (LocalV3.local) Trial parameter: IVH0x {"parameter_id": 32, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 2.8025684274125667e-05, "window_size": 2, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:32] INFO (NNIManager) Trial job IVH0x status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:08:32] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 33, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 7.895823925601802e-05, "window_size": 23, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:33] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 33,
+  hyperParameters: {
+    value: '{"parameter_id": 33, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 7.895823925601802e-05, "window_size": 23, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:08:33] INFO (LocalV3.local) Created trial LNPxw
+[2026-05-20 01:08:34] INFO (LocalV3.local) Trial parameter: LNPxw {"parameter_id": 33, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 7.895823925601802e-05, "window_size": 23, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:37] INFO (NNIManager) Trial job LNPxw status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:08:37] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 34, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 3.496529321672838e-05, "window_size": 20, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:38] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 34,
+  hyperParameters: {
+    value: '{"parameter_id": 34, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 3.496529321672838e-05, "window_size": 20, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:08:38] INFO (LocalV3.local) Created trial bRZ8i
+[2026-05-20 01:08:39] INFO (LocalV3.local) Trial parameter: bRZ8i {"parameter_id": 34, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 3.496529321672838e-05, "window_size": 20, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:44] INFO (NNIManager) Trial job bRZ8i status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:08:44] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 35, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0.3, "activation": "relu", "lr": 1.8073986392684703e-05, "window_size": 12, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:08:45] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 35,
+  hyperParameters: {
+    value: '{"parameter_id": 35, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0.3, "activation": "relu", "lr": 1.8073986392684703e-05, "window_size": 12, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:08:45] INFO (LocalV3.local) Created trial yOI9P
+[2026-05-20 01:08:47] INFO (LocalV3.local) Trial parameter: yOI9P {"parameter_id": 35, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0.3, "activation": "relu", "lr": 1.8073986392684703e-05, "window_size": 12, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:09:27] INFO (NNIManager) Trial job yOI9P status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:09:27] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 36, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00014429098324980245, "window_size": 6, "batch_size": 32, "epochs": 15, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:09:27] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 36,
+  hyperParameters: {
+    value: '{"parameter_id": 36, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00014429098324980245, "window_size": 6, "batch_size": 32, "epochs": 15, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:09:27] INFO (LocalV3.local) Created trial TamED
+[2026-05-20 01:09:29] INFO (LocalV3.local) Trial parameter: TamED {"parameter_id": 36, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.00014429098324980245, "window_size": 6, "batch_size": 32, "epochs": 15, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:09:35] INFO (NNIManager) Trial job TamED status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:09:35] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 37, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0003498037705081979, "window_size": 16, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:09:36] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 37,
+  hyperParameters: {
+    value: '{"parameter_id": 37, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0003498037705081979, "window_size": 16, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:09:36] INFO (LocalV3.local) Created trial SbRcX
+[2026-05-20 01:09:38] INFO (LocalV3.local) Trial parameter: SbRcX {"parameter_id": 37, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0003498037705081979, "window_size": 16, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:09:52] INFO (NNIManager) Trial job SbRcX status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:09:52] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 38, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 7.641068574839956e-05, "window_size": 9, "batch_size": 16, "epochs": 20, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:09:53] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 38,
+  hyperParameters: {
+    value: '{"parameter_id": 38, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 7.641068574839956e-05, "window_size": 9, "batch_size": 16, "epochs": 20, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:09:53] INFO (LocalV3.local) Created trial fszy6
+[2026-05-20 01:09:55] INFO (LocalV3.local) Trial parameter: fszy6 {"parameter_id": 38, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 7.641068574839956e-05, "window_size": 9, "batch_size": 16, "epochs": 20, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:10:07] INFO (NNIManager) Trial job fszy6 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:10:07] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 39, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 1.3935921529736208e-05, "window_size": 22, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:10:07] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 39,
+  hyperParameters: {
+    value: '{"parameter_id": 39, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 1.3935921529736208e-05, "window_size": 22, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:10:07] INFO (LocalV3.local) Created trial JeiFg
+[2026-05-20 01:10:09] INFO (LocalV3.local) Trial parameter: JeiFg {"parameter_id": 39, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 32, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 1.3935921529736208e-05, "window_size": 22, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:10:12] INFO (NNIManager) Trial job JeiFg status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:10:12] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 40, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 256, "num_layers": 3, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0005525592158663909, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:10:13] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 40,
+  hyperParameters: {
+    value: '{"parameter_id": 40, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 256, "num_layers": 3, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0005525592158663909, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:10:13] INFO (LocalV3.local) Created trial JWF0e
+[2026-05-20 01:10:14] INFO (LocalV3.local) Trial parameter: JWF0e {"parameter_id": 40, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 256, "num_layers": 3, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0005525592158663909, "window_size": 23, "batch_size": 16, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:10:38] INFO (NNIManager) Trial job JWF0e status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:10:38] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 41, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 3.3508275549263675e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:10:38] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 41,
+  hyperParameters: {
+    value: '{"parameter_id": 41, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 3.3508275549263675e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:10:38] INFO (LocalV3.local) Created trial ASVO7
+[2026-05-20 01:10:40] INFO (LocalV3.local) Trial parameter: ASVO7 {"parameter_id": 41, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 3.3508275549263675e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:11:12] INFO (NNIManager) Trial job ASVO7 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:11:12] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 42, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 2.061169480404292e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:11:12] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 42,
+  hyperParameters: {
+    value: '{"parameter_id": 42, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 2.061169480404292e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:11:12] INFO (LocalV3.local) Created trial lXeFy
+[2026-05-20 01:11:14] INFO (LocalV3.local) Trial parameter: lXeFy {"parameter_id": 42, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 2.061169480404292e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:11:36] INFO (NNIManager) Trial job lXeFy status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:11:36] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 43, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 0.000257989438097849, "window_size": 26, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:11:37] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 43,
+  hyperParameters: {
+    value: '{"parameter_id": 43, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 0.000257989438097849, "window_size": 26, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:11:37] INFO (LocalV3.local) Created trial x5qw7
+[2026-05-20 01:11:38] INFO (LocalV3.local) Trial parameter: x5qw7 {"parameter_id": 43, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 0.000257989438097849, "window_size": 26, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:11:53] INFO (NNIManager) Trial job x5qw7 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:11:53] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 44, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0001513059882864644, "window_size": 26, "batch_size": 32, "epochs": 5, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:11:53] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 44,
+  hyperParameters: {
+    value: '{"parameter_id": 44, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0001513059882864644, "window_size": 26, "batch_size": 32, "epochs": 5, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:11:53] INFO (LocalV3.local) Created trial oPsGs
+[2026-05-20 01:11:55] INFO (LocalV3.local) Trial parameter: oPsGs {"parameter_id": 44, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 0.0001513059882864644, "window_size": 26, "batch_size": 32, "epochs": 5, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:12:01] INFO (NNIManager) Trial job oPsGs status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:12:01] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 45, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 3.809714768596869e-05, "window_size": 13, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:12:01] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 45,
+  hyperParameters: {
+    value: '{"parameter_id": 45, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 3.809714768596869e-05, "window_size": 13, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:12:01] INFO (LocalV3.local) Created trial P0gTb
+[2026-05-20 01:12:03] INFO (LocalV3.local) Trial parameter: P0gTb {"parameter_id": 45, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 3.809714768596869e-05, "window_size": 13, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:12:11] INFO (NNIManager) Trial job P0gTb status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:12:11] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 46, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 32, "num_layers": 2, "dropout": 0.5, "activation": "relu", "lr": 0.00025775319831957625, "window_size": 10, "batch_size": 128, "epochs": 15, "kernel_size": 7, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:12:11] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 46,
+  hyperParameters: {
+    value: '{"parameter_id": 46, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 32, "num_layers": 2, "dropout": 0.5, "activation": "relu", "lr": 0.00025775319831957625, "window_size": 10, "batch_size": 128, "epochs": 15, "kernel_size": 7, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:12:11] INFO (LocalV3.local) Created trial LTvR7
+[2026-05-20 01:12:13] INFO (LocalV3.local) Trial parameter: LTvR7 {"parameter_id": 46, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 32, "num_layers": 2, "dropout": 0.5, "activation": "relu", "lr": 0.00025775319831957625, "window_size": 10, "batch_size": 128, "epochs": 15, "kernel_size": 7, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:12:24] INFO (NNIManager) Trial job LTvR7 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:12:24] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 47, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 1.3091391333446788e-05, "window_size": 21, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:12:25] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 47,
+  hyperParameters: {
+    value: '{"parameter_id": 47, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 1.3091391333446788e-05, "window_size": 21, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:12:25] INFO (LocalV3.local) Created trial nDGRl
+[2026-05-20 01:12:27] INFO (LocalV3.local) Trial parameter: nDGRl {"parameter_id": 47, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 1.3091391333446788e-05, "window_size": 21, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:12:45] INFO (NNIManager) Trial job nDGRl status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:12:45] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 48, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 256, "num_layers": 3, "dropout": 0, "activation": "elu", "lr": 0.0006681354190331993, "window_size": 12, "batch_size": 16, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:12:46] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 48,
+  hyperParameters: {
+    value: '{"parameter_id": 48, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 256, "num_layers": 3, "dropout": 0, "activation": "elu", "lr": 0.0006681354190331993, "window_size": 12, "batch_size": 16, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:12:46] INFO (LocalV3.local) Created trial Yb7cJ
+[2026-05-20 01:12:48] INFO (LocalV3.local) Trial parameter: Yb7cJ {"parameter_id": 48, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 256, "num_layers": 3, "dropout": 0, "activation": "elu", "lr": 0.0006681354190331993, "window_size": 12, "batch_size": 16, "epochs": 5, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:14:02] INFO (NNIManager) Trial job Yb7cJ status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:14:02] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 49, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 7.725289735613167e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:14:03] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 49,
+  hyperParameters: {
+    value: '{"parameter_id": 49, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 7.725289735613167e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:14:03] INFO (LocalV3.local) Created trial EDtIi
+[2026-05-20 01:14:05] INFO (LocalV3.local) Trial parameter: EDtIi {"parameter_id": 49, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 7.725289735613167e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:14:12] INFO (NNIManager) Trial job EDtIi status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:14:12] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 50, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 1.0339643166433222e-05, "window_size": 16, "batch_size": 128, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:14:13] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 50,
+  hyperParameters: {
+    value: '{"parameter_id": 50, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 1.0339643166433222e-05, "window_size": 16, "batch_size": 128, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:14:13] INFO (LocalV3.local) Created trial UB0wA
+[2026-05-20 01:14:15] INFO (LocalV3.local) Trial parameter: UB0wA {"parameter_id": 50, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 1.0339643166433222e-05, "window_size": 16, "batch_size": 128, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:14:17] INFO (NNIManager) Trial job UB0wA status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:14:17] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 51, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 2, "dropout": 0.3, "activation": "sigmoid", "lr": 2.3943976080866558e-05, "window_size": 28, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:14:17] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 51,
+  hyperParameters: {
+    value: '{"parameter_id": 51, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 2, "dropout": 0.3, "activation": "sigmoid", "lr": 2.3943976080866558e-05, "window_size": 28, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:14:17] INFO (LocalV3.local) Created trial ULAdz
+[2026-05-20 01:14:19] INFO (LocalV3.local) Trial parameter: ULAdz {"parameter_id": 51, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 64, "num_layers": 2, "dropout": 0.3, "activation": "sigmoid", "lr": 2.3943976080866558e-05, "window_size": 28, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:15:54] INFO (NNIManager) Trial job ULAdz status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:15:54] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 52, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 2.0330887816886035e-05, "window_size": 14, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:15:55] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 52,
+  hyperParameters: {
+    value: '{"parameter_id": 52, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 2.0330887816886035e-05, "window_size": 14, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:15:55] INFO (LocalV3.local) Created trial Iiq4T
+[2026-05-20 01:15:56] INFO (LocalV3.local) Trial parameter: Iiq4T {"parameter_id": 52, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 4, "dropout": 0.3, "activation": "sigmoid", "lr": 2.0330887816886035e-05, "window_size": 14, "batch_size": 16, "epochs": 10, "kernel_size": 5, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:16:19] INFO (NNIManager) Trial job Iiq4T status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:16:19] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 53, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 64, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 0.00014208924763689214, "window_size": 28, "batch_size": 32, "epochs": 20, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:16:20] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 53,
+  hyperParameters: {
+    value: '{"parameter_id": 53, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 64, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 0.00014208924763689214, "window_size": 28, "batch_size": 32, "epochs": 20, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:16:20] INFO (LocalV3.local) Created trial wOSnu
+[2026-05-20 01:16:21] INFO (LocalV3.local) Trial parameter: wOSnu {"parameter_id": 53, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 64, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 0.00014208924763689214, "window_size": 28, "batch_size": 32, "epochs": 20, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:16:47] INFO (NNIManager) Trial job wOSnu status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:16:47] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 54, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 0.0003589316548600177, "window_size": 23, "batch_size": 64, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:16:47] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 54,
+  hyperParameters: {
+    value: '{"parameter_id": 54, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 0.0003589316548600177, "window_size": 23, "batch_size": 64, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:16:47] INFO (LocalV3.local) Created trial yZ3N1
+[2026-05-20 01:16:49] INFO (LocalV3.local) Trial parameter: yZ3N1 {"parameter_id": 54, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 1, "dropout": 0.5, "activation": "sigmoid", "lr": 0.0003589316548600177, "window_size": 23, "batch_size": 64, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:17:12] INFO (NNIManager) Trial job yZ3N1 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:17:12] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 55, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0, "activation": "relu", "lr": 1.57496118550589e-05, "window_size": 5, "batch_size": 16, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:17:13] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 55,
+  hyperParameters: {
+    value: '{"parameter_id": 55, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0, "activation": "relu", "lr": 1.57496118550589e-05, "window_size": 5, "batch_size": 16, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:17:13] INFO (LocalV3.local) Created trial uqfEA
+[2026-05-20 01:17:14] INFO (LocalV3.local) Trial parameter: uqfEA {"parameter_id": 55, "parameter_source": "algorithm", "parameters": {"model_type": "LSTM", "units": 32, "num_layers": 3, "dropout": 0, "activation": "relu", "lr": 1.57496118550589e-05, "window_size": 5, "batch_size": 16, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:17:50] INFO (NNIManager) Trial job uqfEA status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:17:50] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 56, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "elu", "lr": 0.00010081819579338968, "window_size": 21, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:17:51] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 56,
+  hyperParameters: {
+    value: '{"parameter_id": 56, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "elu", "lr": 0.00010081819579338968, "window_size": 21, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:17:51] INFO (LocalV3.local) Created trial ie8HS
+[2026-05-20 01:17:53] INFO (LocalV3.local) Trial parameter: ie8HS {"parameter_id": 56, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "elu", "lr": 0.00010081819579338968, "window_size": 21, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:17:59] INFO (NNIManager) Trial job ie8HS status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:17:59] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 57, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.2204113032322736e-05, "window_size": 9, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:18:00] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 57,
+  hyperParameters: {
+    value: '{"parameter_id": 57, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.2204113032322736e-05, "window_size": 9, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:18:00] INFO (LocalV3.local) Created trial OXfSo
+[2026-05-20 01:18:02] INFO (LocalV3.local) Trial parameter: OXfSo {"parameter_id": 57, "parameter_source": "algorithm", "parameters": {"model_type": "TCN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "sigmoid", "lr": 5.2204113032322736e-05, "window_size": 9, "batch_size": 16, "epochs": 20, "kernel_size": 3, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-20 01:18:13] INFO (NNIManager) Trial job OXfSo status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:18:13] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 58, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 9.289399438320174e-05, "window_size": 26, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:18:14] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 58,
+  hyperParameters: {
+    value: '{"parameter_id": 58, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 9.289399438320174e-05, "window_size": 26, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:18:14] INFO (LocalV3.local) Created trial kSa5z
+[2026-05-20 01:18:16] INFO (LocalV3.local) Trial parameter: kSa5z {"parameter_id": 58, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "elu", "lr": 9.289399438320174e-05, "window_size": 26, "batch_size": 128, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:18:22] INFO (NNIManager) Trial job kSa5z status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:18:22] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 59, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 2, "dropout": 0.3, "activation": "tanh", "lr": 0.00021017178620154106, "window_size": 18, "batch_size": 32, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:18:23] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 59,
+  hyperParameters: {
+    value: '{"parameter_id": 59, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 2, "dropout": 0.3, "activation": "tanh", "lr": 0.00021017178620154106, "window_size": 18, "batch_size": 32, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:18:23] INFO (LocalV3.local) Created trial q5Afa
+[2026-05-20 01:18:25] INFO (LocalV3.local) Trial parameter: q5Afa {"parameter_id": 59, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 2, "dropout": 0.3, "activation": "tanh", "lr": 0.00021017178620154106, "window_size": 18, "batch_size": 32, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:18:29] INFO (NNIManager) Trial job q5Afa status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:18:29] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 60, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 3, "dropout": 0.3, "activation": "elu", "lr": 0.0007141845108538387, "window_size": 4, "batch_size": 128, "epochs": 5, "kernel_size": 5, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:18:30] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 60,
+  hyperParameters: {
+    value: '{"parameter_id": 60, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 3, "dropout": 0.3, "activation": "elu", "lr": 0.0007141845108538387, "window_size": 4, "batch_size": 128, "epochs": 5, "kernel_size": 5, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:18:30] INFO (LocalV3.local) Created trial fk87R
+[2026-05-20 01:18:32] INFO (LocalV3.local) Trial parameter: fk87R {"parameter_id": 60, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 128, "num_layers": 3, "dropout": 0.3, "activation": "elu", "lr": 0.0007141845108538387, "window_size": 4, "batch_size": 128, "epochs": 5, "kernel_size": 5, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:18:35] INFO (NNIManager) Trial job fk87R status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:18:35] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 61, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 32, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 0.0001275577194789087, "window_size": 20, "batch_size": 32, "epochs": 10, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:18:35] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 61,
+  hyperParameters: {
+    value: '{"parameter_id": 61, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 32, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 0.0001275577194789087, "window_size": 20, "batch_size": 32, "epochs": 10, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:18:35] INFO (LocalV3.local) Created trial q51Ph
+[2026-05-20 01:18:37] INFO (LocalV3.local) Trial parameter: q51Ph {"parameter_id": 61, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 32, "num_layers": 1, "dropout": 0.1, "activation": "tanh", "lr": 0.0001275577194789087, "window_size": 20, "batch_size": 32, "epochs": 10, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:18:48] INFO (NNIManager) Trial job q51Ph status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:18:48] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 62, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 2, "dropout": 0, "activation": "sigmoid", "lr": 0.0002811323950612954, "window_size": 26, "batch_size": 64, "epochs": 15, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:18:49] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 62,
+  hyperParameters: {
+    value: '{"parameter_id": 62, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 2, "dropout": 0, "activation": "sigmoid", "lr": 0.0002811323950612954, "window_size": 26, "batch_size": 64, "epochs": 15, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:18:49] INFO (LocalV3.local) Created trial SAiVB
+[2026-05-20 01:18:50] INFO (LocalV3.local) Trial parameter: SAiVB {"parameter_id": 62, "parameter_source": "algorithm", "parameters": {"model_type": "RNN", "units": 256, "num_layers": 2, "dropout": 0, "activation": "sigmoid", "lr": 0.0002811323950612954, "window_size": 26, "batch_size": 64, "epochs": 15, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:19:38] INFO (NNIManager) Trial job SAiVB status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:19:38] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 63, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 4, "dropout": 0.5, "activation": "sigmoid", "lr": 9.313842091564789e-05, "window_size": 6, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:19:39] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 63,
+  hyperParameters: {
+    value: '{"parameter_id": 63, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 4, "dropout": 0.5, "activation": "sigmoid", "lr": 9.313842091564789e-05, "window_size": 6, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:19:39] INFO (LocalV3.local) Created trial WLhof
+[2026-05-20 01:19:40] INFO (LocalV3.local) Trial parameter: WLhof {"parameter_id": 63, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 4, "dropout": 0.5, "activation": "sigmoid", "lr": 9.313842091564789e-05, "window_size": 6, "batch_size": 16, "epochs": 5, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:19:44] INFO (NNIManager) Trial job WLhof status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:19:44] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 64, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 16, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 0.0004261203110542263, "window_size": 11, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:19:45] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 64,
+  hyperParameters: {
+    value: '{"parameter_id": 64, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 16, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 0.0004261203110542263, "window_size": 11, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:19:45] INFO (LocalV3.local) Created trial LrYIc
+[2026-05-20 01:19:46] INFO (LocalV3.local) Trial parameter: LrYIc {"parameter_id": 64, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 16, "num_layers": 1, "dropout": 0.3, "activation": "relu", "lr": 0.0004261203110542263, "window_size": 11, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-20 01:20:02] INFO (NNIManager) Trial job LrYIc status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:02] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 65, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 6.633484676321425e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:02] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 65,
+  hyperParameters: {
+    value: '{"parameter_id": 65, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 6.633484676321425e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:02] INFO (LocalV3.local) Created trial YuBVV
+[2026-05-20 01:20:04] INFO (LocalV3.local) Trial parameter: YuBVV {"parameter_id": 65, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 6.633484676321425e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:11] INFO (NNIManager) Trial job YuBVV status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:11] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 66, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0001817761546463616, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:12] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 66,
+  hyperParameters: {
+    value: '{"parameter_id": 66, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0001817761546463616, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:12] INFO (LocalV3.local) Created trial WAHyw
+[2026-05-20 01:20:13] INFO (LocalV3.local) Trial parameter: WAHyw {"parameter_id": 66, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0001817761546463616, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:21] INFO (NNIManager) Trial job WAHyw status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:21] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 67, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.191663621245682e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:21] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 67,
+  hyperParameters: {
+    value: '{"parameter_id": 67, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.191663621245682e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:21] INFO (LocalV3.local) Created trial Wk7gN
+[2026-05-20 01:20:23] INFO (LocalV3.local) Trial parameter: Wk7gN {"parameter_id": 67, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.191663621245682e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:30] INFO (NNIManager) Trial job Wk7gN status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:30] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 68, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.342035487311738e-05, "window_size": 21, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:31] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 68,
+  hyperParameters: {
+    value: '{"parameter_id": 68, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.342035487311738e-05, "window_size": 21, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:31] INFO (LocalV3.local) Created trial jjrAw
+[2026-05-20 01:20:32] INFO (LocalV3.local) Trial parameter: jjrAw {"parameter_id": 68, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.342035487311738e-05, "window_size": 21, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:40] INFO (NNIManager) Trial job jjrAw status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:40] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 69, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 2.9635694371149704e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:40] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 69,
+  hyperParameters: {
+    value: '{"parameter_id": 69, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 2.9635694371149704e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:40] INFO (LocalV3.local) Created trial SHVZ2
+[2026-05-20 01:20:42] INFO (LocalV3.local) Trial parameter: SHVZ2 {"parameter_id": 69, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 2.9635694371149704e-05, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:49] INFO (NNIManager) Trial job SHVZ2 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:49] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 70, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002201891690558245, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:50] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 70,
+  hyperParameters: {
+    value: '{"parameter_id": 70, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002201891690558245, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:50] INFO (LocalV3.local) Created trial l998b
+[2026-05-20 01:20:52] INFO (LocalV3.local) Trial parameter: l998b {"parameter_id": 70, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002201891690558245, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:58] INFO (NNIManager) Trial job l998b status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:20:58] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 71, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.000214082930745227, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:20:59] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 71,
+  hyperParameters: {
+    value: '{"parameter_id": 71, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.000214082930745227, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:20:59] INFO (LocalV3.local) Created trial jeGnA
+[2026-05-20 01:21:01] INFO (LocalV3.local) Trial parameter: jeGnA {"parameter_id": 71, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.000214082930745227, "window_size": 23, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:08] INFO (NNIManager) Trial job jeGnA status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:21:08] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 72, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002883707219691451, "window_size": 25, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:08] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 72,
+  hyperParameters: {
+    value: '{"parameter_id": 72, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002883707219691451, "window_size": 25, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:21:08] INFO (LocalV3.local) Created trial Q5uFb
+[2026-05-20 01:21:10] INFO (LocalV3.local) Trial parameter: Q5uFb {"parameter_id": 72, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002883707219691451, "window_size": 25, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:17] INFO (NNIManager) Trial job Q5uFb status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:21:17] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 73, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.1450323676976976e-05, "window_size": 15, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:17] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 73,
+  hyperParameters: {
+    value: '{"parameter_id": 73, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.1450323676976976e-05, "window_size": 15, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:21:17] INFO (LocalV3.local) Created trial UKoi0
+[2026-05-20 01:21:19] INFO (LocalV3.local) Trial parameter: UKoi0 {"parameter_id": 73, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.1450323676976976e-05, "window_size": 15, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:26] INFO (NNIManager) Trial job UKoi0 status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:21:26] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 74, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 6.597826007617752e-05, "window_size": 24, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:27] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 74,
+  hyperParameters: {
+    value: '{"parameter_id": 74, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 6.597826007617752e-05, "window_size": 24, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:21:27] INFO (LocalV3.local) Created trial U7znQ
+[2026-05-20 01:21:29] INFO (LocalV3.local) Trial parameter: U7znQ {"parameter_id": 74, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 6.597826007617752e-05, "window_size": 24, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:36] INFO (NNIManager) Trial job U7znQ status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:21:36] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 75, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00016328094316741154, "window_size": 22, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:37] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 75,
+  hyperParameters: {
+    value: '{"parameter_id": 75, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00016328094316741154, "window_size": 22, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:21:37] INFO (LocalV3.local) Created trial UY1lO
+[2026-05-20 01:21:38] INFO (LocalV3.local) Trial parameter: UY1lO {"parameter_id": 75, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00016328094316741154, "window_size": 22, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:45] INFO (NNIManager) Trial job UY1lO status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:21:45] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 76, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002236394874434971, "window_size": 17, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:46] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 76,
+  hyperParameters: {
+    value: '{"parameter_id": 76, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002236394874434971, "window_size": 17, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:21:46] INFO (LocalV3.local) Created trial c7lqN
+[2026-05-20 01:21:47] INFO (LocalV3.local) Trial parameter: c7lqN {"parameter_id": 76, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0002236394874434971, "window_size": 17, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:53] INFO (NNIManager) Trial job c7lqN status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:21:53] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 77, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0004134869795100859, "window_size": 29, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:21:54] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 77,
+  hyperParameters: {
+    value: '{"parameter_id": 77, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0004134869795100859, "window_size": 29, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:21:54] INFO (LocalV3.local) Created trial KvmNg
+[2026-05-20 01:21:55] INFO (LocalV3.local) Trial parameter: KvmNg {"parameter_id": 77, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.0004134869795100859, "window_size": 29, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:22:03] INFO (NNIManager) Trial job KvmNg status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:22:03] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 78, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00011959166590244133, "window_size": 3, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:22:03] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 78,
+  hyperParameters: {
+    value: '{"parameter_id": 78, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00011959166590244133, "window_size": 3, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:22:03] INFO (LocalV3.local) Created trial zmCse
+[2026-05-20 01:22:05] INFO (LocalV3.local) Trial parameter: zmCse {"parameter_id": 78, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 0.00011959166590244133, "window_size": 3, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:22:11] INFO (NNIManager) Trial job zmCse status changed from RUNNING to SUCCEEDED
+[2026-05-20 01:22:11] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 79, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.324900796555369e-05, "window_size": 2, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:22:11] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 79,
+  hyperParameters: {
+    value: '{"parameter_id": 79, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.324900796555369e-05, "window_size": 2, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-20 01:22:11] INFO (LocalV3.local) Created trial DqJrd
+[2026-05-20 01:22:12] INFO (NNIManager) Change NNIManager status from: RUNNING to: NO_MORE_TRIAL
+[2026-05-20 01:22:13] INFO (LocalV3.local) Trial parameter: DqJrd {"parameter_id": 79, "parameter_source": "algorithm", "parameters": {"model_type": "CNN", "units": 64, "num_layers": 1, "dropout": 0.3, "activation": "tanh", "lr": 4.324900796555369e-05, "window_size": 2, "batch_size": 16, "epochs": 10, "kernel_size": 3, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-20 01:22:18] INFO (ShutdownManager) Initiate shutdown: SIGTERM
+[2026-05-20 01:22:18] INFO (RestServer) Stopping REST server.
+[2026-05-20 01:22:18] INFO (NNIManager) Change NNIManager status from: NO_MORE_TRIAL to: STOPPING
+[2026-05-20 01:22:18] INFO (NNIManager) Stopping experiment, cleaning up ...
+[2026-05-20 01:22:18] INFO (RestServer) REST server stopped.
+[2026-05-20 01:22:21] INFO (LocalV3.local) All trials stopped
+[2026-05-20 01:22:21] INFO (NNIManager) Change NNIManager status from: STOPPING to: STOPPED
+[2026-05-20 01:22:21] INFO (NNIManager) Experiment stopped.
+[2026-05-20 01:22:21] INFO (NNITensorboardManager) Forced stopping all tensorboard task.
+[2026-05-20 01:22:21] INFO (NNITensorboardManager) All tensorboard task stopped.
+[2026-05-20 01:22:21] INFO (NNITensorboardManager) Tensorboard manager stopped.
+[2026-05-20 01:22:21] INFO (ShutdownManager) Shutdown complete.

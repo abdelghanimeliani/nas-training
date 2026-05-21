@@ -1,0 +1,99 @@
+2026-05-19 02:31:52.634199: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-19 02:31:52.714423: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-19 02:31:52.714476: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-19 02:31:52.715806: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-19 02:31:52.724760: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-19 02:31:53.804292: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 211, in <module>
+    main()
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 173, in main
+    history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/tmp/__autograph_generated_filec4d17vka.py", line 15, in tf__train_function
+    retval_ = ag__.converted_call(ag__.ld(step_function), (ag__.ld(self), ag__.ld(iterator)), None, fscope)
+RuntimeError: in user code:
+
+    File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1401, in train_function  *
+        return step_function(self, iterator)
+    File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1384, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1373, in run_step  **
+        outputs = model.train_step(data)
+    File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1150, in train_step
+        y_pred = self(x, training=True)
+    File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 70, in error_handler
+        raise e.with_traceback(filtered_tb) from None
+
+    RuntimeError: Exception encountered when calling layer 'gru_3' (type GRU).
+    
+    pybind11::error_already_set: MISMATCH of original and normalized active exception types: ORIGINAL InvalidArgumentError REPLACED BY KeyboardInterrupt: <EMPTY MESSAGE>
+    
+    At:
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/errors_impl.py(284): __init__
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/ops.py(1546): get_attr
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/ops.py(1736): get_gradient_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py(646): _GradientsHelper
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py(179): _backprop_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py(1059): func_graph_from_py_func
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py(188): _construct_forward_backward
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py(145): forward_backward
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py(1561): add_gradient_functions_to_graph
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/rnn/gru_lstm_utils.py(274): function_register
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/rnn/gru.py(1298): gru_with_backend_selection
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/rnn/gru.py(902): _defun_gru_call
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/rnn/gru.py(670): call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(459): _call_unconverted
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(331): converted_call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(690): wrapper
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py(96): error_handler
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/base_layer.py(1149): __call__
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py(65): error_handler
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/rnn/base_rnn.py(556): __call__
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/functional.py(672): _run_internal_graph
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/functional.py(515): call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(459): _call_unconverted
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(331): converted_call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(690): wrapper
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py(96): error_handler
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/base_layer.py(1149): __call__
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py(65): error_handler
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py(590): __call__
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py(65): error_handler
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py(1150): train_step
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py(1373): run_step
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(459): _call_unconverted
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(377): converted_call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(690): wrapper
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py(4069): _call_for_each_replica
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py(3271): call_for_each_replica
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py(1681): run
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py(1384): step_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(460): _call_unconverted
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(331): converted_call
+      /tmp/__autograph_generated_filec4d17vka.py(15): tf__train_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py(439): converted_call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/autograph_util.py(41): autograph_handler
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py(598): wrapped_fn
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py(1059): func_graph_from_py_func
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py(310): _create_concrete_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py(283): _maybe_define_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py(178): trace_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py(132): call_function
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py(905): _call
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py(832): __call__
+      /home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py(150): error_handler
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py(1807): fit
+      /home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py(65): error_handler
+      /home/meliani/Desktop/phd/fast-track/trial.py(173): main
+      /home/meliani/Desktop/phd/fast-track/trial.py(211): <module>
+    
+    
+    Call arguments received by layer 'gru_3' (type GRU):
+      • inputs=tf.Tensor(shape=(None, 21, 256), dtype=float32)
+      • mask=None
+      • training=True
+      • initial_state=None
+

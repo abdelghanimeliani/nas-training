@@ -17,21 +17,21 @@ def convert_exp_tables_to_csv(base_path, experiments_ids_list):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM  ExperimentProfile")
         data= cursor.fetchall()
-        convert_ExpirimentProfile_tables_to_csv(data, "./csv/exp_profiles/" + exp_id +".csv")
+        convert_ExpirimentProfile_tables_to_csv(data, "./csv-2/exp_profiles/" + exp_id +".csv")
         cursor.close()
         
         conn= sqlite3.connect(base_path + '/' + exp_id + '/db/nni.sqlite')
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM MetricData")
         data= cursor.fetchall()
-        convert_MetricData_table_to_csv(data, "./csv/metric_data/" + exp_id +".csv")
+        convert_MetricData_table_to_csv(data, "./csv-2/metric_data/" + exp_id +".csv")
         cursor.close()
         
         conn= sqlite3.connect(base_path + '/' + exp_id + '/db/nni.sqlite')
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM TrialJobEvent")
         data = cursor.fetchall()
-        convert_TrialJobEvent_to_csv(data, "./csv/trial_job_event/" + exp_id +".csv")
+        convert_TrialJobEvent_to_csv(data, "./csv-2/trial_job_event/" + exp_id +".csv")
         cursor.close()
         
         conn.close()
@@ -41,13 +41,13 @@ def convert_exp_tables_to_csv(base_path, experiments_ids_list):
 
 
 if __name__ == "__main__":
-    exp_ids=get_expiriments_ids_list("/home/meliani/nni-experiments")
+    exp_ids=get_expiriments_ids_list("./results")
     print(str(len(exp_ids)) + " experiments found.") 
     print("Available experiment IDs:")
     print(exp_ids)
     print('=============================================================')
     convert_exp_tables_to_csv("/home/meliani/nni-experiments",exp_ids)
-    change_files_names(base_path="./csv/exp_profiles",ids=exp_ids)
+    change_files_names(base_path="./csv-2/exp_profiles",ids=exp_ids)
     plot_time_based_exp_resutls()
     plot_trials_based_exp_resutls()
     

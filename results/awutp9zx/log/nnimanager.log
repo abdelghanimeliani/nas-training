@@ -1,0 +1,86 @@
+[2026-05-18 19:35:17] INFO (main) Start NNI manager
+[2026-05-18 19:35:17] INFO (RestServer) Starting REST server at port 8129, URL prefix: "/"
+[2026-05-18 19:35:17] INFO (RestServer) REST server started.
+[2026-05-18 19:35:17] INFO (NNIDataStore) Datastore initialization done
+[2026-05-18 19:35:18] INFO (NNIManager) Starting experiment: awutp9zx
+[2026-05-18 19:35:18] INFO (NNIManager) Setup training service...
+[2026-05-18 19:35:18] INFO (NNIManager) Setup tuner...
+[2026-05-18 19:35:18] INFO (NNIManager) Change NNIManager status from: INITIALIZED to: RUNNING
+[2026-05-18 19:35:18] INFO (NNIManager) Add event listeners
+[2026-05-18 19:35:18] INFO (LocalV3.local) Start
+[2026-05-18 19:35:18] INFO (NNIManager) NNIManager received command from dispatcher: ID, 
+[2026-05-18 19:35:18] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 0, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "tanh", "lr": 0.00015549679284937519, "window_size": 30, "batch_size": 128, "epochs": 20, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-18 19:35:19] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 0,
+  hyperParameters: {
+    value: '{"parameter_id": 0, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "tanh", "lr": 0.00015549679284937519, "window_size": 30, "batch_size": 128, "epochs": 20, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-18 19:35:19] INFO (LocalV3.local) Register directory trial_code = /home/meliani/Desktop/phd/fast-track
+[2026-05-18 19:35:19] INFO (LocalV3.local) Created trial AQjXb
+[2026-05-18 19:35:21] INFO (LocalV3.local) Trial parameter: AQjXb {"parameter_id": 0, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 128, "num_layers": 2, "dropout": 0.1, "activation": "tanh", "lr": 0.00015549679284937519, "window_size": 30, "batch_size": 128, "epochs": 20, "kernel_size": 7, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-18 19:36:03] INFO (NNIManager) Trial job AQjXb status changed from RUNNING to SUCCEEDED
+[2026-05-18 19:36:03] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 1, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 4, "dropout": 0.1, "activation": "sigmoid", "lr": 0.000524624215162537, "window_size": 22, "batch_size": 128, "epochs": 20, "kernel_size": 7, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-18 19:36:03] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 1,
+  hyperParameters: {
+    value: '{"parameter_id": 1, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 4, "dropout": 0.1, "activation": "sigmoid", "lr": 0.000524624215162537, "window_size": 22, "batch_size": 128, "epochs": 20, "kernel_size": 7, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-18 19:36:03] INFO (LocalV3.local) Created trial cy2Cf
+[2026-05-18 19:36:06] INFO (LocalV3.local) Trial parameter: cy2Cf {"parameter_id": 1, "parameter_source": "algorithm", "parameters": {"model_type": "MLP", "units": 64, "num_layers": 4, "dropout": 0.1, "activation": "sigmoid", "lr": 0.000524624215162537, "window_size": 22, "batch_size": 128, "epochs": 20, "kernel_size": 7, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-18 19:36:12] INFO (NNIManager) Trial job cy2Cf status changed from RUNNING to SUCCEEDED
+[2026-05-18 19:36:12] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 2, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 3, "dropout": 0.5, "activation": "relu", "lr": 0.002778836553236656, "window_size": 2, "batch_size": 64, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-18 19:36:12] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 2,
+  hyperParameters: {
+    value: '{"parameter_id": 2, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 3, "dropout": 0.5, "activation": "relu", "lr": 0.002778836553236656, "window_size": 2, "batch_size": 64, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-18 19:36:12] INFO (LocalV3.local) Created trial gJOdW
+[2026-05-18 19:36:15] INFO (LocalV3.local) Trial parameter: gJOdW {"parameter_id": 2, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 256, "num_layers": 3, "dropout": 0.5, "activation": "relu", "lr": 0.002778836553236656, "window_size": 2, "batch_size": 64, "epochs": 15, "kernel_size": 2, "attention_heads": 8}, "parameter_index": 0}
+[2026-05-18 19:36:46] INFO (NNIManager) Trial job gJOdW status changed from RUNNING to SUCCEEDED
+[2026-05-18 19:36:46] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 3, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 128, "num_layers": 1, "dropout": 0.2, "activation": "relu", "lr": 1.413351666501809e-05, "window_size": 12, "batch_size": 16, "epochs": 20, "kernel_size": 5, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-18 19:36:47] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 3,
+  hyperParameters: {
+    value: '{"parameter_id": 3, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 128, "num_layers": 1, "dropout": 0.2, "activation": "relu", "lr": 1.413351666501809e-05, "window_size": 12, "batch_size": 16, "epochs": 20, "kernel_size": 5, "attention_heads": 2}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-18 19:36:47] INFO (LocalV3.local) Created trial SOFPn
+[2026-05-18 19:36:48] INFO (LocalV3.local) Trial parameter: SOFPn {"parameter_id": 3, "parameter_source": "algorithm", "parameters": {"model_type": "GRU", "units": 128, "num_layers": 1, "dropout": 0.2, "activation": "relu", "lr": 1.413351666501809e-05, "window_size": 12, "batch_size": 16, "epochs": 20, "kernel_size": 5, "attention_heads": 2}, "parameter_index": 0}
+[2026-05-18 19:37:20] INFO (NNIManager) Trial job SOFPn status changed from RUNNING to SUCCEEDED
+[2026-05-18 19:37:20] INFO (NNIManager) NNIManager received command from dispatcher: TR, {"parameter_id": 4, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 256, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.0004079242444366377, "window_size": 18, "batch_size": 16, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-18 19:37:21] INFO (NNIManager) submitTrialJob: form: {
+  sequenceId: 4,
+  hyperParameters: {
+    value: '{"parameter_id": 4, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 256, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.0004079242444366377, "window_size": 18, "batch_size": 16, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}',
+    index: 0
+  },
+  placementConstraint: { type: 'None', gpus: [] }
+}
+[2026-05-18 19:37:21] INFO (LocalV3.local) Created trial OMS1x
+[2026-05-18 19:37:21] INFO (NNIManager) Change NNIManager status from: RUNNING to: NO_MORE_TRIAL
+[2026-05-18 19:37:22] INFO (LocalV3.local) Trial parameter: OMS1x {"parameter_id": 4, "parameter_source": "algorithm", "parameters": {"model_type": "Transformer", "units": 256, "num_layers": 4, "dropout": 0, "activation": "elu", "lr": 0.0004079242444366377, "window_size": 18, "batch_size": 16, "epochs": 15, "kernel_size": 7, "attention_heads": 4}, "parameter_index": 0}
+[2026-05-18 19:37:26] INFO (ShutdownManager) Initiate shutdown: SIGTERM
+[2026-05-18 19:37:26] INFO (RestServer) Stopping REST server.
+[2026-05-18 19:37:26] INFO (NNIManager) Change NNIManager status from: NO_MORE_TRIAL to: STOPPING
+[2026-05-18 19:37:26] INFO (NNIManager) Stopping experiment, cleaning up ...
+[2026-05-18 19:37:26] INFO (RestServer) REST server stopped.
+[2026-05-18 19:37:27] INFO (NNIManager) cancelTrialJob: OMS1x
+[2026-05-18 19:37:27] INFO (LocalV3.local) Stop trial OMS1x
+[2026-05-18 19:37:28] INFO (LocalV3.local) All trials stopped
+[2026-05-18 19:37:28] INFO (NNIManager) Change NNIManager status from: STOPPING to: STOPPED
+[2026-05-18 19:37:28] INFO (NNIManager) Experiment stopped.
+[2026-05-18 19:37:28] INFO (NNITensorboardManager) Forced stopping all tensorboard task.
+[2026-05-18 19:37:28] INFO (NNITensorboardManager) All tensorboard task stopped.
+[2026-05-18 19:37:28] INFO (NNITensorboardManager) Tensorboard manager stopped.
+[2026-05-18 19:37:28] INFO (ShutdownManager) Shutdown complete.

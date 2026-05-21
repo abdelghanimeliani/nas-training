@@ -1,0 +1,35 @@
+2026-05-13 15:05:48.085578: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-13 15:05:48.114037: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-13 15:05:48.114078: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-13 15:05:48.115078: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-13 15:05:48.120181: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-13 15:05:48.688100: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 211, in <module>
+    main()
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 173, in main
+    history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1807, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 832, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 868, in _call
+    return tracing_compilation.call_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 138, in call_function
+    flat_inputs = function.function_type.unpack_inputs(bound_args)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/core/function/polymorphism/function_type.py", line 391, in unpack_inputs
+    p.type_constraint.to_tensors(bound_parameters.arguments[p.name])
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/type_spec.py", line 254, in to_tensors
+    self._component_specs,
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 949, in _component_specs
+    return (tensor.TensorSpec([], dtypes.resource),)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/tensor.py", line 867, in __init__
+    self._dtype = dtypes.as_dtype(dtype)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/dtypes.py", line 825, in as_dtype
+    if isinstance(type_value, DType):
+KeyboardInterrupt
