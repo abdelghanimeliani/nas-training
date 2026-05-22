@@ -7,17 +7,16 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-# create_sequences function to prepare time series data for training
-def create_sequences(series, window_size):
+def create_sequences(series, window_size, horizon=1):
     X, y = [], []
-    for i in range(len(series) - window_size):
+    for i in range(len(series) - window_size - horizon + 1):
         X.append(series[i:i+window_size])
-        y.append(series[i+window_size])
+        y.append(series[i+window_size : i+window_size+horizon])
     X = np.array(X)
     y = np.array(y)
     return X[..., np.newaxis], y
 
-def build_model(params, input_shape):
+def build_model(params, input_shape, horizon=1):
     model_type = params.get('model_type', 'LSTM')
     units = int(params.get('units', 32))
     num_layers = int(params.get('num_layers', 1))
@@ -37,7 +36,7 @@ def build_model(params, input_shape):
                 x = layers.LSTM(units, return_sequences=return_sequences)(x)
             elif model_type == 'GRU':
                 x = layers.GRU(units, return_sequences=return_sequences)(x)
-            else:  # RNN simple
+            else:
                 x = layers.SimpleRNN(units, return_sequences=return_sequences)(x)
             if dropout > 0:
                 x = layers.Dropout(dropout)(x)
@@ -52,11 +51,8 @@ def build_model(params, input_shape):
     elif model_type == 'TCN':
         dilation_rates = [2**i for i in range(num_layers)]
         for dilation_rate in dilation_rates:
-            x = layers.Conv1D(filters=units,
-                              kernel_size=kernel_size,
-                              padding='causal',
-                              dilation_rate=dilation_rate,
-                              activation=activation)(x)
+            x = layers.Conv1D(filters=units, kernel_size=kernel_size, padding='causal',
+                              dilation_rate=dilation_rate, activation=activation)(x)
             if dropout > 0:
                 x = layers.Dropout(dropout)(x)
         x = layers.GlobalAveragePooling1D()(x)
@@ -78,12 +74,11 @@ def build_model(params, input_shape):
             x = layers.Dense(units, activation=activation)(x)
             if dropout > 0:
                 x = layers.Dropout(dropout)(x)
-
     else:
         raise ValueError(f"Unsupported model_type: {model_type}")
 
     x = layers.Dense(32, activation='relu')(x)
-    outputs = layers.Dense(1)(x)
+    outputs = layers.Dense(horizon)(x)
 
     model = keras.Model(inputs, outputs)
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=lr),
@@ -92,7 +87,6 @@ def build_model(params, input_shape):
     return model
 
 def sanitize_metric(val):
-    """ Prevents NaN or Inf from crashing the NNI JSON reporter """
     if val is None or math.isnan(val) or math.isinf(val):
         return 99999.0 
     return float(val)
@@ -101,6 +95,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, required=True, help='path to training dataset')
     parser.add_argument('--colname', type=str, default=None, help='column name if csv has header')
+    parser.add_argument('--horizon', type=int, default=1, help='prediction horizon sequence length')
+    # NEW ARGUMENT FOR DATA SIZE EXPERIMENTATION
+    parser.add_argument('--data-size', type=int, required=True, help='number of training sequences to inject')
     args = parser.parse_args()
 
     params = nni.get_next_parameter()
@@ -119,55 +116,34 @@ def main():
     }
     
     window = int(params['window_size'])
+    horizon = int(args.horizon)
 
-    # =====================================================================
-    # 1. LOAD TRAINING DATA
-    # =====================================================================
+    # 1. Load Data
     df_train = pd.read_csv(args.data)
-    if args.colname is not None:
-        series_train = df_train[args.colname].values
-    else:
-        series_train = df_train.iloc[:, 0].values
-
+    series_train = df_train[args.colname].values if args.colname is not None else df_train.iloc[:, 0].values
     series_train = series_train.astype('float32')
-    X_train_full, y_train_full = create_sequences(series_train, window)
+    
+    X_train_full, y_train_full = create_sequences(series_train, window, horizon)
+    
+    # Slice the training data based on the injected data size experiment
+    X_train = X_train_full[:args.data_size]
+    y_train = y_train_full[:args.data_size]
 
-    # CRITICAL: Drop the last 200 sequences from the training data.
-    # If the training file is "local_plus_tt.csv" or "local_only.csv", this ensures
-    # the model never sees the evaluation data during training (preventing data leakage).
-    # If the file is "ali_only.csv", we just drop 200 Alibaba samples, which is fine.
-    X_train = X_train_full[:-200]
-    y_train = y_train_full[:-200]
-
-    # =====================================================================
-    # 2. LOAD UNIVERSAL VALIDATION DATA (ALWAYS LOCAL_ONLY)
-    # =====================================================================
-    # We hardcode loading local_only.csv so EVERY experiment is evaluated on it.
+    # 2. Universal Validation
     df_val = pd.read_csv("./local_only.csv")
-    if args.colname is not None:
-        series_val = df_val[args.colname].values
-    else:
-        series_val = df_val.iloc[:, 0].values
-
+    series_val = df_val[args.colname].values if args.colname is not None else df_val.iloc[:, 0].values
     series_val = series_val.astype('float32')
-    X_val_full, y_val_full = create_sequences(series_val, window)
-
-    # Take EXACTLY the last 200 sequences of the local dataset for validation
+    
+    X_val_full, y_val_full = create_sequences(series_val, window, horizon)
     X_val = X_val_full[-200:]
     y_val = y_val_full[-200:]
 
-    # =====================================================================
-
-    model = build_model(params, input_shape=X_train.shape[1:])
+    model = build_model(params, input_shape=X_train.shape[1:], horizon=horizon)
 
     epochs = int(params['epochs'])
     batch_size = int(params['batch_size'])
 
-    early_stop = keras.callbacks.EarlyStopping(
-        monitor='val_loss',
-        patience=5,
-        restore_best_weights=True
-    )
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
     for epoch in range(1, epochs + 1):
         history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
@@ -177,23 +153,20 @@ def main():
 
     try:
         results = model.evaluate(X_val, y_val, verbose=0)
-        final_val_loss = sanitize_metric(results[0])  # mse
+        final_val_loss = sanitize_metric(results[0])
         final_mae = sanitize_metric(results[1])
         final_mape = sanitize_metric(results[2])
         
-        # Calculate R2 score
         y_pred = model.predict(X_val, verbose=0)
         final_r2 = sanitize_metric(r2_score(y_val.flatten(), y_pred.flatten()))
         
     except Exception as e:
-        print("Error during final evaluation:", e)
-        final_val_loss = 99999.0
-        final_mae = 99999.0
-        final_mape = 99999.0
+        print("Error during evaluation:", e)
+        final_val_loss = final_mae = final_mape = 99999.0
         final_r2 = -99999.0
 
     nni.report_final_result({
-        'default': final_val_loss, # Changed from final_mape to final_val_loss (MSE)
+        'default': final_mape,
         'mse': final_val_loss,
         'mae': final_mae,
         'mape': final_mape,

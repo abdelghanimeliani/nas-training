@@ -28,21 +28,21 @@ ts1_raw = clean_series(df1['averageCpuUsagePerse'])
 
 # 2. Materna (5m) - handling comma as decimal first, then cleaning
 materna_str = df2['CPU usage [%]'].astype(str).str.replace(',', '.')
-ts2_raw = clean_series(materna_str).iloc[:1000]
+ts2_raw = clean_series(materna_str).iloc[:500]
 
 # 3. Alibaba (5m)
-ts3_raw = clean_series(df3['util:CPU']).iloc[:1000]
+ts3_raw = clean_series(df3['util:CPU']).iloc[:500]
 
 # Define the "Foundational" base slices
 # tt_base: first 10k samples
-tt_base = ts1_raw.iloc[:1000]
+tt_base = ts1_raw.iloc[:500]
 # mat_base: first 1.5k samples 
 mat_base = ts2_raw # already sliced above
 # ali_base: first 1.5k samples
 ali_base = ts3_raw # already sliced above
 
 # Define "Local" data: last 500 samples of TimeTrack
-local_raw = ts1_raw.iloc[1000:1501]
+local_raw = ts1_raw.iloc[500:1000]
 
 # Normalization function
 def min_max_norm(series):

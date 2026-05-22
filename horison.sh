@@ -3,7 +3,7 @@
 # Configuration settings
 SEARCH_METHODS=("random" "GridSearch" "tpe" "anneal" "evolution")
 HORIZONS=(1 2 3 4 5)
-FIXED_DURATION="600s"  # Fixed to 10 minutes for NNI configuration
+FIXED_DURATION="6000000000000000s"  # Fixed to 10 minutes for NNI configuration
 FIXED_MAX_TRIALS=25   # Fixed to 25 maximum steps/trials
 
 DATASETS=(
@@ -16,7 +16,7 @@ DATASETS=(
     "./local_plus_ali.csv"
 )
 
-BASE_PORT=8700
+BASE_PORT=8100
 CURRENT_EXP=0
 SKIP_UNTIL=0 # Adjust this if you ever need to resume an interrupted run
 
