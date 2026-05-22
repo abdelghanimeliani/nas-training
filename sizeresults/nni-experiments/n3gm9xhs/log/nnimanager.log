@@ -1,0 +1,29 @@
+[2026-05-22 19:32:21] INFO (main) Start NNI manager
+[2026-05-22 19:32:21] INFO (RestServer) Starting REST server at port 8206, URL prefix: "/"
+[2026-05-22 19:32:21] INFO (RestServer) REST server started.
+[2026-05-22 19:32:21] INFO (NNIDataStore) Datastore initialization done
+[2026-05-22 19:32:23] INFO (NNIManager) Starting experiment: n3gm9xhs
+[2026-05-22 19:32:23] INFO (NNIManager) Setup training service...
+[2026-05-22 19:32:23] INFO (NNIManager) Setup tuner...
+[2026-05-22 19:32:23] INFO (NNIManager) Change NNIManager status from: INITIALIZED to: RUNNING
+[2026-05-22 19:32:34] ERROR (NNIManager) Error: tuner_command_channel: Tuner did not connect in 10 seconds. Please check tuner (dispatcher) log.
+    at Timeout._onTimeout (/home/meliani/.local/lib/python3.10/site-packages/nni_node/core/tuner_command_channel.js:47:41)
+    at listOnTimeout (node:internal/timers:569:17)
+    at process.processTimers (node:internal/timers:512:7)
+[2026-05-22 19:32:34] INFO (NNIManager) Change NNIManager status from: RUNNING to: ERROR
+[2026-05-22 19:32:34] ERROR (common.deferred) Already rejected with reason: Error: tuner_command_channel: Tuner did not connect in 10 seconds. Please check tuner (dispatcher) log.
+    at Timeout._onTimeout (/home/meliani/.local/lib/python3.10/site-packages/nni_node/core/tuner_command_channel.js:47:41)
+    at listOnTimeout (node:internal/timers:569:17)
+    at process.processTimers (node:internal/timers:512:7) ; trying to resolve with value: undefined
+[2026-05-22 19:32:55] INFO (ShutdownManager) Initiate shutdown: SIGTERM
+[2026-05-22 19:32:55] INFO (RestServer) Stopping REST server.
+[2026-05-22 19:32:55] INFO (NNIManager) Change NNIManager status from: ERROR to: STOPPING
+[2026-05-22 19:32:55] INFO (NNIManager) Stopping experiment, cleaning up ...
+[2026-05-22 19:32:55] INFO (RestServer) REST server stopped.
+[2026-05-22 19:32:56] INFO (LocalV3.local) All trials stopped
+[2026-05-22 19:32:56] INFO (NNIManager) Change NNIManager status from: STOPPING to: STOPPED
+[2026-05-22 19:32:56] INFO (NNIManager) Experiment stopped.
+[2026-05-22 19:32:56] INFO (NNITensorboardManager) Forced stopping all tensorboard task.
+[2026-05-22 19:32:56] INFO (NNITensorboardManager) All tensorboard task stopped.
+[2026-05-22 19:32:56] INFO (NNITensorboardManager) Tensorboard manager stopped.
+[2026-05-22 19:32:56] INFO (ShutdownManager) Shutdown complete.

@@ -1,0 +1,14 @@
+experimentName: exp_evolution_sz500_ali_only_ali_only_sz500_h1
+trialCodeDirectory: .
+trialCommand: python3 trial.py --data ./ali_only.csv --horizon 1 --data-size 500
+searchSpaceFile: search_space.json
+tuner:
+  name: evolution
+  classArgs:
+    optimize_mode: minimize
+trialConcurrency: 1
+maxTrialNumber: 25
+maxExperimentDuration: 10m
+trainingService:
+  platform: local
+  useActiveGpu: false

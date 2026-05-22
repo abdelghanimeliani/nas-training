@@ -1,0 +1,43 @@
+2026-05-22 23:05:42.649289: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-22 23:05:42.702168: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-22 23:05:42.702239: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-22 23:05:42.703623: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-22 23:05:42.711335: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-22 23:05:44.221098: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 184, in <module>
+    main()
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 149, in main
+    history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1807, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 832, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 888, in _call
+    self._initialize(args, kwds, add_initializers_to=initializers)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 695, in _initialize
+    self._concrete_variable_creation_fn = tracing_compilation.trace_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 178, in trace_function
+    concrete_function = _maybe_define_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 283, in _maybe_define_function
+    concrete_function = _create_concrete_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 310, in _create_concrete_function
+    traced_func_graph = func_graph_module.func_graph_from_py_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 987, in func_graph_from_py_func
+    with func_graph.as_default(), deps_control_manager as deps_ctx:
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/auto_control_deps.py", line 459, in __exit__
+    for inp, resource_type in _get_resource_inputs(op):
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/auto_control_deps.py", line 617, in _get_resource_inputs
+    updated = _acd_resource_resolvers_registry.lookup(key)(op, reads, writes)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/tpu/tpu.py", line 216, in tpu_replicated_input_resolver
+    return bool(replace_with_unreplicated_resources(resource_reads) or
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/tpu/tpu.py", line 213, in replace_with_unreplicated_resources
+    resource_inputs.update(to_add)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/object_identity.py", line 223, in update
+    def update(self, items):
+KeyboardInterrupt

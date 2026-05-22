@@ -1,0 +1,35 @@
+2026-05-22 21:05:32.879519: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-22 21:05:32.940122: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-22 21:05:32.940172: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-22 21:05:32.941470: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-22 21:05:32.949583: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-22 21:05:34.146675: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 6, in <module>
+    from tensorflow import keras
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/__init__.py", line 485, in <module>
+    importlib.import_module("keras.src.optimizers")
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/__init__.py", line 3, in <module>
+    from keras import __internal__
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/__internal__/__init__.py", line 3, in <module>
+    from keras.__internal__ import backend
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/__internal__/backend/__init__.py", line 3, in <module>
+    from keras.src.backend import _initialize_variables as initialize_variables
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/__init__.py", line 21, in <module>
+    from keras.src import applications
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/applications/__init__.py", line 18, in <module>
+    from keras.src.applications.convnext import ConvNeXtBase
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/applications/convnext.py", line 28, in <module>
+    from keras.src import backend
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/backend.py", line 588, in <module>
+    def eager_learning_phase_scope(value):
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/tf_contextlib.py", line 32, in contextmanager
+    context_manager = _contextlib.contextmanager(target)
+  File "/usr/lib/python3.10/contextlib.py", line 280, in contextmanager
+    def helper(*args, **kwds):
+  File "/usr/lib/python3.10/functools.py", line 58, in update_wrapper
+    getattr(wrapper, attr).update(getattr(wrapped, attr, {}))
+KeyboardInterrupt

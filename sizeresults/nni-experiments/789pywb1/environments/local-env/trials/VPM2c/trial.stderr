@@ -1,0 +1,45 @@
+2026-05-22 19:23:31.548566: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-22 19:23:31.606329: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-22 19:23:31.606390: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-22 19:23:31.607673: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-22 19:23:31.615517: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-22 19:23:32.929472: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 6, in <module>
+    from tensorflow import keras
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/__init__.py", line 54, in <module>
+    from tensorflow._api.v2 import compat
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/__init__.py", line 8, in <module>
+    from tensorflow._api.v2.compat import v1
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v1/__init__.py", line 32, in <module>
+    from tensorflow._api.v2.compat.v1 import compat
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v1/compat/__init__.py", line 9, in <module>
+    from tensorflow._api.v2.compat.v1.compat import v2
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v1/compat/v2/__init__.py", line 28, in <module>
+    from tensorflow._api.v2.compat.v2 import __internal__
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v2/__init__.py", line 34, in <module>
+    from tensorflow._api.v2.compat.v2 import compat
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v2/compat/__init__.py", line 9, in <module>
+    from tensorflow._api.v2.compat.v2.compat import v2
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v2/compat/v2/__init__.py", line 41, in <module>
+    from tensorflow._api.v2.compat.v2 import experimental
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v2/experimental/__init__.py", line 11, in <module>
+    from tensorflow._api.v2.compat.v2.experimental import numpy
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/_api/v2/compat/v2/experimental/numpy/__init__.py", line 92, in <module>
+    from tensorflow.python.ops.numpy_ops.np_config import enable_numpy_behavior as experimental_enable_numpy_behavior # line: 25
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/numpy_ops/np_config.py", line 18, in <module>
+    from tensorflow.python.ops import weak_tensor_ops  # pylint: disable=unused-import
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/weak_tensor_ops.py", line 37, in <module>
+    from tensorflow.python.ops.numpy_ops import np_math_ops
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/numpy_ops/np_math_ops.py", line 650, in <module>
+    def bitwise_not(x):
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/numpy_ops/np_utils.py", line 450, in decorator
+    f.__doc__ = _np_doc_helper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/numpy_ops/np_utils.py", line 232, in _np_doc_helper
+    doc = _add_np_doc(doc, np_fun_name, np_f, link=link)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/numpy_ops/np_utils.py", line 345, in _add_np_doc
+    url = generate_link(flag, link.value)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/numpy_ops/np_utils.py", line 295, in generate_link
+    if flag == 'dev':
+KeyboardInterrupt

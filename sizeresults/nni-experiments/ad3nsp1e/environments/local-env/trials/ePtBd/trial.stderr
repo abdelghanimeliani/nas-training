@@ -1,0 +1,119 @@
+2026-05-22 22:49:03.430248: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-22 22:49:03.470874: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-22 22:49:03.470919: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-22 22:49:03.471726: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-22 22:49:03.479127: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-22 22:49:04.307703: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 184, in <module>
+    main()
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 149, in main
+    history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1807, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 832, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 905, in _call
+    return tracing_compilation.call_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 132, in call_function
+    function = trace_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 178, in trace_function
+    concrete_function = _maybe_define_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 283, in _maybe_define_function
+    concrete_function = _create_concrete_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 310, in _create_concrete_function
+    traced_func_graph = func_graph_module.func_graph_from_py_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 1059, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 598, in wrapped_fn
+    out = weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/autograph_util.py", line 41, in autograph_handler
+    return api.converted_call(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 439, in converted_call
+    result = converted_f(*effective_args, **kwargs)
+  File "/tmp/__autograph_generated_fileov0o9cfz.py", line 15, in tf__train_function
+    retval_ = ag__.converted_call(ag__.ld(step_function), (ag__.ld(self), ag__.ld(iterator)), None, fscope)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
+    return _call_unconverted(f, args, kwargs, options, False)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 460, in _call_unconverted
+    return f(*args)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1384, in step_function
+    outputs = model.distribute_strategy.run(run_step, args=(data,))
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py", line 1681, in run
+    return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py", line 3271, in call_for_each_replica
+    return self._call_for_each_replica(fn, args, kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py", line 4069, in _call_for_each_replica
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 690, in wrapper
+    return converted_call(f, args, kwargs, options=options)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 377, in converted_call
+    return _call_unconverted(f, args, kwargs, options)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 459, in _call_unconverted
+    return f(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1373, in run_step
+    outputs = model.train_step(data)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1150, in train_step
+    y_pred = self(x, training=True)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 590, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/base_layer.py", line 1149, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 96, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 690, in wrapper
+    return converted_call(f, args, kwargs, options=options)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
+    return _call_unconverted(f, args, kwargs, options, False)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 459, in _call_unconverted
+    return f(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/functional.py", line 515, in call
+    return self._run_internal_graph(inputs, training=training, mask=mask)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/functional.py", line 672, in _run_internal_graph
+    outputs = node.layer(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/base_layer.py", line 1149, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 96, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 690, in wrapper
+    return converted_call(f, args, kwargs, options=options)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
+    return _call_unconverted(f, args, kwargs, options, False)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 459, in _call_unconverted
+    return f(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/regularization/dropout.py", line 120, in call
+    output = control_flow_util.smart_cond(
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/control_flow_util.py", line 108, in smart_cond
+    return tf.__internal__.smart_cond.smart_cond(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/smart_cond.py", line 53, in smart_cond
+    return true_fn()
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/layers/regularization/dropout.py", line 116, in dropped_inputs
+    return self._random_generator.dropout(
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/backend.py", line 2170, in dropout
+    return tf.nn.dropout(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/dispatch.py", line 1260, in op_dispatch_handler
+    return dispatch_target(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/nn_ops.py", line 5514, in dropout_v2
+    return _dropout(x=x, rate=rate, noise_shape=noise_shape,
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/nn_ops.py", line 5807, in _dropout
+    keep_mask = random_tensor >= rate
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/math_ops.py", line 1989, in wrapper
+    return fn(x, y, *args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gen_math_ops.py", line 4348, in greater_equal
+    _, _, _op, _outputs = _op_def_library._apply_op_helper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/op_def_library.py", line 781, in _apply_op_helper
+    _ExtractRemainingAttrs(op_type_name, op_def, keywords,
+KeyboardInterrupt

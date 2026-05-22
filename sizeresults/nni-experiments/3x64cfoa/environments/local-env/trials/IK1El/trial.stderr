@@ -1,0 +1,139 @@
+2026-05-22 21:27:40.413391: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-22 21:27:40.455477: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-22 21:27:40.455516: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-22 21:27:40.456446: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-22 21:27:40.460809: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-22 21:27:41.360239: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 184, in <module>
+    main()
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 149, in main
+    history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1807, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 832, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 905, in _call
+    return tracing_compilation.call_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 132, in call_function
+    function = trace_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 178, in trace_function
+    concrete_function = _maybe_define_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 283, in _maybe_define_function
+    concrete_function = _create_concrete_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 310, in _create_concrete_function
+    traced_func_graph = func_graph_module.func_graph_from_py_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 1059, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 598, in wrapped_fn
+    out = weak_wrapped_fn().__wrapped__(*args, **kwds)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/autograph_util.py", line 41, in autograph_handler
+    return api.converted_call(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 439, in converted_call
+    result = converted_f(*effective_args, **kwargs)
+  File "/tmp/__autograph_generated_filejamw02rw.py", line 15, in tf__train_function
+    retval_ = ag__.converted_call(ag__.ld(step_function), (ag__.ld(self), ag__.ld(iterator)), None, fscope)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 331, in converted_call
+    return _call_unconverted(f, args, kwargs, options, False)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 460, in _call_unconverted
+    return f(*args)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1384, in step_function
+    outputs = model.distribute_strategy.run(run_step, args=(data,))
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py", line 1681, in run
+    return self._extended.call_for_each_replica(fn, args=args, kwargs=kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py", line 3271, in call_for_each_replica
+    return self._call_for_each_replica(fn, args, kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/distribute/distribute_lib.py", line 4069, in _call_for_each_replica
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 690, in wrapper
+    return converted_call(f, args, kwargs, options=options)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 377, in converted_call
+    return _call_unconverted(f, args, kwargs, options)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/autograph/impl/api.py", line 459, in _call_unconverted
+    return f(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1373, in run_step
+    outputs = model.train_step(data)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1154, in train_step
+    self.optimizer.minimize(loss, self.trainable_variables, tape=tape)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/optimizers/optimizer.py", line 543, in minimize
+    grads_and_vars = self.compute_gradients(loss, var_list, tape)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/optimizers/optimizer.py", line 276, in compute_gradients
+    grads = tape.gradient(loss, var_list)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/backprop.py", line 1066, in gradient
+    flat_grad = imperative_grad.imperative_grad(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/imperative_grad.py", line 67, in imperative_grad
+    return pywrap_tfe.TFE_Py_TapeGradient(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 311, in _backward_function
+    return self._rewrite_forward_and_call_backward(call_op, *args)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 212, in _rewrite_forward_and_call_backward
+    forward_function, backwards_function = self.forward_backward(len(doutputs))
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 145, in forward_backward
+    forward, backward = self._construct_forward_backward(num_doutputs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 188, in _construct_forward_backward
+    func_graph_module.func_graph_from_py_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 1059, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 179, in _backprop_function
+    return gradients_util._GradientsHelper(  # pylint: disable=protected-access
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py", line 733, in _GradientsHelper
+    in_grads = _MaybeCompile(grad_scope, op, func_call,
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py", line 365, in _MaybeCompile
+    return grad_fn()  # Exit early
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py", line 734, in <lambda>
+    lambda: grad_fn(op, *out_grads))
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/while_v2.py", line 369, in _WhileGrad
+    body_grad_graph, args = _create_grad_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/while_v2.py", line 665, in _create_grad_func
+    grad_func_graph = func_graph_module.func_graph_from_py_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 1059, in func_graph_from_py_func
+    func_outputs = python_func(*func_args, **func_kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/while_v2.py", line 667, in <lambda>
+    lambda *args: _grad_fn(ys, xs, args, body_graph),
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/while_v2.py", line 722, in _grad_fn
+    grad_outs = gradients_util._GradientsHelper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py", line 733, in _GradientsHelper
+    in_grads = _MaybeCompile(grad_scope, op, func_call,
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py", line 365, in _MaybeCompile
+    return grad_fn()  # Exit early
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gradients_util.py", line 734, in <lambda>
+    lambda: grad_fn(op, *out_grads))
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/math_grad.py", line 1429, in _MulGrad
+    gx = gen_math_ops.mul(grad, math_ops.conj(y))
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gen_math_ops.py", line 6764, in mul
+    _, _, _op, _outputs = _op_def_library._apply_op_helper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/op_def_library.py", line 796, in _apply_op_helper
+    op = g._create_op_internal(op_type_name, inputs, dtypes=None,
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/while_v2.py", line 1013, in _create_op_internal
+    return super(_WhileBodyGradFuncGraph, self)._create_op_internal(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 668, in _create_op_internal
+    inp = self.capture(inp)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 675, in capture
+    return self._function_captures.capture_by_value(self, tensor, name)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/core/function/capture/capture_container.py", line 154, in capture_by_value
+    return graph._capture_helper(tensor, name)  # pylint: disable=protected-access
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/while_v2.py", line 1186, in _capture_helper
+    accumulator = list_ops.tensor_list_push_back(tensor_list, tensor)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gen_list_ops.py", line 787, in tensor_list_push_back
+    _, _, _op, _outputs = _op_def_library._apply_op_helper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/op_def_library.py", line 776, in _apply_op_helper
+    with g.as_default(), ops.name_scope(name) as scope:
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 446, in as_default
+    def inner_cm():
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/tf_contextlib.py", line 32, in contextmanager
+    return tf_decorator.make_decorator(target, context_manager, 'contextmanager')
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/tf_decorator.py", line 163, in make_decorator
+    signature = inspect.signature(target)
+  File "/usr/lib/python3.10/inspect.py", line 3254, in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+  File "/usr/lib/python3.10/inspect.py", line 3002, in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+  File "/usr/lib/python3.10/inspect.py", line 2412, in _signature_from_callable
+    obj = unwrap(obj, stop=(lambda f: hasattr(f, "__signature__")
+  File "/usr/lib/python3.10/inspect.py", line 612, in unwrap
+    def unwrap(func, *, stop=None):
+KeyboardInterrupt

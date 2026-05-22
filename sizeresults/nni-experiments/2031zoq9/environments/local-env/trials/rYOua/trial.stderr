@@ -1,0 +1,77 @@
+2026-05-22 22:30:42.727630: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-22 22:30:42.757920: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-05-22 22:30:42.757961: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-05-22 22:30:42.758761: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-05-22 22:30:42.764445: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-22 22:30:43.868554: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 184, in <module>
+    main()
+  File "/home/meliani/Desktop/phd/fast-track/trial.py", line 149, in main
+    history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/training.py", line 1841, in fit
+    self._eval_data_handler = data_adapter.get_data_handler(
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/data_adapter.py", line 1688, in get_data_handler
+    return DataHandler(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/data_adapter.py", line 1292, in __init__
+    self._adapter = adapter_cls(
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/data_adapter.py", line 355, in __init__
+    dataset = self.slice_inputs(indices_dataset, inputs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/keras/src/engine/data_adapter.py", line 396, in slice_inputs
+    dataset = dataset.map(grab_batch, num_parallel_calls=tf.data.AUTOTUNE)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/dataset_ops.py", line 2280, in map
+    return map_op._map_v2(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/map_op.py", line 40, in _map_v2
+    return _ParallelMapDataset(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/map_op.py", line 148, in __init__
+    self._map_func = structured_function.StructuredFunctionWrapper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/structured_function.py", line 265, in __init__
+    self._function = fn_factory()
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 1227, in get_concrete_function
+    concrete = self._get_concrete_function_garbage_collected(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 1197, in _get_concrete_function_garbage_collected
+    self._initialize(args, kwargs, add_initializers_to=initializers)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 695, in _initialize
+    self._concrete_variable_creation_fn = tracing_compilation.trace_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 178, in trace_function
+    concrete_function = _maybe_define_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 283, in _maybe_define_function
+    concrete_function = _create_concrete_function(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 310, in _create_concrete_function
+    traced_func_graph = func_graph_module.func_graph_from_py_func(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 1064, in func_graph_from_py_func
+    func_outputs = nest.map_structure(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/nest.py", line 631, in map_structure
+    return nest_util.map_structure(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/nest_util.py", line 1066, in map_structure
+    return _tf_core_map_structure(func, *structure, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/nest_util.py", line 1106, in _tf_core_map_structure
+    [func(*x) for x in entries],
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/nest_util.py", line 1106, in <listcomp>
+    [func(*x) for x in entries],
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 1055, in convert
+    x = deps_ctx.mark_as_return(x)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/auto_control_deps.py", line 246, in mark_as_return
+    tensor = array_ops.identity(tensor)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/weak_tensor_ops.py", line 88, in wrapper
+    return op(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/util/dispatch.py", line 1260, in op_dispatch_handler
+    return dispatch_target(*args, **kwargs)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/array_ops.py", line 312, in identity
+    ret = gen_array_ops.identity(input, name=name)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/ops/gen_array_ops.py", line 4197, in identity
+    _, _, _op, _outputs = _op_def_library._apply_op_helper(
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/op_def_library.py", line 796, in _apply_op_helper
+    op = g._create_op_internal(op_type_name, inputs, dtypes=None,
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 668, in _create_op_internal
+    inp = self.capture(inp)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/python/framework/func_graph.py", line 675, in capture
+    return self._function_captures.capture_by_value(self, tensor, name)
+  File "/home/meliani/.local/lib/python3.10/site-packages/tensorflow/core/function/capture/capture_container.py", line 112, in capture_by_value
+    if isinstance(tensor, core.Value):
+KeyboardInterrupt
