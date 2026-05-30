@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def plot_mape_horizontal(csv_file="metrics_horizon.csv"):
+def plot_mape_horizontal(csv_file="./values/metrics_horizon.csv"):
     # 1. Load and clean data
     df = pd.read_csv(csv_file)
     df = df.dropna(subset=['Min_MAPE'])
@@ -24,12 +24,16 @@ def plot_mape_horizontal(csv_file="metrics_horizon.csv"):
     cols = 5
     rows = 1
     
-    # Wide aspect ratio layout to accommodate 5 side-by-side charts
-    fig, axes = plt.subplots(rows, cols, figsize=(22, 5), sharex=True)
+    # Tweak figsize to roughly match 5 squares + margins (e.g., 20x5 or 25x6)
+    fig, axes = plt.subplots(rows, cols, figsize=(25, 5.5), sharex=True)
 
     # 4. Loop over each method and plot
     for i, method in enumerate(methods):
         ax = axes[i]
+        
+        # --- THE FIX: Force the physical plot box to be exactly square ---
+        ax.set_box_aspect(1) 
+        
         method_df = df[df['Method'] == method]
         
         for dataset in datasets:
@@ -65,12 +69,12 @@ def plot_mape_horizontal(csv_file="metrics_horizon.csv"):
     fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0.98), 
                ncol=len(datasets), frameon=True, fontsize=11)
 
-    # Give the legend breathing room at the top (rect budget adjusted)
+    # Give the legend breathing room at the top
     plt.tight_layout(rect=[0, 0, 1, 0.88])
     
     # Save the wide banner layout
-    plt.savefig("mape_horizontal_5cols.png", dpi=300)
-    print("Plot successfully saved as 'mape_horizontal_5cols.png'!")
+    plt.savefig("mape_horizontal_5cols.pdf", dpi=300)
+    print("Plot successfully saved as 'mape_horizontal_5cols.pdf'!")
     plt.show()
 
 if __name__ == "__main__":

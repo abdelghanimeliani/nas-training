@@ -1,0 +1,428 @@
+'''
+this script is used to plot the results of the experiments
+The nni framework stores the resutls in an sqlite database inside /home/username/nni-experiments/experiment_id/db/nni.sqlite
+the database contains 3 main tables: TrialJobEvent,MetricData, ExperimentProfile
+this script connects get incide every dir and get the results of the experiments
+# and plots the results using matplotlib
+'''
+import sqlite3
+import csv
+import os
+import re
+from pathlib import Path
+import json
+import shutil
+
+import os
+import csv
+from collections import defaultdict
+from pathlib import Path
+
+
+def convert_MetricData_table_to_csv(data, output_file):
+    """
+    Convert only FINAL MetricData values to CSV with JSON values in separate columns
+    
+    Args:
+        data: List of tuples from the MetricData table
+        output_file: Path for the output CSV file
+    """
+    
+    headers = [
+        'timestamp', 'trial_job_id', 'parameter_id', 'sequence',
+        'default_metric', 'mse', 'mae', 'mape'
+    ]
+
+    with open(output_file, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        
+        for row in data:
+            # Parse tuple elements
+            timestamp = row[0]
+            trial_job_id = row[1]
+            parameter_id = row[2]
+            metric_type = row[3]
+            sequence = row[4]
+            value = row[5]
+            
+            # Only process FINAL metrics
+            if metric_type == 'FINAL':
+                # Parse the JSON value
+                    # Parse JSON for final metrics
+                    metrics_json = json.loads(value)
+                    # Check if the JSON is valid
+                    if not isinstance(metrics_json, dict):
+                        # print(f"Invalid JSON for trial_job_id {trial_job_id} at timestamp {timestamp}")
+                        metrics_json = json.loads(metrics_json)
+                    
+                    # Extract all metrics from JSON
+                    default_metric = metrics_json["default"]
+                    mse = metrics_json["mse"] if 'mse' in metrics_json else ''
+                    mae = metrics_json["mae"] if 'mae' in metrics_json else ''
+                    mape = metrics_json["mape"] if 'mape' in metrics_json else ''
+                    
+                    # Create CSV row
+                    csv_row = [
+                        timestamp,
+                        trial_job_id,
+                        parameter_id,
+                        sequence,
+                        default_metric,
+                        mse,
+                        mae,
+                        mape
+                    ]
+                    
+                    writer.writerow(csv_row)
+                    
+    
+    print(f"CSV file created at: {output_file}")
+    print(f"Only FINAL metrics have been exported")
+def convert_ExpirimentProfile_tables_to_csv(data,output_file):
+    
+    headers = [
+    'experiment_id', 'trial_id', 'status', 'start_time', 'end_time',
+    'working_directory', 'exit_code', 'experiment_name', 'experiment_type',
+    'search_space_file', 'trial_command', 'trial_code_directory',
+    'trial_concurrency', 'max_duration', 'max_trials', 'use_annotation',
+    'debug_mode', 'log_level', 'exp_working_dir', 'model_types',
+    'unit_values', 'layer_counts', 'dropout_rates', 'activations',
+    'learning_rate_range', 'window_sizes', 'batch_sizes', 'epoch_options',
+    'kernel_sizes', 'attention_heads', 'tuner_name', 'optimize_mode',
+    'training_platform'
+    ]
+
+    with open(output_file, 'w', newline='') as f:
+         writer = csv.writer(f)
+         writer.writerow(headers)
+         for row in data:
+        # Parse tuple elements
+             config_json = row[0]
+             experiment_id = row[1]
+             status = row[2]
+             start_time = row[3]
+             end_time = row[4] if row[4] is not None else ''
+             working_dir = row[5]
+             exit_code = row[6]
+             trial_id = row[7]
+             config = json.loads(config_json)
+             search_space = config['searchSpace']
+             main_config = [
+            config['experimentName'],
+            config['experimentType'],
+            config['searchSpaceFile'],
+            config['trialCommand'],
+            config['trialCodeDirectory'],
+            config['trialConcurrency'],
+            config['maxExperimentDuration'],
+            config['maxTrialNumber'],
+            config['useAnnotation'],
+            config['debug'],
+            config['logLevel'],
+            config['experimentWorkingDirectory']
+        ]
+        
+        # Extract search space parameters
+             search_space_data = [
+            str(search_space['model_type']['_value']),
+            str(search_space['units']['_value']),
+            str(search_space['num_layers']['_value']),
+            str(search_space['dropout']['_value']),
+            str(search_space['activation']['_value']),
+            str(search_space['lr']['_value']),
+            str(search_space['window_size']['_value']),
+            str(search_space['batch_size']['_value']),
+            str(search_space['epochs']['_value']),
+            str(search_space['kernel_size']['_value']),
+            str(search_space['attention_heads']['_value'])
+        ]
+        
+        # Extract tuner and training service info
+             tuner_data = [
+            config['tuner']['name'],
+            config['tuner']['classArgs']['optimize_mode']
+             ]
+        
+             training_service = [
+            config['trainingService']['platform']
+             ]
+        
+        # Combine all data for CSV row
+             csv_row = (
+            [experiment_id, trial_id, status, start_time, end_time, working_dir, exit_code] +
+            main_config +
+            search_space_data +
+            tuner_data +
+            training_service
+        )
+             writer.writerow(csv_row)
+         print(f"CSV file created at: {output_file}")     
+def convert_TrialJobEvent_to_csv(data, output_file):
+    """
+    Convert TrialJobEvent table to CSV format with extracted hyperparameters
+    
+    Args:
+        data: List of tuples from the TrialJobEvent table
+        output_file: Path for the output CSV file
+    """
+    
+    headers = [
+        'timestamp', 'trial_job_id', 'event_type', 'parameter_id', 
+        'parameter_source', 'parameter_index', 'log_dir', 'job_id', 
+        'message', 'environment', 'model_type', 'units', 'num_layers', 
+        'dropout', 'activation', 'lr', 'window_size', 'batch_size', 
+        'epochs', 'kernel_size', 'attention_heads'
+    ]
+
+    with open(output_file, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(headers)
+        
+        for row in data:
+            # Parse tuple elements
+            timestamp = row[0]
+            trial_job_id = row[1]
+            event_type = row[2]
+            event_data = row[3] if row[3] else '{}'  # Handle empty event_data
+            log_dir = row[4]
+            job_id = row[5]
+            message = row[6] if len(row) > 6 else ''
+            environment = row[7] if len(row) > 7 else ''
+            
+            # Initialize parameter fields
+            parameter_id = ''
+            parameter_source = ''
+            parameter_index = ''
+            model_type = ''
+            units = ''
+            num_layers = ''
+            dropout = ''
+            activation = ''
+            lr = ''
+            window_size = ''
+            batch_size = ''
+            epochs = ''
+            kernel_size = ''
+            attention_heads = ''
+            
+            # Parse event_data if it exists and is not empty
+            if event_data and event_data != '{}':
+                try:
+                    event_json = json.loads(event_data)
+                    
+                    # Extract parameter metadata
+                    parameter_id = event_json.get('parameter_id', '')
+                    parameter_source = event_json.get('parameter_source', '')
+                    parameter_index = event_json.get('parameter_index', '')
+                    
+                    # Extract parameters if they exist
+                    parameters = event_json.get('parameters', {})
+                    if parameters:
+                        model_type = parameters.get('model_type', '')
+                        units = parameters.get('units', '')
+                        num_layers = parameters.get('num_layers', '')
+                        dropout = parameters.get('dropout', '')
+                        activation = parameters.get('activation', '')
+                        lr = parameters.get('lr', '')
+                        window_size = parameters.get('window_size', '')
+                        batch_size = parameters.get('batch_size', '')
+                        epochs = parameters.get('epochs', '')
+                        kernel_size = parameters.get('kernel_size', '')
+                        attention_heads = parameters.get('attention_heads', '')
+                        
+                except json.JSONDecodeError:
+                    print(f"Warning: Failed to parse JSON for trial {trial_job_id}: {event_data}")
+            
+            # Create CSV row
+            csv_row = [
+                timestamp,
+                trial_job_id,
+                event_type,
+                parameter_id,
+                parameter_source,
+                parameter_index,
+                log_dir,
+                job_id,
+                message,
+                environment,
+                model_type,
+                units,
+                num_layers,
+                dropout,
+                activation,
+                lr,
+                window_size,
+                batch_size,
+                epochs,
+                kernel_size,
+                attention_heads
+            ]
+            
+            writer.writerow(csv_row)
+    
+    print(f"CSV file created at: {output_file}")
+
+
+def get_expiriments_ids_list(base_path):
+    ids= [p.name for p in Path(base_path).iterdir() if p.is_dir() ]
+    try:
+        ids.remove('_latest')
+    except ValueError:
+        pass
+    return ids  
+def change_files_names(base_path, ids):
+    new_names = []
+
+    # Read experiment names safely
+    for exp_id in ids:
+        file_path = f"{base_path}/{exp_id}.csv"
+
+        if not os.path.exists(file_path):
+            print(f"[WARNING] Missing file: {file_path}")
+            continue
+
+        try:
+            with open(file_path, "r", newline="") as f:
+                reader = csv.reader(f)
+
+                # Skip header safely
+                header = next(reader, None)
+
+                if header is None:
+                    print(f"[WARNING] Empty CSV file: {file_path}")
+                    continue
+
+                # Read first data row safely
+                row1 = next(reader, None)
+
+                if row1 is None:
+                    print(f"[WARNING] No data rows in: {file_path}")
+                    continue
+
+                # Validate column count
+                if len(row1) <= 7:
+                    print(f"[WARNING] Invalid row format in: {file_path}")
+                    continue
+
+                exp_name = row1[7]
+
+                if not exp_name:
+                    print(f"[WARNING] Empty experiment name in: {file_path}")
+                    continue
+
+                # Sanitize experiment name for filesystem
+                safe_name = re.sub(r'[^A-Za-z0-9_.-]', '_', exp_name)
+
+                new_names.append({
+                    "id": exp_id,
+                    "experiment_name": safe_name,
+                })
+
+        except Exception as e:
+            print(f"[ERROR] Failed reading {file_path}: {e}")
+
+    # Create directories if missing
+    os.makedirs("./size_results/new_exp_profiles", exist_ok=True)
+    os.makedirs("./size_results/new_metric_data", exist_ok=True)
+    os.makedirs("./size_results/new_trial_job_event", exist_ok=True)
+
+    # Copy content into new files safely
+    for name in new_names:
+        safe_name = name["experiment_name"]
+
+        file_mappings = [
+            (
+                f"./size_results/exp_profiles/{name['id']}.csv",
+                f"./size_results/new_exp_profiles/{safe_name}.csv"
+            ),
+            (
+                f"./size_results/metric_data/{name['id']}.csv",
+                f"./size_results/new_metric_data/{safe_name}.csv"
+            ),
+            (
+                f"./size_results/trial_job_event/{name['id']}.csv",
+                f"./size_results/new_trial_job_event/{safe_name}.csv"
+            ),
+        ]
+
+        for src, dst in file_mappings:
+            try:
+                if not os.path.exists(src):
+                    print(f"[WARNING] Source file missing: {src}")
+                    continue
+
+                shutil.copyfile(src, dst)
+
+            except Exception as e:
+                print(f"[ERROR] Failed copying {src} -> {dst}: {e}")
+
+    print("Files names changed successfully.")
+
+def convert_exp_tables_to_csv(base_path, experiments_ids_list):
+    for exp_id in experiments_ids_list:
+        db_path = os.path.join(base_path, exp_id, "db", "nni.sqlite")
+
+        if not os.path.exists(db_path):
+            print(f"[WARNING] Database not found for experiment {exp_id}")
+            continue
+
+        try:
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+
+            # ExperimentProfile
+            try:
+                cursor.execute("SELECT * FROM ExperimentProfile")
+                data = cursor.fetchall()
+                convert_ExpirimentProfile_tables_to_csv(
+                    data,
+                    f"./size_results/exp_profiles/{exp_id}.csv"
+                )
+            except sqlite3.OperationalError as e:
+                print(f"[WARNING] ExperimentProfile table missing for {exp_id}: {e}")
+
+            # MetricData
+            try:
+                cursor.execute("SELECT * FROM MetricData")
+                data = cursor.fetchall()
+                convert_MetricData_table_to_csv(
+                    data,
+                    f"./size_results/metric_data/{exp_id}.csv"
+                )
+            except sqlite3.OperationalError as e:
+                print(f"[WARNING] MetricData table missing for {exp_id}: {e}")
+
+            # TrialJobEvent
+            try:
+                cursor.execute("SELECT * FROM TrialJobEvent")
+                data = cursor.fetchall()
+                convert_TrialJobEvent_to_csv(
+                    data,
+                    f"./size_results/trial_job_event/{exp_id}.csv"
+                )
+            except sqlite3.OperationalError as e:
+                print(f"[WARNING] TrialJobEvent table missing for {exp_id}: {e}")
+
+        except sqlite3.Error as e:
+            print(f"[ERROR] Failed processing experiment {exp_id}: {e}")
+
+        finally:
+            try:
+                cursor.close()
+                conn.close()
+            except:
+                pass
+    
+        
+    
+
+
+if __name__ == "__main__":
+    exp_ids=get_expiriments_ids_list("./sizeresults/nni-experiments/")
+    print(str(len(exp_ids)) + " experiments found.") 
+    print("Available experiment IDs:")
+    print(exp_ids)
+    print('=============================================================')
+    convert_exp_tables_to_csv("./sizeresults/nni-experiments",exp_ids)
+    change_files_names(base_path="./size_results/exp_profiles",ids=exp_ids)
